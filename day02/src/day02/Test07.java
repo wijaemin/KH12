@@ -1,4 +1,4 @@
-package data;
+package day02;
 
 public class Test07 {public static void main(String[] args) {
 	int busAdult = 1200;

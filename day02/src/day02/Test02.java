@@ -1,4 +1,4 @@
-package data;
+package day02;
 
 import java.util.Iterator;
 

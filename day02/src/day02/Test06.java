@@ -1,4 +1,4 @@
-package data;
+package day02;
 
 public class Test06 {public static void main(String[] args) {
 	int adult = 15000;
