@@ -1,7 +1,13 @@
 package data;
 
 public class test14 {
+ public static void method(int e, int t) { int b = e + t;
+	// TODO Auto-generated method stub
+ System.out.println(b + " 매소드입니다");
+
+}  
 	public static void main(String[] args) {
+		method(5,10);
 	//할인 금액 구하기
 		// 300만원 컴퓨터를 20퍼센트 할인하면 얼마?
 		int computer = 3000000;
