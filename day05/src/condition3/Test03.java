@@ -11,7 +11,7 @@ public static void main(String[] args) {
 	int month = sc.nextInt();
 	sc.close();
 	int leap = year%4;
-	Boolean leapYear=(leap == 0 && year % 100 == 0 && year %400 !=0);
+	Boolean leapYear=(leap == 0 && year % 100 != 0 && year %400 ==0);
 	
 	switch(month) { 
 	case 1: 
