@@ -1,0 +1,17 @@
+public class week2 {
+    public static void main(String[] args) {
+        for (int k = 0; k < 99; k++) {
+            int i = k;
+            int saveI = i;
+            while (i != 0) {
+                if (i % 10 == 3 || i % 10 == 6 || i % 10 == 9) {
+                    System.out.println(saveI);
+                    break;
+                }
+                i = i / 10;
+                {
+                }
+            }
+        }
+    }
+}
