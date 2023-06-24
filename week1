@@ -1,0 +1,18 @@
+public class week1 {
+    public static void main(String[] args) {
+        for (int k = 0; k < 99; k++) {
+            //System.out.println("규 + i);
+            int i = k;
+            int saveI = i;
+            while (i != 0) {
+                if (i % 10 == 5) {
+                    System.out.println(saveI);
+                    break;
+                }
+                i = i / 10;
+                {
+                }
+            }
+        }
+    }
+}
