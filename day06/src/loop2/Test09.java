@@ -20,10 +20,11 @@ public class Test09 {
 			total+=num;
 		}
 		sc.close();
+		double aver =(double)total/10;
 		System.out.println("홀수의 개수는 ? " + count);
 		System.out.println("짝수의 개수는 ? " + plusCount);
 		 System.out.println("전체 합계는 ? " + total);
-		 System.out.println("전체 평균은 ? " + total/ 10);
+		 System.out.println("전체 평균은 ? " + aver);
 
 	}
 }
