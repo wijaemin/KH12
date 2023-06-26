@@ -14,7 +14,7 @@ public class Test01 {
 		for (int i = 1; i <= 50; i++) {
 			if (i % 2 != 0) {
 				// System.out.println(i);
-				count++;// 조건을 만족하면 카운터가 한개씩 증가한다
+				count++;// 조건을 만족하면 카운터가 한개씩 증가한다 //count = count + 1
 			}
 		}
 		System.out.println(count);
