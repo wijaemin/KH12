@@ -10,13 +10,10 @@ public class Test10 {
 		for (int i = 0; i < 5; i++) {
 			System.out.println("월요일부터 금요일까지 공부한 시간을 적어주세요 : ");
 			int hour = sc.nextInt();
-			totalHour += hour;
-
-		}
-		for (int k = 0; k < 5; k++) {
 			System.out.println("월요일부터 금요일까지 공부한 분을 적어주세요 : ");
 			int min = sc.nextInt();
 			totalMin += min;
+			totalHour += hour;		
 		}
 		sc.close();
 		System.out.println("총 걸린 시간은? " + (totalHour + totalMin / 60) + "시간 입니다.");
