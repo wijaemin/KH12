@@ -10,8 +10,8 @@ public class Test04 {
 		map[1][1] = "판다스";
 		map[1][2] = "장고";
 		
-		for (int i = 0; i <= 1; i++) {
-			for (int k = 0; k <= 2; k++) {
+		for (int i = 0; i < 2; i++) {
+			for (int k = 0; k < 3; k++) {
 				System.out.println(map[i][k]);
 			}
 		}
