@@ -12,15 +12,15 @@ public class Test06 {
 			int x = r.nextInt(size);
 			int y = r.nextInt(size);
 			if (bingoList[x][y] == 0) {
-				bingoList[x][y] = i;
-				System.out.println(bingoList[x][y]);
-
+				bingoList[x][y] = i;	
 			} else {
 				i--;
 			}
-			System.out.println();
+			System.out.println(bingoList[x][y]);
+			System.out.println('\t');
 		
 		}
+		System.out.println();
 	}
 }
 
