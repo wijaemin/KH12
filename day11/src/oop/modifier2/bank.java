@@ -91,6 +91,7 @@ public class bank {
 		System.out.println("납입회차 : " + this.count + " 회차");
 		System.out.println("납입금액 : " + this.inPay + " 만원");
 		System.out.println("잔액 : " + this.outPay + " 만원");
+		System.out.println("만기 예상금액 : "+(int)((this.year*12 -this.count)*this.inPay +this.outPay)+" 만원");
 	
 	}
 
