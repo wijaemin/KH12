@@ -66,7 +66,7 @@ public class bank {
 		this.name = name;
 		this.setYear(year);
 		this.setInPay(inPay);
-	}
+	}	
 
 	public bank(String name, int year, int count, int inPay, int outPay) {
 		this.name = name;
