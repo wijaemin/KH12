@@ -24,8 +24,5 @@ public class exe {
 		System.out.println("실행 기능");
 	}
 
-	public 	void forward() {
-		System.out.println("빨리감기");
-	}
 
 }
