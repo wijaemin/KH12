@@ -6,16 +6,9 @@ package oop.inherit8;
 public class Interaction {
 
 	// 전투 기능
-	public static void battle(Warrior a, Archer b) {
+	public static void battle(Game a, Game b) {
 		a.attack();
 		b.attack();
 	}
 
-	String[] array = { "Warrior a,", "Archer b", "Magician c", "Warrior d,", "Archer e", "Magician f" };
-
-	void fight() {
-		for (int i = 0; i < array.length/2; i++) {
-
-		}
-	}
 }

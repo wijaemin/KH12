@@ -1,13 +1,15 @@
 package oop.inherit8;
 
-public class Test02 {
+public class Test02 extends Interaction {
 	public static void main(String[] args) {
-		Warrior a = new Warrior("테스터1");
-		Archer b = new Archer("테스터2");
-		Magician c = new Magician("테스터3");
-		Warrior d = new Warrior("테스터4");
-		Archer e = new Archer("테스터5");
-		Magician f = new Magician("테스터6");
+		Game a = new Warrior("테스터1");
+		//Game a = new Archer("테스터2");
+	//	Game a = new Magician("테스터3");
+	//	Game b = new Warrior("테스터4");
+		Game b  = new Archer("테스터5");
+		//Game b  = new Magician("테스터6");
+		
+		
 		Interaction.battle(a, b);
 		
 		
