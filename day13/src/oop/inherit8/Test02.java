@@ -10,7 +10,7 @@ public class Test02 extends Interaction {
 		//Game b  = new Magician("테스터6");
 		
 		
-		Interaction.battle(a, b);
+
 		
 		
 
