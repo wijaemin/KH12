@@ -36,7 +36,7 @@ void show () {
 	System.out.println("ID : "+memberld);
 	for(int i =1; i<memberPw.length();i++) {
 		memberPw.concat(memberName);
-		System.out.println("비밀번호 :  "+memberPw);
+		System.out.println("비밀번호 :  "+memberPw.charAt(1)+"*******");
 	}
 	System.out.println("회원이름  : "+memberName);
 	System.out.println("회원레벨 :  "+memberlevel);
