@@ -14,7 +14,7 @@ public class Test06 {
 				throw new Exception("년도가 너무 오래됫습니다");
 			}
 			int mon = Integer.parseInt(a.substring(5, 7));
-			if (mon >= 1 && mon <= 12) {
+			if (mon < 1 || mon > 12) {
 				throw new Exception("월은 1월에서 12월까지 입력가능합니다.");
 			}
 			System.out.println(year);
@@ -39,10 +39,10 @@ public class Test06 {
 		} catch (StringIndexOutOfBoundsException e) {
 			System.err.println("입력한 범위가 너무 짧거나 길어서 벗어났습니다.");
 		} catch (NumberFormatException e) {
-			System.out.println("숫자의 변환이 올바르지 않습니다.");
+			System.err.println("숫자의 변환이 올바르지 않습니다.");
 		} catch (Exception e) {
-			System.out.println("설정 오류 입니다.");
-			System.out.println(e);
+			System.err.println("설정 오류 입니다.");
+			System.err.println(e);
 		}
 	}
 
