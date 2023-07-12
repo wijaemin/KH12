@@ -22,7 +22,6 @@ public class Test01 {
 		a.add("김채원"); 		b.add("김채원");			c.add("김채원");
 		a.add("유태오"); 		b.add("유태오");			c.add("유태오");
 		a.add("지수"); 		b.add("지수");			c.add("지수");
-		a.add("유재석"); 		b.add("유재석");			c.add("유재석");
 	
 		
 		System.out.println("a = " + a);
