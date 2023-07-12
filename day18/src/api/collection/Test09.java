@@ -12,7 +12,8 @@ public static void main(String [] args) {
 	// 
 	//-LinkedList는 데이터가 연결 형태로 존재하는 리스트
 	//-LinkedList는 조회성능이 다소 떨어짐대신 데이터 구조변경에 강함
-	
+	//-Vector는 과거 자바에서 사용하던 클래스
+	// -조회 성능이 떨어져서 ArraayList로 교체하여 사용한다.
 	
 	List<String> a= new ArrayList<String>();
 	List< String> b =new LinkedList<String>();
