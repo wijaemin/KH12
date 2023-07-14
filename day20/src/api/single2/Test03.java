@@ -21,11 +21,11 @@ public class Test03 {
 		}
 		else {c = (int) target.length() / 10;}
 		byte[] buffer = new byte[c];
-			
+	
 		while (true) {
-			int count=stream.read();
-				if(count ==-1) {break;}	
-				copyStream.write(count);
+		 buffer = new byte[stream.read()];
+				if(buffer[stream.read()]==-1) {break;}	
+				copyStream.write(buffer);
 				System.out.println(Arrays.toString(buffer));
 			}
 					
