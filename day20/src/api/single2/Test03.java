@@ -12,26 +12,29 @@ public class Test03 {
 		File copyTarget = new File("sample/copytarget.kh");
 		FileInputStream stream = new FileInputStream(target);
 		FileOutputStream copyStream = new FileOutputStream(copyTarget);
-		
+
 		int c = (int) target.length() / 10;
 		if (c == 13) {
 			System.out.println("\n");
 		} else if (c <= 10) {
 			c = (int) target.length();
+		} else {
+			c = (int) target.length() / 10;
 		}
-		else {c = (int) target.length() / 10;}
 		byte[] buffer = new byte[c];
-	
+
 		while (true) {
-		 buffer = new byte[stream.read()];
-				if(buffer[stream.read()]==-1) {break;}	
-				copyStream.write(buffer);
-				System.out.println(Arrays.toString(buffer));
+
+			stream.read(buffer);
+			if (stream.read(buffer) == -1) {
+				break;
 			}
-					
+			copyStream.write(buffer);
+			System.out.println(Arrays.toString(buffer));
+		}
+
 		stream.close();
 		copyStream.close();
-
 
 	}
 }
