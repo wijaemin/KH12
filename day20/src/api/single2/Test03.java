@@ -24,7 +24,6 @@ public class Test03 {
 		byte[] buffer = new byte[c];
 
 		while (true) {
-
 			stream.read(buffer);
 			if (stream.read(buffer) == -1) {
 				break;
