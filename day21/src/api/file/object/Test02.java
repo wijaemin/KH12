@@ -29,7 +29,7 @@ public class Test02 {
 		BufferedOutputStream buffer = new BufferedOutputStream(straem);
 		ObjectOutputStream obj = new ObjectOutputStream(buffer);
 
-		obj.writeObject(rotto);
+		obj.writeObject(lotto);
 		obj.close();
 
 	}
