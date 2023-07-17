@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class Test03 {
@@ -13,25 +14,25 @@ public class Test03 {
 		FileInputStream stream = new FileInputStream(target);
 		FileOutputStream copyStream = new FileOutputStream(copyTarget);
 
-		int c = (int) target.length() / 10;
-		if (c == 13) {
-			System.out.println("\n");
-		} else if (c <= 10) {
-			c = (int) target.length();
-		} else {
-			c = (int) target.length() / 10;
-		}
-		byte[] buffer = new byte[c];
 
+
+		byte[] buffer = new byte[4096];
+		long count = 0L;
+		long total = target.length(); // 전체 옮길 글자수
+		double percent = count * 100 / total;
+		DecimalFormat fmt = new DecimalFormat("#,##0.00");
+		long start = System.currentTimeMillis();
 		while (true) {
-			stream.read(buffer);
+			int a = stream.read(buffer);
 			if (stream.read(buffer) == -1) {
 				break;
 			}
-			copyStream.write(buffer);
-			System.out.println(Arrays.toString(buffer));
+			copyStream.write(buffer, 0, a);
+			count++;
+			System.out.println(fmt.format(percent) + "%" + count);
 		}
-
+		long end = System.currentTimeMillis();
+		System.out.println("소요시간 " + (end - start) + "ms");
 		stream.close();
 		copyStream.close();
 
