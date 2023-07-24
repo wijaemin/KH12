@@ -7,13 +7,20 @@ public class ProductDto {
 	private int no, price;
 	private String name, type;
 	private Date made;
+	private Date expire;
+	public Date getExpire() {
+		return expire;
+	}
+	public void setExpire(Date expire) {
+		this.expire = expire;
+	}
 	public ProductDto() {
 		super();
 	}
 	@Override
 	public String toString() {
 		return "ProductDto [no=" + no + ", price=" + price + ", name=" + name + ", type=" + type + ", made=" + made
-				+ "]";
+				+ ", expire=" + expire + "]";
 	}
 	public int getNo() {
 		return no;
@@ -45,5 +52,6 @@ public class ProductDto {
 	public void setMade(Date made) {
 		this.made = made;
 	}
+
 
 }
