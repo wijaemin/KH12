@@ -2,6 +2,7 @@ package jdbc.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import jdbc.dto.PocketmonDto;
 import jdbc.util.jdbcUtils;
 
 // DAO 클래스
@@ -13,9 +14,9 @@ public class pocketmonDao {
 
 	
 	//C(등록) 메소드
-	public void insert(int no , String name , String type) {
-		String sql = "insert into pocketmon(no, name, type) values(?, ? , ? )";
-		Object[] data = {no, name, type};
+	public void insert(PocketmonDto dto) {
+		String sql = "insert into pocketmon(no, name, type) values(?,?,?)";
+		Object[] data = {dto.getNo(),dto.getName(),dto.getType()};
 		
 		JdbcTemplate template = jdbcUtils.getJdbcTemplate();
 		template.update(sql, data);
