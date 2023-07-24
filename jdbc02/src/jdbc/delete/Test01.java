@@ -11,8 +11,8 @@ public static void main(String[] args) {
 	// delete pocketmon where no = ? 
 	
 	//데이터 
-	int no = 45;
-	
+	int no = 43;
+
 	//DB처리
 	String sql  = "delete pocketmon where no = ? ";
 	Object [] data  = {no};

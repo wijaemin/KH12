@@ -10,7 +10,7 @@ public class jdbcUtils {
 
 	// 연결 정보를 상수로 저장
    public static final String driver = "oracle.jdbc.OracleDriver";
-   public static final String url = "jdbc:oracle:thin@localhost:1521:xe";
+   public static final String url = "jdbc:oracle:thin:@localhost:1521:xe";
    public static final String userName = "c##kh";
    public static final String passWord= "kh";
    
