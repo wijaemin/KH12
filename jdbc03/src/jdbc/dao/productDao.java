@@ -1,8 +1,12 @@
 package jdbc.dao;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import jdbc.dto.ProductDto;
+import jdbc.dto.boardDto;
+import jdbc.mapper.boardMapper;
 import jdbc.util.jdbcUtils;
 
 public class productDao {
@@ -20,4 +24,5 @@ public class productDao {
 		int result = tem.update(sql,ob);
 		return result >0;
 	}
+
 }

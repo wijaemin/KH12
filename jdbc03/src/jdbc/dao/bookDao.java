@@ -1,8 +1,11 @@
 package jdbc.dao;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import jdbc.dto.bookDto;
+import jdbc.mapper.bookMapper;
 import jdbc.util.jdbcUtils;
 
 public class bookDao {
@@ -18,7 +21,7 @@ public class bookDao {
 
 	public boolean updateBookPrice(bookDto dto) {
 		String sql = "update book set book_price = ? where book_id = ?";
-		Object[] data = { dto.getBook_pirce(), dto.getBook_id() };
+		Object[] data = { dto.getBook_price(), dto.getBook_id() };
 		JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
 		int result = tem.update(sql, data);
 		if (result > 0)
@@ -42,5 +45,18 @@ public class bookDao {
 		return result > 0;
 		
 	}
-
+	private bookMapper mapper = new bookMapper();
+	public List<bookDto> selectList () {
+		String sql ="select * from book order by book_id asc";
+		JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
+		return tem.query(sql, mapper);
+	}
+public bookDto selectOne(int num) {
+	String sql="select * from book where book_id =?";
+	JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
+	Object[] ob = {num};
+	List<bookDto> list = tem.query(sql, mapper, ob);
+	if(list.isEmpty()) return null;
+	else return list.get(0);
+}
 }

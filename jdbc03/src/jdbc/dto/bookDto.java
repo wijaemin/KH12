@@ -5,7 +5,7 @@ import java.sql.Date;
 public class bookDto {
 	private int book_id, book_page_count;
 	private String book_title, book_author, book_publisher, book_genre;
-	private double book_pirce;
+	private double book_price;
 	private Date book_publication_date;
 
 	public int getBook_id() {
@@ -20,10 +20,10 @@ public class bookDto {
 	public String toString() {
 		return "bookDto [book_id=" + book_id + ", book_page_count=" + book_page_count + ", book_title=" + book_title
 				+ ", book_author=" + book_author + ", book_publisher=" + book_publisher + ", book_genre=" + book_genre
-				+ ", book_pirce=" + book_pirce + ", book_publication_date=" + book_publication_date + ", getBook_id()="
+				+ ", book_pirce=" + book_price + ", book_publication_date=" + book_publication_date + ", getBook_id()="
 				+ getBook_id() + ", getBook_page_count()=" + getBook_page_count() + ", getBook_title()="
 				+ getBook_title() + ", getBook_author()=" + getBook_author() + ", getBook_publisher()="
-				+ getBook_publisher() + ", getBook_genre()=" + getBook_genre() + ", getBook_pirce()=" + getBook_pirce()
+				+ getBook_publisher() + ", getBook_genre()=" + getBook_genre() + ", getBook_pirce()=" + getBook_price()
 				+ ", getBook_publication_date()=" + getBook_publication_date() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
@@ -72,12 +72,12 @@ public class bookDto {
 		this.book_genre = book_genre;
 	}
 
-	public double getBook_pirce() {
-		return book_pirce;
+	public double getBook_price() {
+		return book_price;
 	}
 
-	public void setBook_pirce(double book_pirce) {
-		this.book_pirce = book_pirce;
+	public void setBook_price(double book_pirce) {
+		this.book_price = book_pirce;
 	}
 
 	public Date getBook_publication_date() {

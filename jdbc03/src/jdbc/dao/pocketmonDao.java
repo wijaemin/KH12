@@ -65,7 +65,7 @@ public class pocketmonDao {
  // Primary key를 이용하여 하나의 결과만 나오는 구문
  // 자바에서는 DTO 형태로 취급
  public PocketmonDto selectOne(int no) {
-	 String sql="select * from pocketmon where no = ?";
+	 String sql="select * from pocketmon where no = ? ";
 	 Object[] data = {no};
 	 JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
 	 List <PocketmonDto>list = tem.query(sql,mapper,data);

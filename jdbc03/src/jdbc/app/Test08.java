@@ -8,7 +8,7 @@ public class Test08 {
 		bookDto dto = new bookDto();
 		bookDao dao = new bookDao();
 		dto.setBook_id(0);
-		dto.setBook_pirce(0);
+		dto.setBook_price(0);
 		boolean result = dao.updateBookPrice(dto);
 		if (result)
 			System.out.println("책 가격 수정 완료");
