@@ -5,7 +5,8 @@ import java.sql.Date;
 public class memberDto {
 private int  member_contact, member_point;
 private String member_pw, member_id, member_nickname, member_email,member_level;
-private Date member_join, member_brith;
+private Date member_join;
+private Date member_brith;
 public int getMember_contact() {
 	return member_contact;
 }
@@ -57,8 +58,8 @@ public void setMember_join(Date member_join) {
 public Date getMember_brith() {
 	return member_brith;
 }
-public void setMember_brith(Date member_brith) {
-	this.member_brith = member_brith;
+public void setMember_brith(Date date) {
+	this.member_brith = date;
 }
 @Override
 public String toString() {
