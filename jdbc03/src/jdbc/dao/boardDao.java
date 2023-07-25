@@ -22,7 +22,12 @@ public class boardDao {
 		int result =tem.update(sql,ob);
 		if (result>0) return true;
 		else return false;
-		
-		
+	}
+	public boolean delete(int boardNo) {
+		String sql = "delete  from board where board_no = ?";
+		Object[] ob = {boardNo};
+		JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
+		int result = tem.update(sql,ob);
+		return result>0;
 	}
 }

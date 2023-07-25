@@ -33,5 +33,12 @@ public class memberDao {
 		if(result>0) return true; 
 		else return false;
 	}
+	public boolean delete (String memberId) {
+		String sql = "delete  from member where member_id = ?";
+		Object[] ob = {memberId};
+		JdbcTemplate tem = jdbcUtils.getJdbcTemplate();
+		int result =	tem.update(sql,ob);
+		return result >0;
+	}
 	
 }
