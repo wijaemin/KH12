@@ -6,7 +6,7 @@ public class memberDto {
 private int  member_contact, member_point;
 private String member_pw, member_id, member_nickname, member_email,member_level;
 private Date member_join;
-private Date member_brith;
+private Date member_birth;
 public int getMember_contact() {
 	return member_contact;
 }
@@ -56,16 +56,16 @@ public void setMember_join(Date member_join) {
 	this.member_join = member_join;
 }
 public Date getMember_brith() {
-	return member_brith;
+	return member_birth;
 }
-public void setMember_brith(Date date) {
-	this.member_brith = date;
+public void setMember_birth(Date date) {
+	this.member_birth = date;
 }
 @Override
 public String toString() {
 	return "memberDto [member_contact=" + member_contact + ", member_point=" + member_point + ", member_pw=" + member_pw
 			+ ", member_id=" + member_id + ", member_nickname=" + member_nickname + ", member_email=" + member_email
-			+ ", member_level=" + member_level + ", member_join=" + member_join + ", member_brith=" + member_brith
+			+ ", member_level=" + member_level + ", member_join=" + member_join + ", member_brith=" + member_birth
 			+ "]";
 }
 public memberDto() {

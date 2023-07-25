@@ -6,7 +6,7 @@ import jdbc.dto.memberDto;
 public class Test04 {
 public static void main(String[] args) {
 	memberDto dto = new memberDto();
-	dto.setMember_brith(null);
+	dto.setMember_birth(null);
 	dto.setMember_contact(0);
 	dto.setMember_email(null);
 	dto.setMember_id(null);

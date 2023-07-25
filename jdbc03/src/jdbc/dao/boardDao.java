@@ -59,8 +59,8 @@ public class boardDao {
 	}
 
 	// (심화) 페이징 목록 조회
-	public List<boardDto> selectListByPage(int page) {
-		int end = page * 10;
+	public List<boardDto> selectListByPage(int page, int size) {
+		int end = page * size;
 		int begin = end - 9;
 		String sql = "select * from( select rownum rn, TMP. * from(select * from  board  order by board_no desc) TMP) where rn between ? and ?";
 		Object[] ob = { begin, end };

@@ -12,7 +12,7 @@ public class memberMapper implements RowMapper<memberDto> {
 	@Override
 	public memberDto mapRow(ResultSet rs, int ixl) throws SQLException {
 		memberDto dto = new memberDto();
-		dto.setMember_brith(rs.getDate("member_brith"));
+		dto.setMember_birth(rs.getDate("member_birth"));
 		dto.setMember_contact(rs.getInt("member_contact"));
 		dto.setMember_email(rs.getString("member_email"));
 		dto.setMember_id(rs.getString("member_id"));

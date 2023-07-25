@@ -28,7 +28,7 @@ public class Test11 {
 	dto.setMember_email(e);
 	System.out.print("변경할 생년월일을 입력해주세요 : ");
 	String f = sc.next();	
-	dto.setMember_brith(Date.valueOf(f));
+	dto.setMember_birth(Date.valueOf(f));
 		boolean result = dao.updateMemberInfo(dto);
 		if (result)
 			System.out.println("회원정보 변경 성공");

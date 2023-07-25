@@ -2,21 +2,13 @@ package jdbc.app;
 
 import java.util.List;
 
-import jdbc.dao.boardDao;
-import jdbc.dto.boardDto;
+import jdbc.dao.memberDao;
+import jdbc.dto.memberDto;
 
 public class Test17 {
 public static void main(String[] args) {
-	//데이터
-	int page = 1;
-	
-	//DB처리 
-	boardDao dao = new boardDao();
-	List<boardDto> list = dao.selectListByPage(page);
-	
-	for(boardDto dto : list) {
-		System.out.print("["+dto.getBoard_no()+"]");
-		System.out.println(dto.getBoard_title());
-	}
+	memberDao dao = new memberDao();
+	List<memberDto> list = dao.selectList();
+	for(memberDto dto : list)System.out.println(dto);
 }
 }
