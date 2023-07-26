@@ -1,4 +1,4 @@
-package com.kh.spring03;
+package com.kh.spring03.controller;
 
 import java.util.Random;
 
