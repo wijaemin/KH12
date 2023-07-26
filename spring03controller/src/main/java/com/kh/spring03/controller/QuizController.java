@@ -1,5 +1,8 @@
 package com.kh.spring03.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,4 +25,18 @@ public class QuizController {
 		return "로또 번호는 " + lotto;
 
 	}
+	//질문답변
+	@RequestMapping("/lotto-list")
+	public List<Integer> lottoList() {
+		List<Integer> list = new ArrayList<>();
+		for(int i=1; i <= 45;i ++) {
+			list.add(i);
+		}
+		Collections.shuffle(list);
+		List<Integer> lotto = list.subList(0, 6);
+		Collections.sort(lotto);
+		return lotto;
+	}
+	
 }
+
