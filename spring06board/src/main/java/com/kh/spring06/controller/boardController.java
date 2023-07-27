@@ -11,11 +11,17 @@ import com.kh.spring06.dto.boardDTO;
 @RestController
 public class boardController {
 	@Autowired
-	boardDAO dao;
+private 	boardDAO dao;
 @RequestMapping("/insert")
-public String insert(@ModelAttribute boardDTO dto) {
+public String insert(@ModelAttribute  boardDTO dto) {
 	dao.insert(dto);
 	return "보드 등록 완료";
-	
+}
+@RequestMapping("/update")
+public String update(@ModelAttribute boardDTO dto) {
+	boolean a = dao.update(dto);
+	if(a)
+	return "보드 업데이트 완료";
+	else return "보드의 고유번호를 다시 입력해주세요";
 }
 }

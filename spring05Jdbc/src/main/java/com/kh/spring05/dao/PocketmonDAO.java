@@ -20,5 +20,10 @@ public class PocketmonDAO {
 		Object[] data = { dto.getType(), dto.getName(), dto.getType() };
 		jdbcTemplate.update(sql, data);
 	}
+	public boolean update(PocketmonDTO dto) {
+		String sql = "update pocketmon set name = ? , type = ? where no = ?";
+		Object[] data = {dto.getName(), dto.getType(), dto.getNo()};
+				return jdbcTemplate.update(sql, data) >0; //수정안되면 0이기 때문이다.
+	}
 
 }

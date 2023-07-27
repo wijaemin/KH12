@@ -13,9 +13,15 @@ public class boardDAO {
 
 	public void insert(boardDTO dto) {
 		String sql = "insert into board(board_no,board_title,board_content,board_writer,board_readcount)"
-				+ "values(?,?,?,?,?)";
+				+ " values(?,?,?,?,?)";
 		Object[] ob = { dto.getBoard_no(), dto.getBoard_title(), dto.getBoard_content(), dto.getBoard_writer(),
 				dto.getBoard_readcount() };
 		tem.update(sql, ob);
+	}
+	public boolean update(boardDTO dto) {
+		String sql = "update board set board_title = ? , board_content = ?, board_writer = ? where board_no = ?";
+		Object[] ob = {dto.getBoard_title(), dto.getBoard_content(), dto.getBoard_writer(),dto.getBoard_no()};
+	tem.update(sql, ob);
+return tem.update(sql, ob)>0;
 	}
 }
