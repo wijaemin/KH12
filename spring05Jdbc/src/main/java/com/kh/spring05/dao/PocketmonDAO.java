@@ -25,5 +25,11 @@ public class PocketmonDAO {
 		Object[] data = {dto.getName(), dto.getType(), dto.getNo()};
 				return jdbcTemplate.update(sql, data) >0; //수정안되면 0이기 때문이다.
 	}
-
+	public boolean delete(int no) {
+		String sql = "delete pocketmon where no = ?";
+		Object[] data = {no};
+		return jdbcTemplate.update(sql, data) >0;
+	}
+	
+	
 }

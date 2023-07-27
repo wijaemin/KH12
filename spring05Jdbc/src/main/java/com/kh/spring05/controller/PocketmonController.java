@@ -3,6 +3,7 @@ package com.kh.spring05.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.spring05.dao.PocketmonDAO;
@@ -25,5 +26,12 @@ public String update(@ModelAttribute PocketmonDTO dto) {
 	else {
 		return " 해당번호는 존재 하지 않습니다";
 	}
+}
+@RequestMapping("/delete")
+public String delete(@RequestParam int no) {
+	boolean result = dao.delete(no);
+	if(result)  return "삭제 완료";
+	else return "존재하지 않는 몬스터 번호입니다";
+	
 }
 }
