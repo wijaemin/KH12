@@ -61,9 +61,29 @@ public class boardController {
 			buffer.append(dto.getBoard_readcount());
 			buffer.append("]");
 			buffer.append("<ba>");
-			
+
 		}
 		return buffer.toString();
+	}
+
+	@RequestMapping("/detail")
+	public String detail(int no) {
+		boardDTO dto = dao.selectOne(no);
+		if (dto == null) {
+			return "존재 하지 않는 보드의 번호입니다.";
+		} else {
+			StringBuffer buffer = new StringBuffer();
+			
+			buffer.append("[제목 ]"+dto.getBoard_title());
+			buffer.append("<br>");
+			buffer.append("[작가 ]"+dto.getBoard_writer());
+			buffer.append("<br>");
+			buffer.append("===========");
+			buffer.append("<br>");
+			buffer.append("[내용 ]"+dto.getBoard_content());
+			buffer.append("<br>");
+			return buffer.toString();
+		}
 	}
 
 }

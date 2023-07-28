@@ -18,6 +18,7 @@ public class boardDAO {
 	boardListMapper listMapper;
 	@Autowired
 	boardDetailMapper mapper;
+
 	public void insert(boardDTO dto) {
 		String sql = "insert into board(board_no,board_title,board_content,board_writer,board_readcount)"
 				+ " values(?,?,?,?,?)";
@@ -38,12 +39,22 @@ public class boardDAO {
 		Object[] ob = { no };
 		return tem.update(sql, ob) > 0;
 	}
+
 	public List<boardDTO> detailList() {
 		String sql = "select * from board order by board_no asc";
 		return tem.query(sql, mapper);
 	}
+
 	public List<boardDTO> selectList() {
 		String sql = "select board_no,board_title,board_writer,board_readcount from board order by board_no asc";
 		return tem.query(sql, listMapper);
+	}
+
+	public boardDTO selectOne(int no) {
+		String sql = "select * from board where board_no = ? ";
+		Object[] ob = { no };
+		List<boardDTO> list = tem.query(sql, mapper, ob);
+		return list.isEmpty() ? null : list.get(0);
+
 	}
 }

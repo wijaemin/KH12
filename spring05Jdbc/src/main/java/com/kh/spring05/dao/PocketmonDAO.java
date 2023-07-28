@@ -41,5 +41,11 @@ public class PocketmonDAO {
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
+	public  PocketmonDTO selectOne(int no) {
+		String sql ="select * from pocketmon where no = ?";
+		Object[] data = {no};
+		List< PocketmonDTO> list = jdbcTemplate.query(sql, mapper, data);
+		return list.isEmpty() ? null : list.get(0);
+		}
 	
 }
