@@ -6,13 +6,13 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import com.kh.spring08.DTO.memberDTO;
+import com.kh.spring08.DTO.MemberDTO;
 @Component
-public class memberMapper implements RowMapper<memberDTO>{
+public class MemberMapper implements RowMapper<MemberDTO>{
 
 	@Override
-	public memberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
- memberDTO dto= new memberDTO();
+	public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+ MemberDTO dto= new MemberDTO();
  dto.setMemberBrith(rs.getString("member_birth"));
  dto.setMemberContact(rs.getString("member_contact"));
  dto.setMemberEmail(rs.getString("member_email"));

@@ -2,7 +2,7 @@ package com.kh.spring08.DTO;
 
 import java.sql.Date;
 
-public class memberDTO {
+public class MemberDTO {
 	String memberID, memberPW, memberNickname, memberContact, memberLevel, memberBrith, memberEmail;
 
 	public String getMemberEmail() {
@@ -17,7 +17,7 @@ public class memberDTO {
 		return memberID;
 	}
 
-	public memberDTO() {
+	public MemberDTO() {
 		super();
 	}
 
