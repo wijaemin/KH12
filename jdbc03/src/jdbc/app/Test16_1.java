@@ -14,6 +14,7 @@ public static void main(String[] args) {
 	boardDao dao = new boardDao();
 	List<boardDto> list = dao.selectListByPage(page, page);
 	
+	
 	for(boardDto dto : list) {
 		System.out.print("["+dto.getBoard_no()+"]");
 		System.out.println(dto.getBoard_title());
