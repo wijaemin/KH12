@@ -32,6 +32,14 @@ public class ViewController {
 	public String test() {
 		return "/WEB-INF/views/test.jsp";
 	}
+	@RequestMapping("/dummy")
+	public String dummy() {
+		return "/WEB-INF/views/dummy.jsp";
+	}
+	@RequestMapping("/alt")
+	public String alt() {
+		return "/WEB-INF/views/alt.jsp";
+	}
 }
 
 
