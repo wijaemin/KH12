@@ -40,6 +40,7 @@ public class ViewController {
 	public String alt() {
 		return "/WEB-INF/views/alt.jsp";
 	}
+
 }
 
 
