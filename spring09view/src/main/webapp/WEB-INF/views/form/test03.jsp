@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>회원 가입 신청서</h1>
-<form action="http://localhost:8080" method="post">
+<form action="http://localhost:8080/member/join" method="post">
 <!--  autocomplete="off" 자동완성 기능을 제거 할수 있다. 
 입력창에 설명을 적는 placeholder 속성이 있다.
 (중요) 폼에 전송방식을 지정하여 데이터를 다르게 보낼수 있다.
