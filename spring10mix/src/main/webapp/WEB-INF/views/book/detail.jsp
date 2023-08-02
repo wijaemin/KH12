@@ -26,6 +26,15 @@
 
 				</tr>
 			</table>
+			
+			<ol>
+			<li>${dto.bookTitle}</li>
+				<li>${dto.bookAuthor}</li>
+					<li>${dto.bookPublisher}</li>
+						<li>${dto.bookPrice}달러</li>
+			</ol>
+			
+			<a href="/book/list">목록 전환</a>
 		</c:when>
 		<c:otherwise>
 			<h1>없어요 다시해줘여</h1>

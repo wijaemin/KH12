@@ -35,7 +35,7 @@ ${dto.board_writer}
 </td>
 </tr>
 </table>
-
+<a href="/board/list">목록 전환</a>
 </c:when>
 <c:otherwise>
 <h1>없는 번호 입니다.</h1>
