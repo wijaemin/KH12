@@ -11,8 +11,8 @@
 th{background-color: #058f50}
 td{text-align: center;}</style>
 <body>
-<h1 align="center">책 리스트</h1>
-
+<h1 align="center">책 리스트</h1><br>
+<h2 align="right"><a href="insert" ><font size="250">신규등록</font></a></h2><br>
 <table border="2" align="center">
 <tr>
 <th>책 번호</th>
@@ -23,6 +23,7 @@ td{text-align: center;}</style>
 <th>책 장르</th>
 <th>책 출판사</th>
 <th>책 가격</th>
+<th>삭제</th>
 </tr>
 <c:forEach var="dto" items="${list}">
 <tr>
@@ -34,6 +35,7 @@ td{text-align: center;}</style>
 <td>${dto.bookGenre}</td>
 <td>${dto.bookPublisher}</td>
 <td>${dto.bookPrice} 달러</td>
+<td><a href="delete?bookID=${dto.bookID}">삭제</a></td>
 </tr>
 </c:forEach>
 </table>

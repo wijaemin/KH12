@@ -13,6 +13,9 @@
 <c:when test="${dto != null }">
 <h1 align="center"> ${dto.board_no}번  게시글 조회 결과 </h1><br><br>
 <h2>읽은 횟수 : ${dto.board_readcount}회</h2>
+<h2><a href="edit?no=${dto.board_no}">게시글 수정</a></h2>
+<h2><a href="delete?board_no=${dto.board_no}">게시글 삭제</a></h2>
+<h2><a href="delete/${dto.board_no}">게시글 삭제2</a></h2>
 <table border="2" align="center" width="800" >
 <tr>
 <th> 게시글 넘버</th>

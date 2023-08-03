@@ -11,6 +11,7 @@
 td{text-align: center;}</style>
 <body>
 <h1 align="center">게시글 리스트</h1>
+<a href="write">글쓰기</a>
 
 <table border="2">
 <tr>

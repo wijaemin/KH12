@@ -16,22 +16,37 @@ public class boardDAO {
 	@Autowired
 	boardMapper mapper;
 
+
+	//등록과 번호 생성기능을 각각 만듬
+	//select board_seq.nextval from dual
+	//insert into board(...) values(?,?,?,?,0)
+	
+	public int sequence() {
+		String sql ="select board_seq.nextval from dual";
+		return tem.queryForObject(sql,int.class);
+	//	return tem.queryForObject(sql,Integer.class);
+	}
 	public void insert(boardDTO dto) {
 		String sql = "insert into board(board_no,board_title,board_content,board_writer,board_readcount)"
-				+ " values(?,?,?,?,?)";
-		Object[] ob = { dto.getBoard_no(), dto.getBoard_title(), dto.getBoard_content(), dto.getBoard_writer(),
-				dto.getBoard_readcount() };
+				+ " values(?,?,?,?,0)";
+		Object[] ob = { dto.getBoard_no(), dto.getBoard_title(), dto.getBoard_content(), dto.getBoard_writer()
+				 };
 		tem.update(sql, ob);
 	}
+	
 	public boolean update(boardDTO dto) {
-		String sql = "update board set board_title = ? , board_content = ?, board_writer = ? where board_no = ?";
-		Object[] ob = { dto.getBoard_title(), dto.getBoard_content(), dto.getBoard_writer(), dto.getBoard_no() };
-		tem.update(sql, ob);
-		return tem.update(sql, ob) > 0;
+		String sql = "update board "
+						+ "set board_title=?, board_content=? "
+						+ "where board_no=?";
+		Object[] data = {
+				dto.getBoard_title(), dto.getBoard_content(), 
+				dto.getBoard_no()
+		};
+		return tem.update(sql, data) > 0;
 	}
-	public boolean delete(int no) {
+	public boolean delete(int board_no) {
 		String sql = "delete board where board_no = ?";
-		Object[] ob = { no };
+		Object[] ob = { board_no };
 		return tem.update(sql, ob) > 0;
 	}
 

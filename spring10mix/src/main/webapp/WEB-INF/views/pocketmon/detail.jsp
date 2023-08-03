@@ -19,6 +19,9 @@
 <h2> 넘버 : ${dto.getNo()}번 </h2><br>
 <h2> 이름 : ${dto.getName()} </h2><br>
 <h2> 타입 : ${dto.getType()} </h2><br>
+<a href="edit">수정 정보 변경</a>
+<a href="delete?no=${dto.no}">정보 지우기</a>
+<a href="delete?no=${dto.no}">정보 지우기2</a>
 </c:when>
 
 <c:otherwise>

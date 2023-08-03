@@ -24,18 +24,27 @@ public class BookDAO {
 		tem.update(sql, ob);
 	}
 
-	public boolean edit(BookDTO dto) {
-		String sql = "update book set book_title = ? where book_id = ?";
-		Object[] ob = { dto.getBookTitle(), dto.getBookID() };
-		return tem.update(sql, ob)>0;
-
+	public boolean update(BookDTO dto) {
+		String sql = "update book "
+						+ "set "
+							+ "book_title=?, book_author=?,"
+							+ "book_publication_date=?, book_price=?,"
+							+ "book_publisher=?, book_genre=?,"
+							+ "book_page_count=? "
+						+ "where book_id = ?";
+		Object[] data = {
+			dto.getBookTitle(), dto.getBookAuthor(),
+			dto.getBookPublicationDate(), dto.getBookPrice(),
+			dto.getBookPublisher(), dto.getBookGenre(),
+			dto.getBookPageCount(), dto.getBookID()
+		};
+		return tem.update(sql, data) > 0;
 	}
 
-	public boolean delete(int no) {
-		String sql = "delete * from book where book_id = ?";
-		Object[] ob = {no};
-		return tem.update(sql, ob)>0;
-
+	public boolean delete(int bookID) {
+		String sql = "delete book where book_id = ?";
+		Object[] data = {bookID};
+		return tem.update(sql, data) > 0;
 	}
 
 	public List<BookDTO> list() {
