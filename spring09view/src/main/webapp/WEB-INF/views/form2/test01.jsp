@@ -12,7 +12,7 @@
 포켓몬 넘버 : <input name="no" required="required"><br><br>
 포켓몬 이름 : <input name="name" required="required"><br><br>
 포켓몬 속성 : <input name="type" required="required"><br><br>
-<button>수정</button>
+<button><a>수정</a></button>
 </form>
 </body>
 </html>
