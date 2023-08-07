@@ -24,6 +24,8 @@
 </ul>
 <img  align="right"  id="shirt_no=3"   alt="뭐지" src="https://tistory1.daumcdn.net/tistory/2826541/attach/f3c51d35915945aba94d36eda4c78264">
 <h4><a href="edit?shirt_no=${dto.shirt_no}">상품 수정</a></h4>
+<h4><a href="edit2?shirt_no=${dto.shirt_no}">상품 수정2</a></h4>
+<h4><a href="detail2?shirt_no=${dto.shirt_no}">상품 디테일2</a></h4>
 <h4><a href="delete?shirt_no=${dto.shirt_no}">상품삭제하기</a></h4>
 </c:when>
 <c:otherwise>

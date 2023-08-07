@@ -95,21 +95,25 @@ public class ShirtController {
 		}
 	}
 
+
+
 	@GetMapping("/edit")
-	public String edit(Model model, int shirt_no) {
+	public String edit(@RequestParam int shirt_no, Model model) {
 		ShirtDto dto = dao.detail(shirt_no);
 		model.addAttribute("dto", dto);
 		return "/WEB-INF/views/shirt/edit.jsp";
 	}
-
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute ShirtDto dto) {
-		Boolean result = dao.edit(dto);
-		if (result) {
+		boolean result = dao.edit(dto);
+		if(result) {
 			return "redirect:detail?shirt_no=" + dto.getShirt_no();
-		} else
-			return "redirect:에러 페이지";
+		}
+		else {
+			return "redirect:에러페이지";
+		}
 	}
+	
 
 	@GetMapping("/edit2")
 	public String edit2(Model model, @RequestParam int shirt_no) {
@@ -127,14 +131,15 @@ public class ShirtController {
 		if (result) {
 			// 사이즈 삭제후 추가
 			sizeDao.delete(shirtDto.getShirt_no());
-			for (String s : size) {
+			for(String s : size) {
 				ShirtSizeDto sizeDto = new ShirtSizeDto();
 				sizeDto.setShirt_no(shirtDto.getShirt_no());
 				sizeDto.setShirt_size_name(s);
 				sizeDao.insert(sizeDto);
 			}
-			return "redirect:detail2?shirt_no=" + shirtDto.getShirt_no();
-		} else {
+			return "redirect:detail2?shirt_no="+shirtDto.getShirt_no();
+		}
+		else {
 			return "redirect:에러페이지";
 		}
 	}

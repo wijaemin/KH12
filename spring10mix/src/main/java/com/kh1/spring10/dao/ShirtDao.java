@@ -43,12 +43,23 @@ public class ShirtDao {
 	}
 
 	public boolean edit(ShirtDto dto) {
-		String sql = "update shirt set shirt_name = ?, shirt_color = ?,"
-				+ "shirt_price = ?, shirt_kind = ?, shirt_type = ?, "
-				+ "shirt_material = ? , shirt_stock = ? where shirt_no = ?";
-		Object[] ob = { dto.getShirt_name(), dto.getShirt_color(), dto.getShirt_price(), dto.getShirt_kind(),
-				dto.getShirt_type(), dto.getShirt_material(), dto.getShirt_stock(), dto.getShirt_no() };
-		return tem.update(sql, ob) > 0;
+		String sql = "update shirt "
+				+ "set "
+					+ "shirt_name = ?, "
+					+ "shirt_color = ?, "
+					+ "shirt_price = ?, "
+					+ "shirt_kind = ?, "
+					+ "shirt_type = ?, "
+					+ "shirt_material = ?,"
+					+ "shirt_stock = ? "
+				+ "where shirt_no = ?";
+		Object[] data = {
+			dto.getShirt_name(), dto.getShirt_color(), 
+			dto.getShirt_price(), dto.getShirt_kind(),
+			dto.getShirt_type(), dto.getShirt_material(), 
+			dto.getShirt_stock(), dto.getShirt_no()
+		};
+		return tem.update(sql, data) > 0;
 	}
 
 	public boolean delete(int shirt_no) {
