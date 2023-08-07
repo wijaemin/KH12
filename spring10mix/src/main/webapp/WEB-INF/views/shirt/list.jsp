@@ -16,7 +16,7 @@ td{text-align: center;}
 
 <h1 align="center">셔츠 상품 리스트</h1>
 <h2 align="right"><a href="add" ><font>상품 등록</font></a></h2>
-
+<h2 align="right"><a href="add2" ><font>상품 등록2</font></a></h2>
 <table border="1" >
 <tr>
 <th>고유번호</th>

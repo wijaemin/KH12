@@ -1,5 +1,7 @@
 package com.kh1.spring10.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,6 +23,12 @@ public class ShirtSizeDao {
 		String sql = "insert into shirt_size(shirt_no,shirt_size_name) " + "values(?,?)";
 		Object[] ob = { dto.getShirt_no(), dto.getShirt_size_name() };
 		tem.update(sql, ob);
+	}
+	
+	public List<ShirtSizeDto> selectList(int shirt_no){
+		String sql= "select * from shirt_size where shirt_no =?";
+		Object[] ob ={shirt_no};
+		return tem.query(sql, mapper,ob);
 	}
 	
 

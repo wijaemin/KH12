@@ -74,6 +74,17 @@ public class ShirtController {
 		model.addAttribute("dto", dto);
 		return "/WEB-INF/views/shirt/detail.jsp";
 	}
+	
+	
+	@RequestMapping("/detail2")
+	public String detail2(@RequestParam int shirt_no, Model model) {
+		ShirtDto dto = dao.detail(shirt_no);
+		model.addAttribute("dto", dto);
+		
+		List<ShirtSizeDto> sizeList = sizeDao.selectList(shirt_no);
+				model.addAttribute("sizeList",sizeList);
+		return "/WEB-INF/views/shirt/detail2.jsp";
+	}
 
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int shirt_no) {
@@ -84,6 +95,8 @@ public class ShirtController {
 			return "redirect:에러 페이지";
 		}
 	}
+	
+
 
 	@GetMapping("/edit")
 	public String edit(Model model, int shirt_no) {
