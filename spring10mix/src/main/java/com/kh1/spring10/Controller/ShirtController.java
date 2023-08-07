@@ -1,6 +1,6 @@
 package com.kh1.spring10.Controller;
 
-
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ public class ShirtController {
 
 	@Autowired
 	ShirtSizeDao sizeDao;
+
 	@GetMapping("/add")
 	public String add() {
 		return "/WEB-INF/views/shirt/add.jsp";
@@ -38,28 +39,27 @@ public class ShirtController {
 		dao.add(dto);
 		return "redirect:list";
 	}
-	
-	//(추가) 만약 사이즈까지 같이 등록하는 거라면...
+
+	// (추가) 만약 사이즈까지 같이 등록하는 거라면...
 	@GetMapping("/add2")
 	public String add2() {
 		return "/WEB-INF/views/shirt/add2.jsp";
 	}
+
 	@PostMapping("/add2")
-	public String add2(@ModelAttribute ShirtDto shirtDto,
-			@RequestParam List<String> size) {
+	public String add2(@ModelAttribute ShirtDto shirtDto, @RequestParam List<String> size) {
 		int shirt_no = dao.sequence();
 		shirtDto.setShirt_no(shirt_no);
 		dao.add(shirtDto);
-		
-		for(String s :size) {
+
+		for (String s : size) {
 			ShirtSizeDto sizeDto = new ShirtSizeDto();
 			sizeDto.setShirt_no(shirt_no);
 			sizeDto.setShirt_size_name(s);
 			sizeDao.insert(sizeDto);
 		}
-		return "redirect:detail?shirt_no="+shirt_no;
+		return "redirect:detail?shirt_no=" + shirt_no;
 	}
-	
 
 	@RequestMapping("/list")
 	public String list(Model model) {
@@ -74,15 +74,14 @@ public class ShirtController {
 		model.addAttribute("dto", dto);
 		return "/WEB-INF/views/shirt/detail.jsp";
 	}
-	
-	
+
 	@RequestMapping("/detail2")
 	public String detail2(@RequestParam int shirt_no, Model model) {
 		ShirtDto dto = dao.detail(shirt_no);
 		model.addAttribute("dto", dto);
-		
+
 		List<ShirtSizeDto> sizeList = sizeDao.selectList(shirt_no);
-				model.addAttribute("sizeList",sizeList);
+		model.addAttribute("sizeList", sizeList);
 		return "/WEB-INF/views/shirt/detail2.jsp";
 	}
 
@@ -95,8 +94,6 @@ public class ShirtController {
 			return "redirect:에러 페이지";
 		}
 	}
-	
-
 
 	@GetMapping("/edit")
 	public String edit(Model model, int shirt_no) {
@@ -110,7 +107,35 @@ public class ShirtController {
 		Boolean result = dao.edit(dto);
 		if (result) {
 			return "redirect:detail?shirt_no=" + dto.getShirt_no();
+		} else
+			return "redirect:에러 페이지";
+	}
+
+	@GetMapping("/edit2")
+	public String edit2(Model model, @RequestParam int shirt_no) {
+		ShirtDto shirtDto = dao.detail(shirt_no);
+		model.addAttribute("shirtDto", shirtDto); // 셔츠정보
+
+		List<ShirtSizeDto> sizeList = sizeDao.selectList(shirt_no);
+		model.addAttribute("sizeList", sizeList); // 셔츠사이즈정보
+		return "/WEB-INF/views/shirt/edit2.jsp";
+	}
+
+	@PostMapping("/edit2")
+	public String edit2(@ModelAttribute ShirtDto shirtDto, @RequestParam List<String> size) {
+		boolean result = dao.edit(shirtDto);
+		if (result) {
+			// 사이즈 삭제후 추가
+			sizeDao.delete(shirtDto.getShirt_no());
+			for (String s : size) {
+				ShirtSizeDto sizeDto = new ShirtSizeDto();
+				sizeDto.setShirt_no(shirtDto.getShirt_no());
+				sizeDto.setShirt_size_name(s);
+				sizeDao.insert(sizeDto);
+			}
+			return "redirect:detail2?shirt_no=" + shirtDto.getShirt_no();
+		} else {
+			return "redirect:에러페이지";
 		}
-		else return "redirect:에러 페이지";
 	}
 }

@@ -30,6 +30,11 @@ public class ShirtSizeDao {
 		Object[] ob ={shirt_no};
 		return tem.query(sql, mapper,ob);
 	}
+	public boolean delete(int shirt_no) {
+		String sql ="delete shirt_size where shirt_no =?";
+		Object[] ob = {shirt_no};
+		return tem.update(sql,ob) >0;
+	}
 	
 
 }
