@@ -1,6 +1,6 @@
 package com.kh1.spring10.Controller;
 
-import java.lang.ProcessBuilder.Redirect;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.spring10.dao.ShirtDao;
+import com.kh1.spring10.dao.ShirtSizeDao;
 import com.kh1.spring10.dto.ShirtDto;
+import com.kh1.spring10.dto.ShirtSizeDto;
 
 @Controller
 @RequestMapping("/shirt")
@@ -22,6 +24,8 @@ public class ShirtController {
 	@Autowired
 	ShirtDao dao;
 
+	@Autowired
+	ShirtSizeDao sizeDao;
 	@GetMapping("/add")
 	public String add() {
 		return "/WEB-INF/views/shirt/add.jsp";
@@ -34,6 +38,28 @@ public class ShirtController {
 		dao.add(dto);
 		return "redirect:list";
 	}
+	
+	//(추가) 만약 사이즈까지 같이 등록하는 거라면...
+	@GetMapping("/add2")
+	public String add2() {
+		return "/WEB-INF/views/shirt/add2.jsp";
+	}
+	@PostMapping("/add2")
+	public String add2(@ModelAttribute ShirtDto shirtDto,
+			@RequestParam List<String> size) {
+		int shirt_no = dao.sequence();
+		shirtDto.setShirt_no(shirt_no);
+		dao.add(shirtDto);
+		
+		for(String s :size) {
+			ShirtSizeDto sizeDto = new ShirtSizeDto();
+			sizeDto.setShirt_no(shirt_no);
+			sizeDto.setShirt_size_name(s);
+			sizeDao.insert(sizeDto);
+		}
+		return "redirect:detail?shirt_no="+shirt_no;
+	}
+	
 
 	@RequestMapping("/list")
 	public String list(Model model) {
