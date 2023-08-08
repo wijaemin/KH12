@@ -15,5 +15,5 @@ public class MemberDto {
 	private String memberPost,memberAddr1,memberAddr2;
 	private String memberLevel;
 	private int memberPoint;
-	private Date memberJoin,memeberLogin,memberChange;
+	private Date memberJoin,memberLogin,memberChange;
 }
