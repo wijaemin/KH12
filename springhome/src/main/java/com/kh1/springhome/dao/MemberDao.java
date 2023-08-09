@@ -9,7 +9,9 @@ public interface MemberDao {
 
 	MemberDto selectOne(String memberId);
 
-	boolean updatememberLogin(String memberId);
-	
-	
+	boolean updateMemberLogin(String memberId);
+		
+	boolean updateMemberPw(String memberId,String changePw);
+	 
+	boolean updateMemberInfo(MemberDto memberDto);
 }
