@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dao.MemberDao;
 import com.kh1.springhome.dto.MemberDto;
@@ -64,9 +65,11 @@ public class MemberController {
 
 		// [3] 비밀번호가 일치하면 메인페이지로 이동
 		if (isCorrectPw) {
+			//세션에 아이디저장
 			session.setAttribute("name", inputDto.getMemberId());
 			session.setAttribute("password", inputDto.getMemberPw());
-			session.setAttribute("Login", findDto.getMemberLogin());
+			//로그인 시간 갱신
+			memberDao.updatememberLogin(inputDto.getMemberId());
 			return "redirect:/";
 		}
 		// [4] 비밀번호가 일치하지 않으면 로그인페이지로 이동
@@ -93,5 +96,22 @@ public class MemberController {
 		model.addAttribute("memberDto",memberDto);
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
+	
+	@GetMapping("/password")
+	public String password() {
+		return "/WEB-INF/views/member/password.jsp";
+	}
+	@PostMapping("/password")
+	public String password(HttpSession session,
+			@RequestParam String originPw,
+			@RequestParam String changePw) {
+		String memberId = (String) session.getAttribute("name");
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		
+		//1. 기존 비밀번호가 일치하는지 판정
+		//2. 1번이 성공일때 비밀번호를 변경하도록 처리(+개인정보 변경시각 수정)
+		
+	}
+	//@RequestMapping("/passwordFinish")
 
 }

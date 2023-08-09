@@ -44,6 +44,16 @@ public class MemberDaoImpl implements MemberDao{
 		List<MemberDto> list = tem.query(sql, memberMapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+
+	@Override
+	public boolean updatememberLogin(String memberId) {
+		String sql= "update member set member_login=sysdate "
+				+ "where member_id = ?";
+		Object[] data = {memberId};
+		return tem.update(sql,data) >0;
+		
+	}
+	
 	
 }
 
