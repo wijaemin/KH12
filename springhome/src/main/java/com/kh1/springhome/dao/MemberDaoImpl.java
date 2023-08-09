@@ -64,6 +64,13 @@ public class MemberDaoImpl implements MemberDao {
 		 return tem.update(sql,ob) > 0;
 	}
 
+	@Override
+	public boolean exit(String memberPw) {
+		String sql ="delete from member where member_id = ?";
+		Object[] ob = {memberPw};
+		return tem.update(sql,ob) > 0;
+	}
+
 	
 	
 

@@ -1,6 +1,7 @@
 package com.kh1.springhome.conroller;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -126,25 +127,44 @@ public class MemberController {
 	@GetMapping("/change")
 	public String change(Model model, HttpSession session) {
 		String memberId = (String) session.getAttribute("name");
-		MemberDto memberDto =memberDao.selectOne(memberId);
-		model.addAttribute("memberDto",memberDto);
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		model.addAttribute("memberDto", memberDto);
 		return "/WEB-INF/views/member/change.jsp";
 	}
 
 	@PostMapping("/change")
-	public String change(@ModelAttribute MemberDto inputDto,
-			HttpSession session) {
+	public String change(@ModelAttribute MemberDto inputDto, HttpSession session) {
 		String memberId = (String) session.getAttribute("name");
-		//비밀번호 검사 후 변경 처리 요청
-		MemberDto findDto =memberDao.selectOne(memberId);
-		if(inputDto.getMemberPw().equals(findDto.getMemberPw()))
-		{//비밀번호가 일치한다면
-			inputDto.setMemberId(memberId);//아이디를 설정하고
-			memberDao.updateMemberInfo(inputDto); //정보 변경 처리
+		// 비밀번호 검사 후 변경 처리 요청
+		MemberDto findDto = memberDao.selectOne(memberId);
+		if (inputDto.getMemberPw().equals(findDto.getMemberPw())) {// 비밀번호가 일치한다면
+			inputDto.setMemberId(memberId);// 아이디를 설정하고
+			memberDao.updateMemberInfo(inputDto); // 정보 변경 처리
 			return "redirect:mypage";
-		}
-		 else {//비밀번호가 일치하지 않는다면 ->다시 입력하도록 되돌려보냄
+		} else {// 비밀번호가 일치하지 않는다면 ->다시 입력하도록 되돌려보냄
 			return "redirect:change?error";
 		}
 	}
+
+	@GetMapping("/exit")
+	public String exit() {
+		return "/WEB-INF/views/member/exit.jsp";
+	}
+
+	@PostMapping("/exit")
+	public String exit(HttpSession session, @ModelAttribute String memberPw) {
+		String memberId = (String) session.getAttribute("name");
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		if (memberDto.getMemberPw().equals(memberPw)) {
+
+			memberDao.exit(memberPw);
+			session.removeAttribute("name"); //세션에서 name값 삭제
+		//	session.invalidate();//세션 소멸(비추천)
+			return "redirect:/exitFinish";//절대경로
+		} else {
+			return "redirect:exit?erorr";
+		}
+	}
+
+
 }

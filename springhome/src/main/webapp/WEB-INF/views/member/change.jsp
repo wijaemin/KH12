@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <div align="center">
 
 <h2>${memberDto.memberId}님 회원정보 변경</h2>
@@ -22,5 +22,7 @@
 
 <button>회원정보 변경</button>
 </form>
+<c:if test="${param.erorr != null}">
+<h3>비밀번호가 틀렸습니다. 다시 입력해주세요</h3></c:if>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -12,10 +12,10 @@
  기존 비밀번호 : <input type="password" name="originPw" required><br><br>
  변경 비밀번호 : <input type="password" name="changePw" required><br><br>
  <button>변경</button>
+
  </form>
  
- <c:if test="${param.error !=null}">
- <h3>기존 비밀번호가 일치 하지 않습니다.</h3>
- </c:if>
+<c:if test="${param.erorr != null}">
+<h3>비밀번호가 틀렸습니다. 다시 입력해주세요</h3></c:if>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

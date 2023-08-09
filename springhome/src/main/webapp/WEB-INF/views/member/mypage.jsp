@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div align="center">
 
-<h2>${memberDto.memberId}님회원정보</h2>
+<h2>${memberDto.memberId}님 회원정보</h2>
 
 <table border="1" width="550">
 	<tr>
@@ -63,5 +63,5 @@
 </div>
 <h2><a href="change">회원정보 변경</a></h2>
 <h2><a href="password">비밀번호 변경</a></h2>
-
+<h2><a href="exit">회원 탈퇴</a></h2>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
