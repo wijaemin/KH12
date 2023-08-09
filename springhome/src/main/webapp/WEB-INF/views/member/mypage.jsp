@@ -37,7 +37,7 @@
 		<th>포인트</th>
 		<%-- 		<td>${memberDto.memberPoint}pt</td> --%>
 		<td><fmt:formatNumber value="${memberDto.memberPoint}"
-				pattern="#,##0.00"></fmt:formatNumber> pt</td>
+				pattern="#,##0.00"></fmt:formatNumber> PT</td>
 	</tr>
 	<tr>
 		<th>가입일</th>

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,18 +34,31 @@ public class TestInterceptor implements HandlerInterceptor{
 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
 	System.out.println("preHandle 실행");
-	return false;
+	return true;
 }
-
+/**
+ postHandle은 컨트롤러 처리후  화면 생성전 시점을 간섭하는 메소드
+ -유일하게 Model의 정보와 들어있는 데이터를 확인할수 있다.
+ -검사, 모니터링, 치환 등의 작업을 할수 있다.
+ */
 @Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 	System.out.println("postHandle 실행");
+	System.out.println(modelAndView);
 }
+
+/**
+afterCompletion은 화면생성 후(모든 처리가 끝난 후) 시점을 간섭하는 메소드
+- 유일하게 예외의 발생여부를 알수 있는 곳이다.
+- 발생한 예외에 따라 처리할 내용들을 이곳에 작성할수 있다.
+- 사용자가 볼페이지를 변경할 수는 없다.(모니터링, 로깅-기록을 남기는 행위)
+ */
 @Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 	System.out.println("afterCompletion 실행");
+	System.out.println(ex);
 	}
 
 }

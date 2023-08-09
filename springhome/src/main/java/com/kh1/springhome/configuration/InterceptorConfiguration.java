@@ -23,16 +23,18 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 	private MemberInterceptor memberInterceptor;
 
 //인터셉터를 추가할수있는 설정 메소드(registry 저장소에 설정)
+	//등록시 주소의 패턴 설정 방법
+	// - *이 한개면 동일한 엔드포인트 내에서만 적용
+	// - **이 두개면 하위 엔드포인트를 포함하여 적용
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 1.TestInterceptor를 모든 주소처리과정에 간섭할수 있도록 설정하겠다.
-//		registry.addInterceptor(testInterceptor).addPathPatterns("/**");// "/**"은 전부다 라는 뜻이다.
+		registry.addInterceptor(testInterceptor).addPathPatterns("/**");// "/**"은 전부다 라는 뜻이다.
 
 		//2.MemberInterceptor를 회원전용 페이지 처리 과정에서 간섭할수 있도록 설정
 		registry.addInterceptor(memberInterceptor)
 		.addPathPatterns("/member/**") //화이트리스트 전부다 등록후
-		.excludePathPatterns("/member/join",
-				"/member/joinFinish","/member/login","/member/exitFinish"); //허용할것을 등록
+		.excludePathPatterns("/member/join*","/member/login","/member/exitFinish"); //허용할것을 등록
 	}
 
 }
