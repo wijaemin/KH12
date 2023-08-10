@@ -1,8 +1,0 @@
-[2023-06-10] [14:06:17.943] [INFO ][Starting SpringhomeApplication using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 14368 (C:\Users\user1\git\KH12\KH12\springhome\target\classes started by user1 in C:\Users\user1\git\KH12\KH12\springhome)]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:17.944] [DEBUG][Running with Spring Boot v2.7.14, Spring v5.3.29]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:17.944] [INFO ][No active profile set, falling back to 1 default profile: "default"]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:19.848] [INFO ][Started SpringhomeApplication in 2.167 seconds (JVM running for 2.718)]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:30.304] [INFO ][Starting SpringhomeApplication using Java 17.0.7 on DESKTOP-ACB3TH8 with PID 16288 (C:\Users\user1\git\KH12\KH12\springhome\target\classes started by user1 in C:\Users\user1\git\KH12\KH12\springhome)]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:30.305] [DEBUG][Running with Spring Boot v2.7.14, Spring v5.3.29]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:30.305] [INFO ][No active profile set, falling back to 1 default profile: "default"]-com.kh1.springhome.SpringhomeApplication 
-[2023-06-10] [14:06:32.235] [INFO ][Started SpringhomeApplication in 2.19 seconds (JVM running for 2.695)]-com.kh1.springhome.SpringhomeApplication 
