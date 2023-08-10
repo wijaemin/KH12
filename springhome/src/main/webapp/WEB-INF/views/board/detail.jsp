@@ -32,7 +32,8 @@
 			<td>${boardDto.board_utime}</td>
 		</tr>
 
-</table>
-<a href="edit?board_no=${boardDto.board_no}">게시글 수정하기</a>
-<a href="list">게시글 돌아가기</a>
+</table><br><br>
+<a href="edit?board_no=${boardDto.board_no}">게시글 수정하기</a><br><br>
+<a href="list">게시글 돌아가기</a><br><br>
+<a href="delete">게시글 삭제하기</a><br><br>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -2,6 +2,8 @@ package com.kh1.springhome.conroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +28,12 @@ public class BoardController {
 	}
 
 	@PostMapping("/write")
-	public String write(@ModelAttribute BoardDto boardDto) {
+	public String write(@ModelAttribute BoardDto boardDto,
+			HttpSession session) {
+		String board_writer =(String) session.getAttribute("name");
 		int board_no = boardDao.sequence();
 		boardDto.setBoard_no(board_no);
+		boardDto.setBoard_writer(board_writer);
 		boardDao.write(boardDto);
 		return "redirect:list";
 	}
@@ -58,9 +63,23 @@ public class BoardController {
 	public String edit(@ModelAttribute BoardDto boardDto) {
 		boolean result = boardDao.edit(boardDto);
 		if (result) {
+			boardDao.updateUtime(boardDto.getBoard_no());
 			return "redirect:detail?board_no=" + boardDto.getBoard_no();
 		} else {
 			return "redirect:에러페이지";
 		}
 	}
+	@RequestMapping("/delete")
+	public String delete(HttpSession session,BoardDto inputDto, int board_no) {
+		String board_writer = (String) session.getAttribute("name");
+		BoardDto boardDto = boardDao.detail(board_no);
+		if(boardDto.getBoard_writer().equals(inputDto.getBoard_writer())) {
+		boardDao.delete(board_no);
+		return "redirect:list";
+		}
+		else {
+			return"redirect:에러페이지";
+		}
+	}
+	
 }

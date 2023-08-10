@@ -13,4 +13,6 @@ public interface BoardDao {
 	public int sequence();
 	public BoardDto detail(int board_no);
 	public boolean edit(BoardDto dto);
+	public boolean updateUtime(int board_no);
+	public boolean delete(int board_no);
 }
