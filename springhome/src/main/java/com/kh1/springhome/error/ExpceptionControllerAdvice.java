@@ -29,4 +29,20 @@ public class ExpceptionControllerAdvice {
 		e.printStackTrace();//이걸 넣으면 로그 찍을수 있다.
 		return "/WEB-INF/views/error/500.jsp";
 	}
+	/**
+	내가 지정한 예외들을 처리하도록 추가 핸들러(처리기) 생성
+	 */
+	@ExceptionHandler(NoTargetException.class)
+	public String noTarget(NoTargetException e) {
+		//e.printStackTrace();
+		return "/WEB-INF/views/error/noTarget.jsp";
+	}
+	
+	@ExceptionHandler(AuthorityException.class)
+	public String authority(AuthorityException e) {
+		e.printStackTrace();
+		return "/WEB-INF/views/error/authority.jsp";
+	}
+	
+	
 }
