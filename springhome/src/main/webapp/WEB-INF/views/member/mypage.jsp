@@ -3,6 +3,13 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+td{text-align: center; background-color: silver;}
+th{text-align: center; background-color: graytext;}
+body {
+	background-color: #7f8fa6;padding: 30px;
+}
+</style>
 <div align="center">
 
 <h2>${memberDto.memberId}님 회원정보</h2>

@@ -8,7 +8,7 @@
 <title>나의 홈페이지</title>
 </head>
 <body>
-<div align="center"></div>
+<div align="center" ></div>
 <h1>헤더 기준 홈페이지 </h1>
 <hr>
 <%--
@@ -24,16 +24,17 @@ sessionScope 내장객체를 사용하면 HttpSession 의 값을 조회할수 �
 <h4 align="right">(테스트용) 로그인 비밀번호: ${sessionScope.password}</h4>
 <c:choose>
 <c:when test="${sessionScope.name != null}">
-<a href="/">홈</a>
-<a href="/board/list">게시판</a>
-<a href="/member/mypage">마이페이지</a>
-<a href="/member/logout">로그아웃</a>
+
+<button style="background-color: #778cb9" ><h3><a href="/">홈</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/member/mypage">마이페이지</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/board/list">게시판</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/member/logout">로그아웃</a></h3></button>
 </c:when>
 <c:otherwise>
-<a href="/">홈</a>
-<a href="/member/join">회원가입</a>
-<a href="/member/login">로그인</a>
-<a href="/board/list">게시판</a>
+<button style="background-color: #778cb9" ><h3><a href="/">홈</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/member/join">회원가입</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/board/list">게시판</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="/member/login">로그인</a></h3></button>
 </c:otherwise>
 </c:choose>
 <hr>

@@ -14,7 +14,6 @@ body {
 </style>
 <div align="right">
 <button style="background-color: #778cb9" ><h3><a href="write" >게시글 등록</a></h3></button>
-<button style="background-color: #778cb9" ><h3><a href="search" >임시 검색페이지</a></h3></button>
 </div><br><br>
 
 <table border="1" style="background-color: black;" >
@@ -42,9 +41,17 @@ body {
 	</c:forEach>
 </table>
 <br><br>
-<div align="center">
-<form style="background-color: #778ca3" action="search" method="post">
-<input name="keyword" required="required" style="background-color: #578ca3" placeholder="검색하실 이름을 입력해주세요"> <button style="color: #778ca3">검색</button>
-</form></div>
+<div>
+<form name="search" method="post">
+  <select name="search" >
+      <option value="title">제목</option>
+      <option value="writer">작성자</option>
+  </select>
+  
+  <input type="text" name="keyword" />
+  
+  <button type="button">검색</button>
+  </form>
+ </div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

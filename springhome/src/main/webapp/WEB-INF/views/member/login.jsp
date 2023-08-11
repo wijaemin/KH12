@@ -3,7 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+<style>
+td{text-align: center; background-color: silver;}
+th{text-align: center; background-color: graytext;}
+body {
+	background-color: #778ca3;padding: 130px;
+}
+</style>
 <h2>로그인</h2>
 
 <form action="login" method="post" autocomplete="off">
