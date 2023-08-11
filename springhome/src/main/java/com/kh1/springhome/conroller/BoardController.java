@@ -35,8 +35,14 @@ public class BoardController {
 	}
 
 	@PostMapping("/write")
+<<<<<<< HEAD
 	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
 		String board_writer = (String) session.getAttribute("name");
+=======
+	public String write(@ModelAttribute BoardDto boardDto,
+			HttpSession session) {
+		String board_writer =(String) session.getAttribute("name");
+>>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
 		int board_no = boardDao.sequence();
 		boardDto.setBoard_no(board_no);
 		boardDto.setBoard_writer(board_writer);
@@ -84,6 +90,7 @@ public class BoardController {
 			return "redirect:에러페이지";
 		}
 	}
+<<<<<<< HEAD
 
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int board_no, 
@@ -122,6 +129,21 @@ public String search(Model model,
     model.addAttribute("endPage", endPage);
 
     return "boardlist";
+=======
+	@RequestMapping("/delete")
+	public String delete(HttpSession session,BoardDto inputDto, int board_no) {
+		String board_writer = (String) session.getAttribute("name");
+		BoardDto boardDto = boardDao.detail(board_no);
+		if(boardDto.getBoard_writer().equals(inputDto.getBoard_writer())) {
+		boardDao.delete(board_no);
+		return "redirect:list";
+		}
+		else {
+			return"redirect:에러페이지";
+		}
+	}
+	
+>>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
 }
 
 }

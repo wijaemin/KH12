@@ -25,9 +25,15 @@ public class BoardDaoImpl implements BoardDao {
 	public void write(BoardDto boardDto) {
 		String sql = "insert into board(board_no,board_writer,board_title,board_content,"
 				+ "board_readcount,board_likecount,board_replycount) values(?,?,?,?,?,?,?)";
+<<<<<<< HEAD
 		Object[] ob = { boardDto.getBoard_no(), boardDto.getBoard_writer(), boardDto.getBoard_title(),
 				boardDto.getBoard_content(), boardDto.getBoard_readcount(), boardDto.getBoard_likecount(),
 				boardDto.getBoard_replycount() };
+=======
+		Object[] ob = {boardDto.getBoard_no() 
+				,boardDto.getBoard_writer(), boardDto.getBoard_title(), boardDto.getBoard_content(),
+				boardDto.getBoard_readcount(), boardDto.getBoard_likecount(), boardDto.getBoard_replycount() };
+>>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
 		tem.update(sql, ob);
 
 	}
@@ -61,6 +67,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public boolean updateUtime(int board_no) {
+<<<<<<< HEAD
 		String sql = "update board set board_utime=sysdate where board_no =?";
 		Object[] ob = { board_no };
 		return tem.update(sql, ob) > 0;
@@ -93,3 +100,17 @@ public class BoardDaoImpl implements BoardDao {
 
 
 }
+=======
+		String sql ="update board set board_utime=sysdate where board_no =?";
+		Object[] ob = {board_no};
+		return tem.update(sql,ob) >0;
+	}
+
+	@Override
+	public boolean delete(int board_no) {
+		String sql="delete from board where board_no =?";
+		Object[] ob = {board_no};
+		return tem.update(sql,ob)>0;
+	}
+}
+>>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
