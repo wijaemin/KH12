@@ -100,6 +100,13 @@ public class BoardDaoImpl implements BoardDao {
 		return false;
 	}
 
+	@Override
+	public Integer selectMax(String board_wirter) {
+		String sql ="select max(board_no) from board where board_writer = ?";
+		Object[] ob = {board_wirter};
+		return tem.queryForObject(sql,Integer.class,ob);
+	}
+
 
 
 }

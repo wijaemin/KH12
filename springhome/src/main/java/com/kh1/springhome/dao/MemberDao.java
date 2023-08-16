@@ -16,4 +16,7 @@ public interface MemberDao {
 	boolean updateMemberInfo(MemberDto memberDto);
 	
 	boolean exit(String memberPw);
+	
+	boolean increaseMeberPoint(String memberId,int point);
+//	boolean decreaseMeberPoint(String memberId,int point);
 }

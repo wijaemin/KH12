@@ -51,7 +51,6 @@ public class MemberDaoImpl implements MemberDao {
 		return tem.update(sql, data) > 0;
 	}
 
-
 	@Override
 	public boolean updateMemberInfo(MemberDto memberDto) {
 		String sql = "update member set member_nickname = ?, member_email= ?, "
@@ -59,20 +58,22 @@ public class MemberDaoImpl implements MemberDao {
 				+ "member_addr2 = ? where member_id = ? ";
 		Object[] ob = { memberDto.getMemberNickname(), memberDto.getMemberEmail(), memberDto.getMemberContact(),
 				memberDto.getMemberBirth(), memberDto.getMemberPost(), memberDto.getMemberAddr1(),
-				memberDto.getMemberAddr2(),memberDto.getMemberId()
-		};
-		 return tem.update(sql,ob) > 0;
+				memberDto.getMemberAddr2(), memberDto.getMemberId() };
+		return tem.update(sql, ob) > 0;
 	}
 
 	@Override
 	public boolean exit(String memberPw) {
-		String sql ="delete from member where member_id = ?";
-		Object[] ob = {memberPw};
-		return tem.update(sql,ob) > 0;
+		String sql = "delete from member where member_id = ?";
+		Object[] ob = { memberPw };
+		return tem.update(sql, ob) > 0;
 	}
 
-	
-	
-
+	@Override
+	public boolean increaseMeberPoint(String memberId, int point) {
+		String sql = "update member set member_point = member_point+? where member_id = ?";
+		Object[] ob = { point, memberId };
+		return tem.update(sql, ob) > 0;
+	}
 
 }

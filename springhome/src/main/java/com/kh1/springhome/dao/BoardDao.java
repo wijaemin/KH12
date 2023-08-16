@@ -25,4 +25,5 @@ public interface BoardDao {
 
 	public List<BoardDto> Search(String keyWord);
 
+	Integer selectMax(String board_wirter);
 }
