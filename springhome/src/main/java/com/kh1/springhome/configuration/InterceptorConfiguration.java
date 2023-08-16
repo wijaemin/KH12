@@ -34,7 +34,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 		//2.MemberInterceptor를 회원전용 페이지 처리 과정에서 간섭할수 있도록 설정
 		registry.addInterceptor(memberInterceptor)
 		.addPathPatterns("/member/**") //화이트리스트 전부다 등록후
-		.excludePathPatterns("/member/join*","/member/login","/member/exitFinish"); //허용할것을 등록
+	
+		.excludePathPatterns("/member/join*","/member/login","/member/exitFinish");//허용할것을 등록
+		
 	}
 
 }

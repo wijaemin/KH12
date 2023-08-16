@@ -18,9 +18,11 @@ public interface BoardDao {
 	public boolean updateUtime(int board_no);
 
 	public boolean updateDetail(int board_no);
+	
+	public boolean updateLike(int board_no);
 
 	public boolean delete(int board_no);
 
-	public List<BoardDto> SearchContaining(String keyWord);
+	public List<BoardDto> Search(String keyWord);
 
 }

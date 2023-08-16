@@ -12,9 +12,9 @@ body {
 
 <form action="write"method="post" autocomplete="off">
 
-<h1 align="right"><button>게시글 저장</button></h1><br>
-게시글 제목 : <input name="board_title" type="text" required ><br><br>
-게시글 내용 : <br><br><textarea name="board_content" cols="100" rows="30" required >
+<h1 align="right"><button style="background-color: graytext;">게시글 저장</button></h1><br>
+게시글 제목 : <input style="background-color: graytext;" name="board_title" type="text" required ><br><br>
+게시글 내용 : <br><br><textarea style="background-color: graytext;" name="board_content" cols="100" rows="30" required >
 </textarea><br>
 
 </form>

@@ -44,20 +44,25 @@ public class BoardController {
 		boardDto.setBoard_no(board_no);
 		boardDto.setBoard_writer(board_writer);
 		boardDao.write(boardDto);
-		return "redirect:list";
+		return "redirect:detail?board_no="+board_no;
 	}
 
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<BoardDto> list = boardDao.list();
-		model.addAttribute("list", list);
+		model.addAttribute("list", boardDao.list());//검색기능 대비 변수줄이자!
+		//model.addAttribute("list", list);//둘다 같다
 		return "/WEB-INF/views/board/list.jsp";
 	}
 
 	@RequestMapping("/detail")
 	public String detail(@RequestParam int board_no, Model model, HttpSession session) {
-		BoardDto boardDto = boardDao.detail(board_no);
-		boardDao.updateDetail(board_no);
+		BoardDto boardDto = boardDao.detail(board_no); //조회
+		
+	//	if(조회수를 올릴만한 상황이면)
+		//{				
+			boardDao.updateDetail(board_no); //조회수 증가
+	//}
 		model.addAttribute("boardDto", boardDto);
 
 		String memberId = (String) session.getAttribute("name");
@@ -102,7 +107,33 @@ public class BoardController {
 			return "redirect:/";
 		}
 	}
+	@RequestMapping("/updateLike")
+	public String updateLike(@RequestParam int board_no, 
+			HttpSession session, @ModelAttribute BoardDto inputDto) {
+
+		String board_writer = (String) session.getAttribute("name");
+		BoardDto boardDto = boardDao.detail(board_no);
+		if (board_writer.equals(boardDto.getBoard_writer())) {
+			boardDao.updateLike(board_no);
+			return "redirect:list";
+		} else {
+			return "redirect:/";
+		}
+	}
+	@GetMapping("/search")
+	public String search() {
+
+		return "/WEB-INF/views/board/search.jsp";
+	}
  
+	@PostMapping("/search")
+	public String search(@RequestParam String keyWord, @ModelAttribute Model model) {
+	List<BoardDto>list =	boardDao.Search(keyWord);
+	model.addAttribute("list",list);
+		return "/WEB-INF/views/board/search.jsp";
+	}
+	
+	
 	}
 
 

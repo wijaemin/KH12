@@ -15,8 +15,8 @@ body {
 
 <h1 align="right"><button>게시글 수정</button></h1><br><br>
 <input type="hidden" name="board_no" value="${boardDto.board_no}">
-게시글 제목 : <input name="board_title" type="text" value =${boardDto.board_title} required><br><br>
-게시글 내용 : <br><textarea name="board_content" cols="100" rows="30" required  >
+게시글 제목 : <input style="background-color: graytext;" name="board_title" type="text" value ="${boardDto.board_title}" required ><br><br>
+게시글 내용 : <br><textarea style="background-color: graytext;" name="board_content"  cols="100" rows="30" required  >
 ${boardDto.board_content}
 </textarea><br>
 </form>

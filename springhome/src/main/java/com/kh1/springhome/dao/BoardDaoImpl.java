@@ -36,7 +36,9 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardDto> list() {
-		String sql = "select * from board order by board_no asc";
+		String sql = "select board_no,board_writer,board_title, board_readcount,"
+				+ "board_likecount,board_replycount,BOARD_CTIME ,BOARD_UTIME  "
+				+ "from board order by board_no asc";
 		return tem.query(sql, boardlistMapper);
 	}
 
@@ -82,17 +84,24 @@ public class BoardDaoImpl implements BoardDao {
 		Object[] ob = {board_no};
 		return tem.update(sql,ob) >0;
 	}
+	
+	@Override
+	public boolean updateLike(int board_no) {
+		String sql = "update board set board_likecount =board_likecount+1 where board_no=?";
+		Object[] ob = {board_no};
+		return tem.update(sql,ob) >0;
+	}
+
 
 	@Override
-	public List<BoardDto> SearchContaining(String keyWord) {
-		String sql = "select board_no,board_writer,board_title, "
-				+ "board_readcount,board_likecount,board_replycount,"
-				+ "board_ctime,board_utime "
-				+ "from board where board_title= ?";
+	public List<BoardDto> Search(String keyWord) {
+		String sql = "select board_no,board_writer,board_title "
+				+ "from board where board_title= '?'";
 		Object[] ob = { keyWord };
 		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
 		return list.isEmpty() ? null : (List<BoardDto>) list.get(0);
 	}
+
 
 
 }
