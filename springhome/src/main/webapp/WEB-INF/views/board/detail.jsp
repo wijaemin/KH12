@@ -35,7 +35,7 @@ body {
 			
 		</tr>
 
-<<<<<<< HEAD
+
 </table><br>
 <h3 >게시글 기타정보</h3><br>
 <table border="1" style="background-color: black;" width ="900"  >
@@ -67,10 +67,7 @@ body {
 </table><br>
 
 
-=======
-</table><br><br>
-<a href="edit?board_no=${boardDto.board_no}">게시글 수정하기</a><br><br>
-<a href="list">게시글 돌아가기</a><br><br>
-<a href="delete">게시글 삭제하기</a><br><br>
->>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
+
+
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

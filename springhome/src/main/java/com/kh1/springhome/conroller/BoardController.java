@@ -35,14 +35,11 @@ public class BoardController {
 	}
 
 	@PostMapping("/write")
-<<<<<<< HEAD
-	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
-		String board_writer = (String) session.getAttribute("name");
-=======
+
 	public String write(@ModelAttribute BoardDto boardDto,
 			HttpSession session) {
 		String board_writer =(String) session.getAttribute("name");
->>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
+
 		int board_no = boardDao.sequence();
 		boardDto.setBoard_no(board_no);
 		boardDto.setBoard_writer(board_writer);
@@ -90,7 +87,7 @@ public class BoardController {
 			return "redirect:에러페이지";
 		}
 	}
-<<<<<<< HEAD
+
 
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int board_no, 
@@ -105,45 +102,7 @@ public class BoardController {
 			return "redirect:/";
 		}
 	}
-
-
-
-
-@GetMapping("/search")
-public String search(Model model, 
-                        String keyword) { // 검색 키워드를 keyword로 전달 받음
-
-    Page<board> list = null;
-
-    if (keyword == null) {  // 검색할 키워드가 들어오지 않은 경우 전체 리스트 출력
-        list = boardService.boardList(pageable);
-    } else {  // 검색할 키워드가 들어온 경우 검색 기능이 포함된 리스트 반환
-        list = boardService.boardSearchList(keyword, pageable);
-    }
-
-   
-
-    model.addAttribute("list", list);
-    model.addAttribute("nowPage", nowPage);
-    model.addAttribute("startPage", startPage);
-    model.addAttribute("endPage", endPage);
-
-    return "boardlist";
-=======
-	@RequestMapping("/delete")
-	public String delete(HttpSession session,BoardDto inputDto, int board_no) {
-		String board_writer = (String) session.getAttribute("name");
-		BoardDto boardDto = boardDao.detail(board_no);
-		if(boardDto.getBoard_writer().equals(inputDto.getBoard_writer())) {
-		boardDao.delete(board_no);
-		return "redirect:list";
-		}
-		else {
-			return"redirect:에러페이지";
-		}
+ 
 	}
-	
->>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
-}
 
-}
+

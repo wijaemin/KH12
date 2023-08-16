@@ -14,7 +14,6 @@ public interface BoardDao {
 	public BoardDto detail(int board_no);
 
 	public boolean edit(BoardDto dto);
-<<<<<<< HEAD
 
 	public boolean updateUtime(int board_no);
 
@@ -23,11 +22,5 @@ public interface BoardDao {
 	public boolean delete(int board_no);
 
 	public List<BoardDto> SearchContaining(String keyWord);
-	
-	 Page<BoardDto> findByTitleContaining(String searchKeyword, Pageable pageable);
+
 }
-=======
-	public boolean updateUtime(int board_no);
-	public boolean delete(int board_no);
-}
->>>>>>> branch 'main' of https://github.com/tpfkalrrltk/KH12.git
