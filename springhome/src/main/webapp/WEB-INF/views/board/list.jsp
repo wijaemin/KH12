@@ -29,20 +29,41 @@ body {
 		<th>게시글 댓글수</th>
 		<th>게시글 작성일</th>
 		<th>게시글 수정일</th>
-	</tr>
-	<c:forEach var="boardDto" items="${list}">
-	<tr>
+	</tr>	
+	<c:forEach var="boardDto" items="${list}"><tr>
 		<td>${boardDto.board_no}</td>
+	<%-- 방법1 Dto에서 만들어서 처리(효율적)--%>
+	<td>${boardDto.getBoardWriterString()}</td>
+
+
+<%--  방법2 sql구문에서 처리
+
+	
+		
+		<c:choose>
+		<c:when test="${boardDto.board_writer != null}">
 		<td>${boardDto.board_writer}</td>
+		</c:when>
+		<c:otherwise>
+		<td>탈퇴한 사용자</td>
+		</c:otherwise>
+		</c:choose>
+		--%>
+		
+		<!-- 댓글이 있다면 개수를 표시 -->
+		<c:if test="${boardDto.board_replycount > 0}">
+				[${boardDto.board_replycount}]
+				</c:if>
 		<td><a href="detail?board_no=${boardDto.board_no}">${boardDto.board_title}</a></td>
 		<td>${boardDto.board_readcount}</td>
 		<td>${boardDto.board_likecount}</td>
 		<td>${boardDto.board_replycount}</td>
-		<td><fmt:formatDate value="${boardDto.board_ctime}" pattern="yyyy/MM/dd hh:mm:ss" /></td>
+		<td>${boardDto.boardCtimeString}</td>
 		<td><fmt:formatDate value="${boardDto.board_utime}" pattern="yyyy/MM/dd hh:mm:ss" /></td>
 	</tr>
 	</c:forEach>
 </table>
+
 </div>
 <br><br>
 <div align="center">

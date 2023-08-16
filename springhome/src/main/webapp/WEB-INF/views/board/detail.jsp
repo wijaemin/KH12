@@ -56,7 +56,7 @@ body {
 
 	<tr>
 		<td>${boardDto.board_no}</td>
-		<td>${boardDto.board_writer}</td>
+		<td>${boardDto.getBoardWriterString()}</td>
 		<td>${boardDto.board_title}</td>
 
 	</tr>
