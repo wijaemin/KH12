@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dto.BoardDto;
+import com.kh1.springhome.error.AuthorityException;
 import com.kh1.springhome.error.NoTargetException;
 
 @Controller
@@ -65,16 +66,8 @@ public class BoardController {
 			boardDao.updateDetail(board_no); //조회수 증가
 	//}
 		model.addAttribute("boardDto", boardDto);
-
-		String memberId = (String) session.getAttribute("name");
-		boolean logTolog = memberId.equals(boardDto.getBoard_writer());
-		if (logTolog) {
-			return "/WEB-INF/views/board/detail.jsp";
-		} else {
-			boardDao.updateDetail(board_no);
 			return "/WEB-INF/views/board/detail.jsp";
 		}
-	}
 
 	@GetMapping("/edit")
 	public String edit(@RequestParam int board_no, Model model) {
@@ -93,19 +86,21 @@ public class BoardController {
 		}
 	}
 
-
+//삭제
+	//만약소유자 검사를 추가한다면
+	// 현재 로그인한 사용자와 게시글 작성자가 같다면 소유자로 판정
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int board_no, 
 			HttpSession session, @ModelAttribute BoardDto inputDto) {
-
-		String board_writer = (String) session.getAttribute("name");
 		BoardDto boardDto = boardDao.detail(board_no);
+		
+		String board_writer = (String) session.getAttribute("name");	
 		if (board_writer.equals(boardDto.getBoard_writer())) {
 			boardDao.delete(board_no);
 			return "redirect:list";
 		} else {
 		//	return "redirect:에러페이지"; 잘못됨
-		 throw new NoTargetException("없는 게시글 번호");
+		 throw new AuthorityException("글 작성자가 아닙니다.");
 		}
 	}
 	@RequestMapping("/updateLike")

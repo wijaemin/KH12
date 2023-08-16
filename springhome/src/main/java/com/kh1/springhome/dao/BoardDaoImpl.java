@@ -38,7 +38,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<BoardDto> list() {
 		String sql = "select board_no,board_writer,board_title, board_readcount,"
 				+ "board_likecount,board_replycount,BOARD_CTIME ,BOARD_UTIME  "
-				+ "from board order by board_no asc";
+				+ "from board order by board_no desc";
 		return tem.query(sql, boardlistMapper);
 	}
 
