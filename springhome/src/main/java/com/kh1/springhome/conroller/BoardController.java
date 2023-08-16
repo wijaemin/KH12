@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dto.BoardDto;
+import com.kh1.springhome.error.NoTargetException;
 
 @Controller
 @RequestMapping("/board")
@@ -86,10 +87,9 @@ public class BoardController {
 	public String edit(@ModelAttribute BoardDto boardDto) {
 		boolean result = boardDao.edit(boardDto);
 		if (result) {
-			boardDao.updateUtime(boardDto.getBoard_no());
 			return "redirect:detail?board_no=" + boardDto.getBoard_no();
 		} else {
-			return "redirect:에러페이지";
+			throw new NoTargetException("없는 게시글 번호");
 		}
 	}
 
@@ -104,21 +104,16 @@ public class BoardController {
 			boardDao.delete(board_no);
 			return "redirect:list";
 		} else {
-			return "redirect:/";
+		//	return "redirect:에러페이지"; 잘못됨
+		 throw new NoTargetException("없는 게시글 번호");
 		}
 	}
 	@RequestMapping("/updateLike")
-	public String updateLike(@RequestParam int board_no, 
-			HttpSession session, @ModelAttribute BoardDto inputDto) {
+	public String updateLike(@RequestParam int board_no 
+			) {
 
-		String board_writer = (String) session.getAttribute("name");
-		BoardDto boardDto = boardDao.detail(board_no);
-		if (board_writer.equals(boardDto.getBoard_writer())) {
 			boardDao.updateLike(board_no);
 			return "redirect:list";
-		} else {
-			return "redirect:/";
-		}
 	}
 	@GetMapping("/search")
 	public String search() {

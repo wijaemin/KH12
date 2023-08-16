@@ -12,10 +12,12 @@ body {
 	background-color: #778ca3;padding: 30px;
 }
 </style>
+<%--글쓰기는 로그인 상태일경우 출력 --%>
+<c:if test="${sessionScope.name != null}">
 <div align="right">
 <button style="background-color: #778cb9" ><h3><a href="write" >게시글 등록</a></h3></button>
 <button style="background-color: #778cb9" ><h3><a href="search" >임시 검색페이지</a></h3></button>
-</div><br><br>
+</div></c:if><br><br>
 <div align="center">
 <table border="1" style="background-color: black;" >
 	<tr>

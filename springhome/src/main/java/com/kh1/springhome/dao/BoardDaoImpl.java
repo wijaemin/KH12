@@ -58,18 +58,11 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public boolean edit(BoardDto boardDto) {
-		String sql = "update board set board_title=?, board_content=? where board_no = ? ";
+		String sql = "update board set board_title=?, board_content=?, board_utime=sysdate where board_no = ? ";
 		Object[] ob = { boardDto.getBoard_title(), boardDto.getBoard_content(), boardDto.getBoard_no() };
 		return tem.update(sql, ob) > 0;
 	}
 
-	@Override
-	public boolean updateUtime(int board_no) {
-
-		String sql = "update board set board_utime=sysdate where board_no =?";
-		Object[] ob = { board_no };
-		return tem.update(sql, ob) > 0;
-	}
 
 	@Override
 	public boolean delete(int board_no) {
@@ -95,11 +88,16 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardDto> Search(String keyWord) {
-		String sql = "select board_no,board_writer,board_title "
-				+ "from board where board_title= '?'";
+		String sql = "select * from board where instr(board_title, '?') > 0";
 		Object[] ob = { keyWord };
 		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
 		return list.isEmpty() ? null : (List<BoardDto>) list.get(0);
+	}
+
+	@Override
+	public boolean updateUtime(int board_no) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

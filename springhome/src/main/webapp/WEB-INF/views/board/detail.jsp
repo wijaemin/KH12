@@ -16,11 +16,13 @@ body {
 
 <h2 >게시글 상세조회</h2>
 <div align="right">
-<button style="background-color: #7700c9"><a href="updateLike?board_no=${boardDto.board_no}"><font color="ffffff">Like</font></a></button>
+<%-- 회원일경우 글쓰기,수정,삭제이 나와야한다 --%>
+<c:if test="${sessionScope.name != null}">
+<button style="background-color: #7700c9"><a href="updateLike?board_no=${boardDto.board_no}"><font color="ffffff" size="18">Like</font></a></button>
 <button style="background-color: #778cb9"><a href="edit?board_no=${boardDto.board_no}">게시글 수정</a></button>
 <button style="background-color: #778cb9"><a href="list">게시글 목록</a></button>
 <button style="background-color: #778cb9"><a href="delete?board_no=${boardDto.board_no}">게시글 삭제</a></button>
-
+</c:if>
 </div>
 <h3 >게시글 정보</h3><br>
 <table border="1" style="background-color: black;" >
@@ -70,7 +72,7 @@ body {
 
 <form >
 <h3>댓글</h3>
-<textarea cols="100" rows="5"  style="background-color: graytext"></textarea><br>
+<textarea cols="100" rows="5"  style="background-color: graytext" ></textarea><br>
 <button style="background-color: graytext">저장</button>
 </form>
 
