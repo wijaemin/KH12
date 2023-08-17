@@ -131,7 +131,7 @@ public class BoardController {
 //		if(isRead == false) { //읽은적이 없다면(4번)
 //			history.add(board_no); //글번호를 추가하고
 //			session.setAttribute("history", history); //session 갱신
-//			boardDao.updateDetail(board_no); //조회수 증가
+
 //		}
 //		log.debug("history={}",history);//확인용 검사 코드
 //		

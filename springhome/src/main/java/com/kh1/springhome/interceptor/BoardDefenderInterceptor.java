@@ -58,7 +58,7 @@ public class BoardDefenderInterceptor implements HandlerInterceptor {
 		
 		
 //		if(내글도 아니고 읽은적도 없으면) {
-		if(isOwner && isRead) {
+		if(isOwner ==false&& isRead ==false) {
 			boardDao.updateDetail(board_no);
 		}
 		return true;
