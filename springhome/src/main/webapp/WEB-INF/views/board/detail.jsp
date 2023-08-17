@@ -59,7 +59,7 @@ body {
 		<td>${boardDto.getBoardWriterString()}
 		<%-- 탈퇴한 사용자가 아닐경우 옆에 닉네임을 추가로 출력 --%>
 		<c:if test="${writerDto !=null }">
-		닉네임(${writerDto.memberNickname})</c:if>
+		,닉네임 : ${writerDto.memberNickname}</c:if>
 		</td>
 		<td>${boardDto.board_title}</td>
 

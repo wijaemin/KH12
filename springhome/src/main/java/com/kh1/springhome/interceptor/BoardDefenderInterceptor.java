@@ -47,7 +47,7 @@ public class BoardDefenderInterceptor implements HandlerInterceptor {
 			history = new HashSet<>();
 		}
 		boolean isRead =history.contains(board_no);
-		if(isRead) {
+		if(isRead == false) {
 			history.add(board_no);
 			session.setAttribute("history", history);			
 		}

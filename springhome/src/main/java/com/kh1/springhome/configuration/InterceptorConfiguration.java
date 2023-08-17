@@ -51,7 +51,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 		// 3. 게시글 소유자 외 접근을 차단하는 인터셉터 등록
 		registry.addInterceptor(boardOwnerInterceptor).addPathPatterns("/board/edit", "/board/delete");
 
-		// 4. 게시글 조회수 중복 방지 인터셉터 등록
-		registry.addInterceptor(boardDefenderInterceptor).addPathPatterns("/board/detail");
+		//[4] 게시글 조회수 중복방지 인터셉터 등록
+				registry.addInterceptor(boardDefenderInterceptor)
+							.addPathPatterns("/board/detail");
 	}
 }
