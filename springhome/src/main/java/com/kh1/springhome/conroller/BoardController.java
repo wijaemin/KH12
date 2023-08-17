@@ -94,7 +94,7 @@ public class BoardController {
 			@RequestParam(required = false) String keyword) {
 		boolean isSearch = type != null && keyword != null;
 	if(isSearch) { //검색일 경우
-		List<BoardListDto> list  = boardDao.selectList(type, keyword);
+		List<BoardListDto> list  = boardDao.search(type, keyword);
 		model.addAttribute("list",list);
 	}
 	else { //목록일 경우

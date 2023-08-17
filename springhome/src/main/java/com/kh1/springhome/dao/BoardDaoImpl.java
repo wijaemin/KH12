@@ -120,7 +120,7 @@ public class BoardDaoImpl implements BoardDao {
 	
 	// 추천 2 
 	@Override
-	public List<BoardListDto> selectList(String type, String keyword) {
+	public List<BoardListDto> search(String type, String keyword) {
 		String sql = "select * from board_list where instr(#1, ?) > 0" 
 				+ " order by board_no desc";
 		sql = sql.replace("#1", type); // 이런방식도 있다. 둘다 사용가능

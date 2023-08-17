@@ -22,7 +22,7 @@ public interface BoardDao {
 
 	public boolean delete(int board_no);
 
-	public List<BoardListDto> selectList(String type, String keyword);
+	public List<BoardListDto> search(String type, String keyword);
 
 	Integer selectMax(String board_wirter);
 }
