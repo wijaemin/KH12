@@ -90,7 +90,7 @@ public class BoardDaoImpl implements BoardDao {
 		return tem.update(sql, ob) > 0;
 	}
 
-//잘못된 검색 시스템의 예(
+//잘못된 검색 시스템의 예{(
 //	@Override
 //	public List<BoardDto> selectList(String type,String keyword) {
 //		String sql;
