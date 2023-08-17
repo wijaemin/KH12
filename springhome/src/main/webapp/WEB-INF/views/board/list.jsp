@@ -12,11 +12,18 @@ body {
 	background-color: #778ca3;padding: 30px;
 }
 </style>
+<%--검색일 경우 검색어를 추가로 출력 --%><c:if test="${param.keyword !=null} && ${param.type == 'board_writer'}">
+<h3>게시판 아이디 &quot;${param.keyword}&quot;에 대한 검색 결과</h3>
+</c:if>
+<c:if test="${param.keyword !=null}">
+<h3>${param.type} &quot;${param.keyword}&quot;에 대한 검색 결과</h3>
+</c:if>
+
 <%--글쓰기는 로그인 상태일경우 출력 --%>
-<c:if test="${sessionScope.name != null}">
+<c:if test="${sessionScope.name != null}"> 
 <div align="right">
 <button style="background-color: #778cb9" ><h3><a href="write" >게시글 등록</a></h3></button>
-<button style="background-color: #778cb9" ><h3><a href="search" >임시 검색페이지</a></h3></button>
+
 </div></c:if><br><br>
 <div align="center">
 <table border="1" style="background-color: black;" >
@@ -68,11 +75,25 @@ body {
 <br><br>
 <div align="center">
 <form style="background-color: #778ca3" action="list" method="get">
-<select name="type" style="background-color: #578ca3">
+
+<c:choose>
+<c:when test="${param.type == 'board_writer'}"> 
+<select name="type" style="background-color: #578ca3" required="required">
 <option value="board_title" >제목</option>
+<option value="board_writer" selected="selected">작성자</option>
+</select>
+</c:when>
+<c:otherwise>
+<select name="type" style="background-color: #578ca3" required="required">
+<option value="board_title" selected="selected" >제목</option>
 <option value="board_writer">작성자</option>
 </select>
-<input type="search" name="keyword" required="required" style="background-color: #578ca3" placeholder="검색하실 이름을 입력해주세요"> <button style="color: #778ca3">검색</button>
+</c:otherwise>
+</c:choose>
+
+
+
+<input type="search" name="keyword" required="required" style="background-color: #578ca3" placeholder="검색하실 이름을 입력해주세요" value="${param.keyword }"> <button style="color: #778ca3">검색</button>
 </form></div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
