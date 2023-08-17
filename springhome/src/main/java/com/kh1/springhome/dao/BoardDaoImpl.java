@@ -37,8 +37,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<BoardDto> list() {
 		String sql = "select board_no,board_writer,board_title, board_readcount,"
-				+ "board_likecount,board_replycount,BOARD_CTIME ,BOARD_UTIME  "
-				+ "from board order by board_no desc";
+				+ "board_likecount,board_replycount,BOARD_CTIME ,BOARD_UTIME  " + "from board order by board_no desc";
 		return tem.query(sql, boardlistMapper);
 	}
 
@@ -63,7 +62,6 @@ public class BoardDaoImpl implements BoardDao {
 		return tem.update(sql, ob) > 0;
 	}
 
-
 	@Override
 	public boolean delete(int board_no) {
 		String sql = "delete board where board_no =?";
@@ -74,40 +72,61 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public boolean updateDetail(int board_no) {
 		String sql = "update board set board_readcount =board_readcount+1 where board_no=?";
-		Object[] ob = {board_no};
-		return tem.update(sql,ob) >0;
+		Object[] ob = { board_no };
+		return tem.update(sql, ob) > 0;
 	}
-	
+
 	@Override
 	public boolean updateLike(int board_no) {
 		String sql = "update board set board_likecount =board_likecount+1 where board_no=?";
-		Object[] ob = {board_no};
-		return tem.update(sql,ob) >0;
+		Object[] ob = { board_no };
+		return tem.update(sql, ob) > 0;
 	}
 
+//잘못된 검색 시스템의 예(
+//	@Override
+//	public List<BoardDto> selectList(String type,String keyword) {
+//		String sql;
+//		if(type.equals("board_title") ) {//type이 제목인경우
+//			sql= "select * from board where instr(board_title, ?) > 0"
+//				+ " order by board_no desc";
+//		}
+//		else {sql= "select * from board where instr(board_writer , ?) >0"+
+//				"order by board_no desc";}//type이 작성자인경우
+//		
+//		Object[] ob = { keyword };
+//		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
+//		return list;
+//	}
 
+	
+	//이게 제일 베스트 인듯?
+//	@Override 
+//	public List<BoardDto> selectList(String type,String keyword) {
+//		String sql= "select * from board where instr("+type+", ?) > 0" //홀더는 "+type+" 이런식으로 해야한다(값(데이터)이 아니기 때문이다.
+//				+ " order by board_no desc";
+//	
+//		Object[] ob = { keyword };
+//		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
+//		return list;
+//	}
+	
+	// 추천 2 
 	@Override
-	public List<BoardDto> Search(String keyWord) {
-		String sql = "select * from board where instr(board_title, '?') > 0";
-		Object[] ob = { keyWord };
+	public List<BoardDto> selectList(String type, String keyword) {
+		String sql = "select * from board where instr(#1, ?) > 0" 
+				+ " order by board_no desc";
+		sql = sql.replace("#1", type); // 이런방식도 있다. 둘다 사용가능
+		Object[] ob = { keyword };
 		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
-		return list.isEmpty() ? null : (List<BoardDto>) list.get(0);
-	}
-
-	@Override
-	public boolean updateUtime(int board_no) {
-		// TODO Auto-generated method stub
-		return false;
+		return list;
 	}
 
 	@Override
 	public Integer selectMax(String board_wirter) {
-		String sql ="select max(board_no) from board where board_writer = ?";
-		Object[] ob = {board_wirter};
-		return tem.queryForObject(sql,Integer.class,ob);
+		String sql = "select max(board_no) from board where board_writer = ?";
+		Object[] ob = { board_wirter };
+		return tem.queryForObject(sql, Integer.class, ob);
 	}
 
-
-
 }
-

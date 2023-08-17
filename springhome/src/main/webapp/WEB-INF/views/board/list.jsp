@@ -67,8 +67,12 @@ body {
 </div>
 <br><br>
 <div align="center">
-<form style="background-color: #778ca3" action="search" method="post">
-<input name="keyWord" required="required" style="background-color: #578ca3" placeholder="검색하실 이름을 입력해주세요"> <button style="color: #778ca3">검색</button>
+<form style="background-color: #778ca3" action="list" method="get">
+<select name="type" style="background-color: #578ca3">
+<option value="board_title" >제목</option>
+<option value="board_writer">작성자</option>
+</select>
+<input type="search" name="keyword" required="required" style="background-color: #578ca3" placeholder="검색하실 이름을 입력해주세요"> <button style="color: #778ca3">검색</button>
 </form></div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

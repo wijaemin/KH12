@@ -76,11 +76,27 @@ public class BoardController {
 		return "redirect:detail?board_no="+board_no;
 	}
 
+	
+	// 목록+검색
+	// 검색일경우 type과 keyword라는 파라미터가 존재
+	// 목록일경우 type과 keyword라는 파라미터가 없음
+	// 만약 불완전한 상태( type이나 keyword만 있는경우)목록으로 처리
+	
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session, BoardDto boardDto,
+			@RequestParam(required = false) String type,
+			@RequestParam(required = false) String keyword) {
+		boolean isSearch = type != null && keyword != null;
+	if(isSearch) { //검색일 경우
+		List<BoardDto> list  = boardDao.selectList(type, keyword);
+		model.addAttribute("list",list);
+	}
+	else { //목록일 경우
 		List<BoardDto> list = boardDao.list();
-		model.addAttribute("list", boardDao.list());//검색기능 대비 변수줄이자!
 		//model.addAttribute("list", list);//둘다 같다
+		model.addAttribute("list",boardDao.list());//검색기능 대비 변수줄이자!
+		model.addAttribute("isSearch", false);
+	}	
 		return "/WEB-INF/views/board/list.jsp";
 	}
 
@@ -143,12 +159,7 @@ public class BoardController {
 		return "/WEB-INF/views/board/search.jsp";
 	}
  
-	@PostMapping("/search")
-	public String search(@RequestParam String keyWord, @ModelAttribute Model model) {
-	List<BoardDto>list =	boardDao.Search(keyWord);
-	model.addAttribute("list",list);
-		return "/WEB-INF/views/board/search.jsp";
-	}
+
 	
 	
 	

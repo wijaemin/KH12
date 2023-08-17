@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.kh1.springhome.error.AuthorityException;
+import com.kh1.springhome.error.NoTargetException;
 
 // 회원인지 아닌지  검사하여 비회원을 차단하는 인터셉터 구현
 // 세션에서 name이라는 이름의 값이 있으면 회원, 없으면 비회원

@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  컨트롤러를 간섭하여 예외의 상황을 다르게 처리하도록 하는 객체
  등록시 @controllerAdvice라고 등록
  @restController를 간섭할 경우에는 @restControllerAdvice를 사용
- 적용대상을 옵셥으로 지정
+ 적용대상을 옵션으로 지정
  */
 //@ControllerAdvice(basePackages = {"com.kh1.springhome.controller"}) //절대표현
 
@@ -32,7 +32,7 @@ public class ExpceptionControllerAdvice {
 	public String error(Exception e) {
 //		e.printStackTrace();//이걸 넣으면 로그 찍을수 있다.
 		//에러로그에서는 예외객체 한개를 첨부할수 있다.(자동 print stack trace)
-		log.error("오류",e);
+		log.error("오류",e); 
 		return "/WEB-INF/views/error/500.jsp";
 	}
 	/**
