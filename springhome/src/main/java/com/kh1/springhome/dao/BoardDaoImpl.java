@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dto.BoardDto;
+import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.mapper.BoardListMapper;
 import com.kh1.springhome.mapper.BoardMapper;
 
@@ -35,9 +36,15 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardDto> list() {
-		String sql = "select board_no,board_writer,board_title, board_readcount,"
-				+ "board_likecount,board_replycount,BOARD_CTIME ,BOARD_UTIME  " + "from board order by board_no desc";
+	public List<BoardListDto> list() {
+		//기존 조회 구문
+//		String sql = "select * from board_list order by board_no desc";
+		
+		//계층형 조회 구문
+		String sql = "SELECT * FROM board_list "
+				+ "connect by Prior  board_no = board_parent "
+				+ "start WITH board_parent is NULL "
+				+ "order siblings by board_group desc, board_no asc";
 		return tem.query(sql, boardlistMapper);
 	}
 
@@ -113,12 +120,12 @@ public class BoardDaoImpl implements BoardDao {
 	
 	// 추천 2 
 	@Override
-	public List<BoardDto> selectList(String type, String keyword) {
-		String sql = "select * from board where instr(#1, ?) > 0" 
+	public List<BoardListDto> selectList(String type, String keyword) {
+		String sql = "select * from board_list where instr(#1, ?) > 0" 
 				+ " order by board_no desc";
 		sql = sql.replace("#1", type); // 이런방식도 있다. 둘다 사용가능
 		Object[] ob = { keyword };
-		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
+		List<BoardListDto> list = tem.query(sql, boardlistMapper, ob);
 		return list;
 	}
 

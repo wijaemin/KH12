@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dao.MemberDao;
 import com.kh1.springhome.dto.BoardDto;
+import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.dto.MemberDto;
 import com.kh1.springhome.error.AuthorityException;
 import com.kh1.springhome.error.NoTargetException;
@@ -93,11 +94,11 @@ public class BoardController {
 			@RequestParam(required = false) String keyword) {
 		boolean isSearch = type != null && keyword != null;
 	if(isSearch) { //검색일 경우
-		List<BoardDto> list  = boardDao.selectList(type, keyword);
+		List<BoardListDto> list  = boardDao.selectList(type, keyword);
 		model.addAttribute("list",list);
 	}
 	else { //목록일 경우
-		List<BoardDto> list = boardDao.list();
+		List<BoardListDto> list = boardDao.list();
 		//model.addAttribute("list", list);//둘다 같다
 		model.addAttribute("list",boardDao.list());//검색기능 대비 변수줄이자!
 		model.addAttribute("isSearch", false);
@@ -105,39 +106,55 @@ public class BoardController {
 		return "/WEB-INF/views/board/list.jsp";
 	}
 
+	//컨트롤러에서 조회수 중복방지 구현
+//	@RequestMapping("/detail")
+//	public String detail(@RequestParam int board_no, Model model, HttpSession session) {
+//		BoardDto boardDto = boardDao.detail(board_no); //조회
+//		
+//		// 조회수 중복 방지를 위한 마스터 플랜
+//		// 1.세션에 history라는 이름의 저장소가 있는지 확인한다.
+//		// 2. 없으면 생성, 있으면 추출한다.
+//		// 3. 지금있는 글 번호가 history에 존재하는지 확인한다.
+//		// 4. 없으면 추가하고 다시 세션에 저장
+//		
+//		//1
+//		Set<Integer> history;
+//		if(session.getAttribute("history") !=null) {//있으면(1번)
+//			history = (Set<Integer>) session.getAttribute("history");//(2번)
+//		}
+//		else { //없으면(1번)
+//		history = new HashSet<>(); //(2번)
+//		}
+//		
+//		boolean isRead = history.contains(board_no); //(3번)
+//		
+//		if(isRead == false) { //읽은적이 없다면(4번)
+//			history.add(board_no); //글번호를 추가하고
+//			session.setAttribute("history", history); //session 갱신
+//			boardDao.updateDetail(board_no); //조회수 증가
+//		}
+//		log.debug("history={}",history);//확인용 검사 코드
+//		
+//	//	if(조회수를 올릴만한 상황이면)
+//	//	if(isRead == false)
+//	//	{				
+//		//	boardDao.updateDetail(board_no); //조회수 증가
+//	//}
+//		model.addAttribute("boardDto", boardDto);
+//		
+//		//작성자의 회원정보 추가
+//		String board_writer = boardDto.getBoard_writer();
+//		if(board_writer !=null) {
+//			MemberDto memberDto = memberDao.selectOne(board_writer);
+//			model.addAttribute("writerDto",memberDto);
+//		}
+//			return "/WEB-INF/views/board/detail.jsp";
+//		}
+	
 	@RequestMapping("/detail")
 	public String detail(@RequestParam int board_no, Model model, HttpSession session) {
 		BoardDto boardDto = boardDao.detail(board_no); //조회
 		
-		// 조회수 중복 방지를 위한 마스터 플랜
-		// 1.세션에 history라는 이름의 저장소가 있는지 확인한다.
-		// 2. 없으면 생성, 있으면 추출한다.
-		// 3. 지금있는 글 번호가 history에 존재하는지 확인한다.
-		// 4. 없으면 추가하고 다시 세션에 저장
-		
-		//1
-		Set<Integer> history;
-		if(session.getAttribute("history") !=null) {//있으면(1번)
-			history = (Set<Integer>) session.getAttribute("history");//(2번)
-		}
-		else { //없으면(1번)
-		history = new HashSet<>(); //(2번)
-		}
-		
-		boolean isRead = history.contains(board_no); //(3번)
-		
-		if(isRead == false) { //읽은적이 없다면(4번)
-			history.add(board_no); //글번호를 추가하고
-			session.setAttribute("history", history); //session 갱신
-			boardDao.updateDetail(board_no); //조회수 증가
-		}
-		log.debug("history={}",history);//확인용 검사 코드
-		
-	//	if(조회수를 올릴만한 상황이면)
-	//	if(isRead == false)
-	//	{				
-		//	boardDao.updateDetail(board_no); //조회수 증가
-	//}
 		model.addAttribute("boardDto", boardDto);
 		
 		//작성자의 회원정보 추가

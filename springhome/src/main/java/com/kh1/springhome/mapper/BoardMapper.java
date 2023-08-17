@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.kh1.springhome.dto.BoardDto;
 
 @Component
-public class BoardMapper implements RowMapper<BoardDto>{
+public class BoardMapper implements RowMapper<BoardDto> {
 
 	@Override
 	public BoardDto mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -23,7 +23,16 @@ public class BoardMapper implements RowMapper<BoardDto>{
 		boardDto.setBoard_title(rs.getString("board_title"));
 		boardDto.setBoard_utime(rs.getDate("board_utime"));
 		boardDto.setBoard_writer(rs.getString("board_writer"));
-		return boardDto ;
+		
+		//1.int로 꺼낸다(null이 0으로 조회됨)	
+		// boardDto.setBoard_parent(rs.getInt("board_parent"));
+		
+		//2.integer 형태로 꺼낸다.(null이 그대로 조회됨
+		boardDto.setBoard_parent(rs.getObject("board_parent", Integer.class));
+
+		boardDto.setBoard_group(rs.getInt("board_group"));
+		boardDto.setBoard_depth(rs.getInt("board_depth"));
+		return boardDto;
 	}
 
 }

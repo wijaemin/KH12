@@ -6,13 +6,13 @@
 
 <h2>게시글 목록</h2>
 <style>
-td{text-align: center; background-color: silver;}
+td{ background-color: silver;}
 th{text-align: center; background-color: graytext;}
 body {
 	background-color: #778ca3;padding: 30px;
 }
 </style>
-<%--검색일 경우 검색어를 추가로 출력 --%><c:if test="${param.keyword !=null} && ${param.type == 'board_writer'}">
+<%--검색일 경우 검색어를 추가로 출력 --%><c:if test="${isSearch}">
 <h3>게시판 아이디 &quot;${param.keyword}&quot;에 대한 검색 결과</h3>
 </c:if>
 <c:if test="${param.keyword !=null}">
@@ -30,48 +30,73 @@ body {
 	<tr>
 		<th>게시글 번호</th>
 		<th>게시글 작성자</th>
+		<th>게시글 닉네임</th>
 		<th>게시글 이름</th>
 		<th>게시글 조회수</th>
 		<th>게시글 좋아요</th>
 		<th>게시글 댓글수</th>
 		<th>게시글 작성일</th>
 		<th>게시글 수정일</th>
-	</tr>	
-	<c:forEach var="boardDto" items="${list}"><tr>
-		<td>${boardDto.board_no}</td>
-	<%-- 방법1 Dto에서 만들어서 처리(효율적)--%>
-	<td>${boardDto.getBoardWriterString()}</td>
+		<th>그룹</th>
+		<th>상위</th>
+		<th>차수</th>
+	</tr>				
 
+	<c:forEach var="boardListDto" items="${list}"><tr>
+		<td align="center">${boardListDto.board_no}</td>
+	<%-- 방법1 Dto에서 만들어서 처리(효율적)--%>
+	
+	<td align="center">${boardListDto.getBoardWriterString()}</td>
+	
+<%-- 	<td>${boardListDto.getBoardWriterString()}</td> --%>
+	<td align="center">${boardListDto.member_nickname}</td><%-- 둘다 같은 표현식 --%>
 
 <%--  방법2 sql구문에서 처리
 
 	
 		
 		<c:choose>
-		<c:when test="${boardDto.board_writer != null}">
-		<td>${boardDto.board_writer}</td>
+		<c:when test="${boardListDto.board_writer != null}">
+		<td>${boardListDto.board_writer}</td>
 		</c:when>
 		<c:otherwise>
 		<td>탈퇴한 사용자</td>
 		</c:otherwise>
 		</c:choose>
 		--%>
-		
-		<!-- 댓글이 있다면 개수를 표시 -->
-		<c:if test="${boardDto.board_replycount > 0}">
-				[${boardDto.board_replycount}]
+				
+					<!-- 제목을 누르면 상세페이지 이동 -->
+		<td><a href="detail?board_no=${boardListDto.board_no}">
+				<!-- 댓글이 있다면 개수를 표시 -->
+		<c:if test="${boardListDto.board_replycount > 0}">
+				[${boardListDto.board_replycount}]
 				</c:if>
-		<td><a href="detail?board_no=${boardDto.board_no}">${boardDto.board_title}</a></td>
-		<td>${boardDto.board_readcount}</td>
-		<td>${boardDto.board_likecount}</td>
-		<td>${boardDto.board_replycount}</td>
-		<td>${boardDto.boardCtimeString}</td>
-		<td><fmt:formatDate value="${boardDto.board_utime}" pattern="yyyy/MM/dd hh:mm:ss" /></td>
+				
+				<!-- for(int i =1; i<${boardListDto.board_depth}; i++ -->
+				<c:forEach var="i" begin="1" end="${boardListDto.board_depth}" step="1">
+				&nbsp;&nbsp;
+				</c:forEach>
+				
+					<%--띄어쓰기 뒤에 화살표 표시 --%>
+				<%-- <c:if test="차수가 0보다 크면">→</c:if> --%>
+				<c:if test="${boardListDto.board_depth >0}">
+				<img src="/images/arrow.png" width="15" height="15">
+				</c:if>${boardListDto.board_title}</a></td>
+
+		
+		<td align="center">${boardListDto.board_readcount}</td>
+		<td align="center">${boardListDto.board_likecount}</td>
+		<td align="center">${boardListDto.board_replycount}</td>
+		<td align="center">${boardListDto.boardCtimeString}</td>
+		<td align="center"><fmt:formatDate value="${boardListDto.board_utime}" pattern="yyyy/MM/dd hh:mm:ss" /></td>
+	<td align="center">${boardListDto.board_group}</td>
+	<td align="center">${boardListDto.board_parent}</td>
+	<td align="center">${boardListDto.board_depth}</td>
 	</tr>
 	</c:forEach>
 </table>
-
 </div>
+
 <br><br>
 <div align="center">
 <form style="background-color: #778ca3" action="list" method="get">

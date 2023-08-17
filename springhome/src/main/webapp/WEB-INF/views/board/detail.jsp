@@ -77,6 +77,7 @@ body {
 		<th>게시글 댓글수</th>
 		<th>게시글 작성일</th>
 		<th>게시글 수정일</th>
+		<th>게시글 그룹</th>
 	</tr>
 	<tr>
 		<td>${boardDto.board_readcount}</td>
@@ -86,6 +87,7 @@ body {
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
 		<td><fmt:formatDate value="${boardDto.board_utime}"
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
+					<td>${boardDto.board_group}</td>
 	</tr>
 </table>
 
@@ -100,6 +102,8 @@ body {
 
 </table>
 <br>
+
+
 
 <form>
 	<h3>댓글</h3>

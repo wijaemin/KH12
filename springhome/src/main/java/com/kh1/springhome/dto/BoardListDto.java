@@ -1,6 +1,5 @@
 package com.kh1.springhome.dto;
 
-
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -11,22 +10,27 @@ import java.time.format.DateTimeFormatter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+//오로지 게시판 목록을 위한 DTO
+
 @Data
 @NoArgsConstructor
-public class BoardDto {
-
+public class BoardListDto {
+	private String member_nickname;
 	private int board_no, board_readcount, board_likecount, board_replycount;
-	private String board_writer, board_title, board_content;
+	private String board_writer, board_title;
 	private Date board_ctime, board_utime;
 	private String keyword;
 	private int  board_group, board_depth;
 	private Integer board_parent ;
+
+	
 //작성자 출력용 메소드
 	public String getBoardWriterString() {
 		if (board_writer == null) {
 			return "(탈퇴한 사용자)";
 		} else {
-			return board_writer;
+			return  board_writer;
 		}
 	}
 
@@ -45,3 +49,5 @@ public String getBoardCtimeString() {
 }
 
 }
+
+

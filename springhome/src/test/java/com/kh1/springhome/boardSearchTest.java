@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dto.BoardDto;
+import com.kh1.springhome.dto.BoardListDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +22,7 @@ public class boardSearchTest {
 public void test() {
 		String type = "board_writer";
 		String keyword = "test";
-		List<BoardDto> list = boardDao.selectList(type, keyword);
+		List<BoardListDto> list = boardDao.selectList(type, keyword);
 		log.debug("결과수:{}", list.size());
 	}
 }
