@@ -97,45 +97,59 @@ body {
 <!-- 페이지 네이게이터 출력 -->
 
 <h3 align="center">
-<!-- 이전 버튼 --><c:if test="${begin >1}">
-
+<!-- 이전 버튼 -->
+<c:if test="${begin >1}">
+<%-- 링크는 검색과 목록을 따로 구현 --%>
 <c:choose>
 <c:when test="${isSearch}">	
-<a href="list?page=${begin-1}&type=${param.type}&keyword=${param.keyword}">&lt;&laquo;</a></c:when>
-<c:otherwise><a href="list?page=${begin-1}">&lt;&laquo;</a></c:otherwise><!--&laquo; <<라는 뜻이다 -->
-</c:choose>
-</c:if>
-
-<!-- 숫자 부분 -->
-<c:forEach var="i" begin="${begin}" end="${end}" step="1">
-<%--if(현재페이지면) {${i}
-} 
-else {
-<a href="#">${i}</a>
-}--%>
-<c:choose>
-<c:when test="${page == i}">
-${i}
+<a href="list?page=${begin-1}&type=${param.type}&keyword=${param.keyword}">&lt;&laquo;</a>
 </c:when>
 <c:otherwise>
-<%--링크는 검색과 목록을 따로 구현 --%>
-<c:choose>
-<c:when test="${isSearch}">	
-<a href="list?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a></c:when>
-<c:otherwise><a href="list?page=${i}">${i}</a></c:otherwise>
-</c:choose>
-</c:otherwise>
-</c:choose>
-</c:forEach>
-<!-- 다음 버튼 --><c:if test="${end <pageCount}">
-
-<c:choose>
-<c:when test="${isSearch}">	
-<a href="list?page=${end+1}&type=${param.type}&keyword=${param.keyword}">&gt;&raquo;</a></c:when>
-<c:otherwise><a href="list?page=${end+1}">&gt;&raquo;</a></c:otherwise><!--&laquo; >>라는 뜻이다 -->
+<a href="list?page=${begin-1}">&lt;&laquo;</a>
+</c:otherwise><%--&laquo; <<라는 뜻이다 --%>
 </c:choose>
 </c:if>
+<!-- 숫자 버튼 -->
+<c:forEach var="i" begin="${begin}" end="${end}" step="1">
+	<c:choose>
+		<c:when test="${page == i}">
+			${i}	
+		</c:when>
+		<c:otherwise>
+			<%-- 링크는 검색과 목록을 따로 구현 --%>
+			<c:choose>
+				<c:when test="${isSearch}">
+					<a href="list?page=${i}&type=${param.type}&keyword=${param.keyword}">${i}</a>
+				</c:when>
+				<c:otherwise>
+					<a href="list?page=${i}">${i}</a>
+				</c:otherwise>
+			</c:choose>			
+		</c:otherwise>
+	</c:choose>
+</c:forEach>
+
+<!-- 다음 버튼 -->
+<c:if test="${end < pageCount}">
+	<%-- 링크는 검색과 목록을 따로 구현 --%>
+	<c:choose>
+		<c:when test="${isSearch}">
+			<a href="list?page=${end+1}&type=${param.type}&keyword=${param.keyword}">&gt;&raquo;</a>
+			<%--&raquo; <<라는 뜻이다 --%>
+		</c:when>
+		<c:otherwise>
+			<a href="list?page=${end+1}">&gt;&raquo;</a>
+		</c:otherwise>
+	</c:choose>			
+	
+</c:if>
+
+
 </h3>
+
+
+
+
 
 <br><br>
 <div align="center">
