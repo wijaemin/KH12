@@ -22,7 +22,7 @@ public class boardSearchTest {
 public void test() {
 		String type = "board_writer";
 		String keyword = "test";
-		List<BoardListDto> list = boardDao.selectList(type, keyword);
+		List<BoardListDto> list = boardDao.search(type, keyword);
 		log.debug("결과수:{}", list.size());
 	}
 }

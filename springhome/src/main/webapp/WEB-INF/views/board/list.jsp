@@ -71,12 +71,10 @@ body {
 		<c:if test="${boardListDto.board_replycount > 0}">
 				[${boardListDto.board_replycount}]
 				</c:if>
-				
 				<!-- for(int i =1; i<${boardListDto.board_depth}; i++ -->
 				<c:forEach var="i" begin="1" end="${boardListDto.board_depth}" step="1">
-				&nbsp;&nbsp;
+&nbsp;&nbsp;
 				</c:forEach>
-				
 					<%--띄어쓰기 뒤에 화살표 표시 --%>
 				<%-- <c:if test="차수가 0보다 크면">→</c:if> --%>
 				<c:if test="${boardListDto.board_depth >0}">

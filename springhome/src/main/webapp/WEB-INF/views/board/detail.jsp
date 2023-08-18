@@ -34,6 +34,11 @@ body {
 		<button style="background-color: #778cb9">
 			<a href="list">게시글 목록</a>
 		</button>
+		<button style="background-color: #778cb9">
+		<!-- 			답글쓰기는 board_parent를 기본으로 하여서 작성글을 해야한다. -->
+			<a href="write?board_parent=${boardDto.board_no}">답글 쓰기</a>
+
+		</button>
 	
 	<%-- 수정 삭제는 소유자일경우에만 나와야한다. --%>
 	<c:if test="${sessionScope.name == boardDto.board_writer}">

@@ -35,9 +35,21 @@ public class BoardController {
 	BoardDao boardDao;
 	@Autowired
 	MemberDao memberDao;
-
+	
+	//등록(새글 or 답글)
+	//-board_parent라는 항목에 유무에 따라 새글과 답글을 구분하여 처리
 	@GetMapping("/write")
-	public String write(HttpSession session) {
+	public String write(HttpSession session, Model model, @RequestParam(required = false) Integer board_parent) {
+		
+		//답글이라면 원본글정보를 화면에 전달
+		if(board_parent != null) {
+			BoardDto orginDto = boardDao.detail(board_parent);
+			model.addAttribute("orginDto",orginDto);
+			model.addAttribute("isReply",true);
+		}
+		else {
+			model.addAttribute("isReply",false);
+		} 
 		String memberId = (String) session.getAttribute("name");
 
 		boolean isLogin = memberId != null;
@@ -58,6 +70,28 @@ public class BoardController {
 		boardDto.setBoard_no(board_no);
 		boardDto.setBoard_writer(board_writer);
 		
+		//글을 등록하기 전에 새글/답글에 따른 그룹,상위글,차수를 계산
+//		if(새글) {그룹번호는 글번호
+//			상위글번호는 null
+//			차수는 0
+//		}
+//		else {
+//			그룹번호 는 원본글 그룹번호
+//			상위글번호는 원본글 번호
+//			차수는 원본글 차수 +1
+//		}
+		
+		if(boardDto.getBoard_parent() ==null) { //새글일경우
+			boardDto.setBoard_group(board_no);//그룹번호는 글번호로 설정
+			//boardDto.setBoard_parent(null)//상위글 번호는 null로 설정
+			//boardDto.setBoard_depth(0)// 차수 0으로 설정
+		}
+		else { //답글일 경우
+			BoardDto originDto =boardDao.detail(boardDto.getBoard_parent());//그룹번호 는 원본글 그룹번호
+			boardDto.setBoard_group(originDto.getBoard_group()); //상위글번호는 원본글 번호
+			//boardDto.setBoard_parent(originDto.getBoard_no());//	상위글번호는 원본글 번호
+			boardDto.setBoard_depth(originDto.getBoard_depth()+1);//	차수 원본글 차수 +1
+		}
 		//이사용자의 마지막 글번호 조회
 		Integer lastNo = boardDao.selectMax(board_writer);
 		 //글을 등록하고
