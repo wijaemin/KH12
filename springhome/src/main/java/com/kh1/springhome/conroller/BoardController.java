@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -125,16 +127,27 @@ public class BoardController {
 	@RequestMapping("/list")
 	public String list(Model model, HttpSession session, BoardDto boardDto,
 			@RequestParam(required = false) String type,
-			@RequestParam(required = false) String keyword) {
+			@RequestParam(required = false) String keyword,
+			@RequestParam(required = false, defaultValue = "1") int page) {
 		boolean isSearch = type != null && keyword != null;
+		
+		
+		//페이징과 관련된 값들을 계산하여 JSP로 전달
+		int begin =(page -1)/10 *10 +1;  
+		int end = begin +9 ;
+		model.addAttribute("begin",begin);
+		model.addAttribute("end",end);
+		
 	if(isSearch) { //검색일 경우
-		List<BoardListDto> list  = boardDao.search(type, keyword);
+		//List<BoardListDto> list  = boardDao.search(type, keyword);
+		List<BoardListDto> list  = boardDao.selectListByPage(type, keyword, page);
 		model.addAttribute("list",list);
 	}
 	else { //목록일 경우
-		List<BoardListDto> list = boardDao.list();
+		//List<BoardListDto> list = boardDao.list();
+		List<BoardListDto> list = boardDao.selectListByPage(page);
 		//model.addAttribute("list", list);//둘다 같다
-		model.addAttribute("list",boardDao.list());//검색기능 대비 변수줄이자!
+		model.addAttribute("list",boardDao.selectListByPage(page));//검색기능 대비 변수줄이자!
 		model.addAttribute("isSearch", false);
 	}	
 		return "/WEB-INF/views/board/list.jsp";
@@ -248,9 +261,6 @@ public class BoardController {
 	}
  
 
-	
-	
-	
 	
 	}
 

@@ -136,4 +136,39 @@ public class BoardDaoImpl implements BoardDao {
 		return tem.queryForObject(sql, Integer.class, ob);
 	}
 
+	@Override
+	public List<BoardListDto> selectListByPage(int page) {
+	//	int begin =page * 10-9;
+	//	int end = page*10;
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+					+ "select * from board_list "
+					+ "connect by prior board_no=board_parent "
+					+ "start with board_parent is null "
+					+ "order siblings by board_group desc, board_no asc"
+				+ ")TMP"
+			+ ") where rn between ? and ?";
+		Object[] ob = {page * 10-9,page*10};
+		return tem.query(sql, boardlistMapper, ob);
+	}
+
+	@Override
+	public List<BoardListDto> selectListByPage(String type, String keyword, int page) {
+		int begin =page * 10-9;
+		int end = page*10;
+		String sql="select * from ("+
+				" select rownum rn, TMP.* from ("
+					+" select * from board_list"
+					+ " where instr("+type+", ?) > 0"
+					+ " connect by Prior  board_no = board_parent" 
+					+" start WITH board_parent is NULL " 
+					+" order siblings by board_group desc, board_no asc"
+				+")TMP"
+				+") where rn between ? and ?";
+
+		
+		Object[] ob = {keyword,begin,end};
+		return tem.query(sql, boardlistMapper, ob);
+	}
+
 }

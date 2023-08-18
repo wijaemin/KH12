@@ -24,5 +24,9 @@ public interface BoardDao {
 
 	public List<BoardListDto> search(String type, String keyword);
 
-	Integer selectMax(String board_wirter);
+	public Integer selectMax(String board_wirter);
+	
+	public List<BoardListDto> selectListByPage(int page);
+	
+	public List<BoardListDto> selectListByPage(String type, String keyword, int page);
 }

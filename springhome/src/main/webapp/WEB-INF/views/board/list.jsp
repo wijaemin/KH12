@@ -94,6 +94,13 @@ body {
 	</c:forEach>
 </table>
 </div>
+<!-- 페이지 네이게이터 출력 -->
+
+<h3 align="center">
+<c:forEach var="i" begin="${begin}" end="${end}" step="1">
+${i}
+</c:forEach>
+</h3>
 
 <br><br>
 <div align="center">
