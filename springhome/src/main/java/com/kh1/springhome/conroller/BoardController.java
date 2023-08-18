@@ -143,7 +143,7 @@ public class BoardController {
 		List<BoardListDto> list  = boardDao.selectListByPage(type, keyword, page);
 		model.addAttribute("list",list);
 	}
-	else { //목록일 경우
+	else { //목록일 경우!
 		//List<BoardListDto> list = boardDao.list();
 		List<BoardListDto> list = boardDao.selectListByPage(page);
 		//model.addAttribute("list", list);//둘다 같다
