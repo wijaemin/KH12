@@ -29,4 +29,7 @@ public interface BoardDao {
 	public List<BoardListDto> selectListByPage(int page);
 	
 	public List<BoardListDto> selectListByPage(String type, String keyword, int page);
+	
+	public int countList();
+	public int countList(String type, String keyword);  
 }

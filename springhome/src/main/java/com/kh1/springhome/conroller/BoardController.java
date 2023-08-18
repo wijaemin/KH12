@@ -135,15 +135,22 @@ public class BoardController {
 		//페이징과 관련된 값들을 계산하여 JSP로 전달
 		int begin =(page -1)/10 *10 +1;  
 		int end = begin +9 ;
+		//int count = 지금 상황에 해당하는 전체 데이터 갯수 ((참고) count는 전체갯수 인지 목록갯수인지 모른다)
+		//int count = isSearch ? 검색결과수 : 목록개수;
+		int count = isSearch ? boardDao.countList(type, keyword) : boardDao.countList();
+		int pageCount = (count-1) / 10 +1;
+		model.addAttribute("page",page);
 		model.addAttribute("begin",begin);
-		model.addAttribute("end",end);
-		
+		//Math.min으로 둘중 작은값을 비교하여 출력한다
+		model.addAttribute("end",Math.min(pageCount, end)); 
+		model.addAttribute("pageCount",pageCount);
 	if(isSearch) { //검색일 경우
 		//List<BoardListDto> list  = boardDao.search(type, keyword);
 		List<BoardListDto> list  = boardDao.selectListByPage(type, keyword, page);
-		model.addAttribute("list",list);
+		model.addAttribute("list",list);		
+		model.addAttribute("isSearch", true);
 	}
-	else { //목록일 경우!
+	else { //목록일 경우
 		//List<BoardListDto> list = boardDao.list();
 		List<BoardListDto> list = boardDao.selectListByPage(page);
 		//model.addAttribute("list", list);//둘다 같다

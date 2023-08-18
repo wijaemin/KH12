@@ -171,4 +171,17 @@ public class BoardDaoImpl implements BoardDao {
 		return tem.query(sql, boardlistMapper, ob);
 	}
 
+	@Override
+	public int countList() {
+		String sql = "select count(*) from board";
+		return tem.queryForObject(sql, int.class);
+	}
+
+	@Override
+	public int countList(String type, String keyword) {
+		String sql = "select count(*) from board where instr("+type+",?) > 0";
+		Object[] ob = {keyword};
+		return tem.queryForObject(sql, int.class,ob);
+	}
+
 }
