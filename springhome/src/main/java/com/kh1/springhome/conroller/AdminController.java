@@ -42,7 +42,7 @@ MemberDao memberDao;
 		
 		return "/WEB-INF/views/admin/member/list.jsp";
 	}
-	@RequestMapping("/memberDetail")
+	@RequestMapping("/member/memberDetail")
 	public String memberDetail(@RequestParam String memberId, Model model) {
 		MemberDto memberDto = adminDao.detail(memberId);
 		model.addAttribute("memberDto",memberDto);

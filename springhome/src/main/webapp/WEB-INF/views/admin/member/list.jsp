@@ -26,8 +26,8 @@ body {
  </tr>
  <c:forEach var="memberList" items="${list}">
  <tr>
- <td>${memberList.memberId}</td>
-  <td><a href="memberDetail?memberId=${memberList.memberId}">${memberList.memberNickname}</a></td>
+ <td><a href="memberDetail?memberId=${memberList.memberId}">${memberList.memberId}</a></td>
+  <td>${memberList.memberNickname}</td>
    <td>${memberList.memberContact}</td>
     <td>${memberList.memberBirth}</td>
      <td>${memberList.memberEmail}</td>
