@@ -27,10 +27,10 @@ public interface BoardDao {
 
 	public Integer selectMax(String board_wirter);
 	
+	public List<BoardListDto> selectListByPage(String type, String keyword, int page);
 	public List<BoardListDto> selectListByPage(int page);
 	
-	public List<BoardListDto> selectListByPage(String type, String keyword, int page);
-	
+	public List<BoardListDto> selectListByPage(PaginationVo vo);
 	public int countList();
 	public int countList(String type, String keyword);  
 	

@@ -38,14 +38,12 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardListDto> list() {
-		//기존 조회 구문
+		// 기존 조회 구문
 //		String sql = "select * from board_list order by board_no desc";
-		
-		//계층형 조회 구문
-		String sql = "SELECT * FROM board_list "
-				+ "connect by Prior  board_no = board_parent "
-				+ "start WITH board_parent is NULL "
-				+ "order siblings by board_group desc, board_no asc";
+
+		// 계층형 조회 구문
+		String sql = "SELECT * FROM board_list " + "connect by Prior  board_no = board_parent "
+				+ "start WITH board_parent is NULL " + "order siblings by board_group desc, board_no asc";
 		return tem.query(sql, boardlistMapper);
 	}
 
@@ -107,8 +105,7 @@ public class BoardDaoImpl implements BoardDao {
 //		return list;
 //	}
 
-	
-	//이게 제일 베스트 인듯?
+	// 이게 제일 베스트 인듯?
 //	@Override 
 //	public List<BoardDto> selectList(String type,String keyword) {
 //		String sql= "select * from board where instr("+type+", ?) > 0" //홀더는 "+type+" 이런식으로 해야한다(값(데이터)이 아니기 때문이다.
@@ -118,12 +115,11 @@ public class BoardDaoImpl implements BoardDao {
 //		List<BoardDto> list = tem.query(sql, boardlistMapper, ob);
 //		return list;
 //	}
-	
-	// 추천 2 
+
+	// 추천 2
 	@Override
 	public List<BoardListDto> search(String type, String keyword) {
-		String sql = "select * from board_list where instr(#1, ?) > 0" 
-				+ " order by board_no desc";
+		String sql = "select * from board_list where instr(#1, ?) > 0" + " order by board_no desc";
 		sql = sql.replace("#1", type); // 이런방식도 있다. 둘다 사용가능
 		Object[] ob = { keyword };
 		List<BoardListDto> list = tem.query(sql, boardlistMapper, ob);
@@ -139,36 +135,25 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardListDto> selectListByPage(int page) {
-	//	int begin =page * 10-9;
-	//	int end = page*10;
-		String sql = "select * from ("
-				+ "select rownum rn, TMP.* from ("
-					+ "select * from board_list "
-					+ "connect by prior board_no=board_parent "
-					+ "start with board_parent is null "
-					+ "order siblings by board_group desc, board_no asc"
-				+ ")TMP"
-			+ ") where rn between ? and ?";
-		Object[] ob = {page * 10-9,page*10};
+		// int begin =page * 10-9;
+		// int end = page*10;
+		String sql = "select * from (" + "select rownum rn, TMP.* from (" + "select * from board_list "
+				+ "connect by prior board_no=board_parent " + "start with board_parent is null "
+				+ "order siblings by board_group desc, board_no asc" + ")TMP" + ") where rn between ? and ?";
+		Object[] ob = { page * 10 - 9, page * 10 };
 		return tem.query(sql, boardlistMapper, ob);
 	}
 
 	@Override
 	public List<BoardListDto> selectListByPage(String type, String keyword, int page) {
-		int begin =page * 10-9;
-		int end = page*10;
-		String sql="select * from ("+
-				" select rownum rn, TMP.* from ("
-					+" select * from board_list"
-					+ " where instr("+type+", ?) > 0"
-					+ " connect by Prior  board_no = board_parent" 
-					+" start WITH board_parent is NULL " 
-					+" order siblings by board_group desc, board_no asc"
-				+")TMP"
-				+") where rn between ? and ?";
+		int begin = page * 10 - 9;
+		int end = page * 10;
+		String sql = "select * from (" + " select rownum rn, TMP.* from (" + " select * from board_list"
+				+ " where instr(" + type + ", ?) > 0" + " connect by Prior  board_no = board_parent"
+				+ " start WITH board_parent is NULL " + " order siblings by board_group desc, board_no asc" + ")TMP"
+				+ ") where rn between ? and ?";
 
-		
-		Object[] ob = {keyword,begin,end};
+		Object[] ob = { keyword, begin, end };
 		return tem.query(sql, boardlistMapper, ob);
 	}
 
@@ -180,22 +165,30 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public int countList(String type, String keyword) {
-		String sql = "select count(*) from board where instr("+type+",?) > 0";
-		Object[] ob = {keyword};
-		return tem.queryForObject(sql, int.class,ob);
+		String sql = "select count(*) from board where instr(" + type + ",?) > 0";
+		Object[] ob = { keyword };
+		return tem.queryForObject(sql, int.class, ob);
 	}
 
 	@Override
 	public int countList(PaginationVo vo) {
-		if(vo.isSearch()) {
-			String sql = "select count(*) from board "
-					+ "where instr("+vo.getType()+", ?) > 0";
-			Object[] ob = {vo.getKeyword()};
+		if (vo.isSearch()) {
+			String sql = "select count(*) from board where instr(" + vo.getType() + ", ?) > 0";
+			Object[] ob = { vo.getKeyword() };
 			return tem.queryForObject(sql, int.class, ob);
-		}
-		else {
+		} else {
 			String sql = "select count(*) from board";
 			return tem.queryForObject(sql, int.class);
+		}
+	}
+
+	@Override
+	public List<BoardListDto> selectListByPage(PaginationVo vo) {
+		if (vo.isSearch()) {
+			return selectListByPage(vo.getType(), vo.getKeyword(), vo.getPage());
+
+		} else {
+			return selectListByPage(vo.getPage());
 		}
 	}
 
