@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.kh1.springhome.dto.BoardDto;
 import com.kh1.springhome.dto.BoardListDto;
-import com.kh1.springhome.vo.PaginationVo;
+import com.kh1.springhome.vo.PaginationVO;
 
 public interface BoardDao {
 	void write(BoardDto boardDto);
@@ -30,9 +30,9 @@ public interface BoardDao {
 	public List<BoardListDto> selectListByPage(String type, String keyword, int page);
 	public List<BoardListDto> selectListByPage(int page);
 	
-	public List<BoardListDto> selectListByPage(PaginationVo vo);
+	public List<BoardListDto> selectListByPage(PaginationVO vo);
 	public int countList();
 	public int countList(String type, String keyword);  
 	
-	public int countList(PaginationVo vo);
+	public int countList(PaginationVO vo);
 }

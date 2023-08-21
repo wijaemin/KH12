@@ -12,7 +12,7 @@ import com.kh1.springhome.dto.BoardDto;
 import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.mapper.BoardListMapper;
 import com.kh1.springhome.mapper.BoardMapper;
-import com.kh1.springhome.vo.PaginationVo;
+import com.kh1.springhome.vo.PaginationVO;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -171,7 +171,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int countList(PaginationVo vo) {
+	public int countList(PaginationVO vo) {
 		if (vo.isSearch()) {
 			String sql = "select count(*) from board where instr(" + vo.getType() + ", ?) > 0";
 			Object[] ob = { vo.getKeyword() };
@@ -183,7 +183,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<BoardListDto> selectListByPage(PaginationVo vo) {
+	public List<BoardListDto> selectListByPage(PaginationVO vo) {
 		if (vo.isSearch()) {
 			return selectListByPage(vo.getType(), vo.getKeyword(), vo.getPage());
 

@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh1.springhome.dto.MemberDto;
+import com.kh1.springhome.mapper.AdminListMapper;
 import com.kh1.springhome.mapper.MemberMapper;
+import com.kh1.springhome.vo.PaginationVO;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -75,5 +77,7 @@ public class MemberDaoImpl implements MemberDao {
 		Object[] ob = { point, memberId };
 		return tem.update(sql, ob) > 0;
 	}
+
+
 
 }

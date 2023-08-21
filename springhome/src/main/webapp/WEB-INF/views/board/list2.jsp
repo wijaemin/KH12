@@ -99,28 +99,27 @@ body {
 <!-- 페이지 네이게이터 출력 -->
 
 <h3 align="center">
-<!-- 이전 버튼 -->
+
 <c:if test="${vo.first ==false}">
-<%-- 링크는 검색과 목록을 따로 구현 --%>
+
 
 <a href="list?${vo.prevQueryString}">&lt;&laquo;</a>
 
 </c:if>
-<!-- 숫자 버튼 -->
+
 <c:forEach var="i" begin="${vo.begin}" end="${vo.end}" step="1">
 	<c:choose>
 		<c:when test="${vo.page == i}">
 			${i}	
 		</c:when>
 		<c:otherwise>
-				
 					<a href="list?${vo.getQueryString(i)}">${i}</a>
 					
 		</c:otherwise>
 	</c:choose>
 </c:forEach>
 
-<!-- 다음 버튼 -->
+
 <c:if test="${!vo.last}">
 
 			<a href="list?${vo.nextQueryString}">&gt;&raquo;</a>

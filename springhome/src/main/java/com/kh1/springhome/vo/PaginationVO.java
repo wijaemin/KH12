@@ -6,7 +6,7 @@ import lombok.Data;
 // - 내입맛대로 데이터를 모아서 저장하는 클래스(DB무관)
 // - 등록하지 않고 필요할때 마다 만들어서 사용
 @Data
-public class PaginationVo {
+public class PaginationVO {
  private String type, keyword;// 검색 분류 및 키워드
  private int page =1; //현재 페이지 번호(기본 : 1)
  private int size = 10;// 보여줄 게시판 글수(기본 : 10)
@@ -45,18 +45,24 @@ public class PaginationVo {
  }
  public String getNextQueryString() {
 	 if(isSearch()) {//검색
-		 return "page=" +(getEnd()+1)+"&type=?"+type+"&keyword="+keyword;
+		 return "page=" +(getEnd()+1)+"&size="+size+"&type=?"+type+"&keyword="+keyword;
 	 }
 	 else {//목록
-		return"page= "+(getEnd()+1);
+		return"page= "+(getEnd()+1)+"&size="+size;
 	}
  }
  public String getQueryString(int page) {
 	 if(isSearch()) {//검색
-		 return "page=" +page+"&type="+type+"&keyword="+keyword;
+		 return "page=" +page+"&size="+size+"&type="+type+"&keyword="+keyword ;
 	 }
 	 else {//목록
-		return"page= "+page;
+		return"page="+page+"&size="+size;
 	}
+ }
+ public int getStartRow() {
+	 return getFinishRow()-(size -1);
+ }
+ public int getFinishRow() {
+	 return page*size;
  }
 }

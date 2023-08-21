@@ -27,7 +27,7 @@ import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.dto.MemberDto;
 import com.kh1.springhome.error.AuthorityException;
 import com.kh1.springhome.error.NoTargetException;
-import com.kh1.springhome.vo.PaginationVo;
+import com.kh1.springhome.vo.PaginationVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -205,7 +205,7 @@ public class BoardController {
 	// (추가) @ModelAttribute로 받은 데이터는 이름만 정하면 자동으로 화면으로 넘어간다
 	// (@ModelAttribute(name = "vo") 는 .addAttribute("vo",vo);랑 같다.
 	@RequestMapping("/list")
-	public String list(@ModelAttribute(name = "vo") PaginationVo vo, Model model) {
+	public String list(@ModelAttribute(name = "vo") PaginationVO vo, Model model) {
 
 		int count = boardDao.countList(vo);
 		vo.setCount(count);
