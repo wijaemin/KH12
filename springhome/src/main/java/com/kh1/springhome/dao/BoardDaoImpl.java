@@ -192,4 +192,14 @@ public class BoardDaoImpl implements BoardDao {
 		}
 	}
 
+	@Override
+	public List<BoardListDto> selectListByBoardWriter(String boardWriter) {
+		String sql = "select * from board_list "
+				+ "where board_writer = ?"
+				+ "order by board_no desc";
+		Object[] ob = {boardWriter};
+		return tem.query(sql, boardlistMapper,ob);
+	
+	}
+
 }

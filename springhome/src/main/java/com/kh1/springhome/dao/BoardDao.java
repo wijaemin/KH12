@@ -35,4 +35,7 @@ public interface BoardDao {
 	public int countList(String type, String keyword);  
 	
 	public int countList(PaginationVO vo);
+	
+	//특정 사용자가 작성한 글을 조회하는 메소드
+	List<BoardListDto> selectListByBoardWriter(String boardWriter);
 }

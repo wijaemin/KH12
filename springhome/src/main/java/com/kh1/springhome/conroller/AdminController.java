@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dao.AdminDao;
+import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dao.MemberDao;
+import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.dto.MemberDto;
 import com.kh1.springhome.vo.PaginationVO;
 
@@ -24,6 +26,8 @@ public class AdminController {
 AdminDao adminDao;
 @Autowired
 MemberDao memberDao;
+@Autowired
+BoardDao boardDao;
 
 	@RequestMapping("/home")
 	public String home()
@@ -44,10 +48,14 @@ MemberDao memberDao;
 	}
 	@RequestMapping("/member/memberDetail")
 	public String memberDetail(@RequestParam String memberId, Model model) {
-		MemberDto memberDto = adminDao.detail(memberId);
+		//파라미터로 전달된 아이디의 회원정보를 조회하여 모델에 첨부
+		MemberDto memberDto = memberDao.selectOne(memberId);
 		model.addAttribute("memberDto",memberDto);
 		
-		return "/WEB-INF/views/admin/memberDetail.jsp";
+		//이 회원이 작성한 글을 조회하여 모델에 첨부
+		List<BoardListDto>boardList = boardDao.selectListByBoardWriter(memberId);
+		model.addAttribute("boardList",boardList);
+		return "/WEB-INF/views/admin/member/detail.jsp";
 	}
 	
 }

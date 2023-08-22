@@ -23,15 +23,20 @@ body {
 <th>회원 생년월일</th>
 <th>회원 이메일</th>
 <th>회원 등급</th>
+<th colspan="3">메 뉴</th>
+
  </tr>
  <c:forEach var="memberList" items="${list}">
  <tr>
- <td><a href="memberDetail?memberId=${memberList.memberId}">${memberList.memberId}</a></td>
+ <td>${memberList.memberId}</td>
   <td>${memberList.memberNickname}</td>
    <td>${memberList.memberContact}</td>
     <td>${memberList.memberBirth}</td>
      <td>${memberList.memberEmail}</td>
       <td>${memberList.memberLevel}</td>
+       <td><a href="memberDetail?memberId=${memberList.memberId}">상세</a></td>
+      <td><a href="#">수정</a></td>
+       <td><a href="#">삭제</a></td>
  </tr></c:forEach>
 </table>
 </div>

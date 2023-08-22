@@ -11,7 +11,7 @@ body {
 
 <h1 align="center">관리자 페이지</h1>
 
-<button style="background-color: #778cb9" ><h3><a href="member/list">회원 관리</a></h3></button><br><br>
+<button style="background-color: #778cb9" ><h3><a href="member/list?size=20">회원 관리</a></h3></button><br><br>
 <button style="background-color: #778cb9" ><h3><a href="#">회원 통계</a></h3></button><br><br>
 <button style="background-color: #778cb9" ><h3><a href="#">게시글 통계</a></h3></button><br><br>
 

@@ -15,7 +15,7 @@ body {
 
 <h1 align="center">회원 상세정보</h1>
 
-<button style="background-color: #778cb9" ><h3><a href="memberList"> 목록</a></h3></button>
+<button style="background-color: #778cb9" ><h3><a href="list"> 목록</a></h3></button>
 <table border="2" style="text-align: center;">
 <tr>
 <th>회원 아이디</th>
