@@ -23,6 +23,7 @@ body {
 <th>회원 생년월일</th>
 <th>회원 이메일</th>
 <th>회원 등급</th>
+<th>차단 여부</th>
 <th colspan="3">메 뉴</th>
 
  </tr>
@@ -33,10 +34,17 @@ body {
    <td>${memberList.memberContact}</td>
     <td>${memberList.memberBirth}</td>
      <td>${memberList.memberEmail}</td>
-      <td>${memberList.memberLevel}</td>
+      <td>${memberList.memberLevel}</td> 
+         <td>  ${memberList.block}</td>
        <td><a href="memberDetail?memberId=${memberList.memberId}">상세</a></td>
       <td><a href="edit?memberId=${memberList.memberId}">수정</a></td>
-       <td><a href="#">삭제</a></td>
+      <c:choose>
+      <c:when test="${memberList.block =='Y'}">
+      <td><a href="cancel?memberId=${memberList.memberId}">해제</a></td></c:when>
+      <c:otherwise> <td><a href="block?memberId=${memberList.memberId}">차단</a></td>
+      </c:otherwise>
+      </c:choose>
+       
  </tr></c:forEach>
 </table>
 </div>

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh1.springhome.dao.AdminDao;
 import com.kh1.springhome.dao.MemberDao;
+import com.kh1.springhome.dto.MemberBlockDto;
 import com.kh1.springhome.dto.MemberDto;
+import com.kh1.springhome.error.AuthorityException;
 
 @Controller
 @RequestMapping("/member")
@@ -21,6 +25,8 @@ public class MemberController {
 	// @Autowired는 지정한 클래스 및 자식클래스 중 등록된것을 찾아 주입한다.
 	@Autowired
 	MemberDao memberDao;
+	@Autowired
+	AdminDao adminDao;
 
 	@GetMapping("/join")
 	public String join() {
@@ -66,6 +72,11 @@ public class MemberController {
 
 		// [3] 비밀번호가 일치하면 메인페이지로 이동
 		if (isCorrectPw) {
+			//(주의) 만약 차단된 회원이라면 추가작업을 중지하고 오류 발생
+			MemberBlockDto blockDto = 
+					adminDao.selectBlockOne(findDto.getMemberId());
+			if(findDto !=null) {throw new AuthorityException("차단된 회원");}
+			
 			// 세션에 아이디+등급 저장
 			session.setAttribute("name",findDto.getMemberId());
 			session.setAttribute("level",findDto.getMemberLevel());

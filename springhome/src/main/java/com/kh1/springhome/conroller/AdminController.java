@@ -16,6 +16,7 @@ import com.kh1.springhome.dao.BoardDao;
 import com.kh1.springhome.dao.MemberDao;
 import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.dto.MemberDto;
+import com.kh1.springhome.dto.MemberListDto;
 import com.kh1.springhome.error.NoTargetException;
 import com.kh1.springhome.vo.PaginationVO;
 
@@ -44,7 +45,8 @@ BoardDao boardDao;
 		vo.setCount(count);
 		model.addAttribute("vo", vo);
 		
-		List<MemberDto> list = adminDao.selectListByPage(vo);
+	//	List<MemberDto> list = adminDao.selectListByPage(vo);
+		List<MemberListDto> list = adminDao.selectListByPage2(vo);
 		model.addAttribute("list", list);
 		
 		return "/WEB-INF/views/admin/member/list.jsp";
@@ -77,4 +79,17 @@ BoardDao boardDao;
 			throw new NoTargetException("존재하지 않는 회원ID");
 		}
 	}
+	
+	@RequestMapping("/member/block")
+	public String memberBlock(@RequestParam String memberId) {
+		adminDao.insertBlock(memberId);
+		return "redirect:list?size=20";
+	}
+	@RequestMapping("/member/cancel")
+	public String memberCancel(@RequestParam String memberId) {
+		adminDao.deleteBlock(memberId);
+		return "redirect:list?size=20";
+	}
+
+
 }
