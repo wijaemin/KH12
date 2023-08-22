@@ -78,6 +78,26 @@ public class MemberDaoImpl implements MemberDao {
 		return tem.update(sql, ob) > 0;
 	}
 
+	@Override
+	public boolean updateMemberInfoByAdmin(MemberDto memberDto) {
+		String sql = "update member set "
+				+ "member_nickname =?, "
+				+ "member_contact =?, "
+				+ "member_email =?, "
+				+ "member_birth =?, "
+				+ "member_post =?, "
+				+ "member_addr1 =?, "
+				+ "member_addr2 =?, "
+				+ "member_level =?, "
+				+ "member_point =? "
+				+ "where member_id = ?";
+		Object[] ob = {memberDto.getMemberNickname(),memberDto.getMemberContact(),
+				memberDto.getMemberEmail(),memberDto.getMemberBirth(),memberDto.getMemberPost(),
+				memberDto.getMemberAddr1(),memberDto.getMemberAddr2(),
+				memberDto.getMemberLevel(),memberDto.getMemberPoint(),memberDto.getMemberId()};
+		return tem.update(sql,ob) >0;
+	}
+
 
 
 }

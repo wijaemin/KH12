@@ -35,7 +35,7 @@ body {
      <td>${memberList.memberEmail}</td>
       <td>${memberList.memberLevel}</td>
        <td><a href="memberDetail?memberId=${memberList.memberId}">상세</a></td>
-      <td><a href="#">수정</a></td>
+      <td><a href="edit?memberId=${memberList.memberId}">수정</a></td>
        <td><a href="#">삭제</a></td>
  </tr></c:forEach>
 </table>
