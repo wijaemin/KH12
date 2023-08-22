@@ -8,3 +8,11 @@ CREATE table member_block(
 member_id references member(member_id) on DELETE cascade,
 block_time date default sysdate not null,
 primary key(member_id)
+
+
+create or replace view member_list as
+select
+	M.* , 
+	nvl2(B.member_id, 'Y','N') block
+from member M left outer join member_block B
+	on M.member_id= B.member_id;
