@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 실습</title>
+    <!-- css 파일을 불러오는 코드 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="test.css"> -->
+    <style>
+        /*
+            입력창의 변형(확장) 스타일
+            - 기본 스타일에 옵션을 추가하듯이 추가 클래스를 작성하여 적용
+        */
+
+        /* 
+            2개 클래스가 모두 적용된 경우만 디자인하도록 설정
+        */
+        .form-input.form-underline {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" method="post" autocomplete="off">
+    <div class="container w-400">
+        <div class="row">
+            <img src="./images/kakao.png" width="150">            
+        </div>
+        <div class="row">
+            <input type="text" name="memberId" 
+                class="form-input form-underline w-100" 
+                placeholder="카카오메일 아이디, 이메일, 전화번호">
+        </div>
+        <div class="row">
+            <input type="password" name="memberPw"
+                class="form-input form-underline w-100" placeholder="비밀번호">
+        </div>
+        <div class="row">
+            <button class="btn w-100">로그인</button>
+        </div>
+        <hr>
+        <div class="row">
+            <button class="btn w-100">QR코드 로그인</button>
+        </div>
+    </div>        
+    </form>
+</body>
+</html>
