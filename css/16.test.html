@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 실습</title>
+    <!-- css 파일을 불러오는 코드 -->
+    <link rel="stylesheet" type="text/css" href="commos.css">
+    <link rel="stylesheet" type="text/css" href="tessdt.css">
+    <style>
+.row{margin: 1.2em 0em;}
+.sqan-string{font-weight: bold; font-size: 25px;}
+.input{ 
+    color: aliceblue;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(121, 121, 187) 20%, rgba(5,100,181,1) 48%, rgb(180, 23, 159) 70%, rgba(255,255,255,1) 95%, rgba(255,255,255,1) 100%);;}
+    </style>
+</head>
+
+<body>
+    <form action="#" method="post" autocomplete="off">
+        <div class="container w-400 mt-50">
+            <div class="row mb-30">
+                <span class="sqan-string" style="color:rgb(10, 206, 92);">회</span><span class="sqan-string" style="color:rgb(190, 153, 120);">원</span><span class="sqan-string" style="color:rgb(136,204,47);">가</span><span class="sqan-string"style="color:rgb(49,180,221);">입</span>
+            </div>
+            <div class="row input">
+                아이디 * <input>
+            </div>
+            <div class="row input">
+                비밀번호 * <input>
+            </div>
+            <div class="row input">
+                닉네임 * <input>
+            </div>
+            <div class="row input">
+                이메일 <input>
+            </div>
+            <div class="row input">
+                연락처 <input>
+                <div class="row input">
+                    생년월일 <input type="date">
+                </div>
+                <div class="row input">
+                    주소 <input placeholder="우편번호" size="5"> 
+                    <br><input placeholder="기본주소"><br><input placeholder="상세주소"></div>
+               
+            </div>
+            <div class="row">
+                <button class="btn-positive btn">가입하기</button></div>
+           
+        </div>
+        </div>
+        </div>
+        </div>
+    </form>
+</body>
+
+</html>
