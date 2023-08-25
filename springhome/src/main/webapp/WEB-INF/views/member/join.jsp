@@ -8,7 +8,7 @@
 
 <div class="container w-500">
         <div class="row">
-            <h1>회원 가입</h1>
+            <h1>회원 가입!</h1>
         </div>
         <div class="row left">
             <!-- 
