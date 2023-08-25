@@ -3,7 +3,9 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <h2>회원가입</h2>
 
+<div class="container w-400 ">
 <form action="join"method="post" autocomplete="off">
+
 <font >회원 아이디 : <input type="text" required="required" name="memberId" ><br><br></font>
 
 회원 비밀번호 : <input type="password" required="required" name="memberPw" ><br><br>
@@ -16,5 +18,5 @@
 <input type="text" name="memberAddr2" placeholder="상세주소" size="30"><br><br>
 
 <button>회원가입 저장</button>
-</form>
+</form></div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
