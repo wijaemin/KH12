@@ -56,7 +56,9 @@
         */
 
         /* 디자인 초기화 */
-        ul.menu {
+        ul.menu, 
+        ul.menu ul
+        {
             list-style: none;
             margin: 0px;
             padding: 0px;
@@ -72,35 +74,104 @@
         }
 
         /* 색상 변경 및 크기 설정 */
-        .menu {
+        .menu,
+        .menu ul
+        {
             font-size: 24px;
             background-color: #2d3436;
         }
-        .menu > li {
+        .menu li {
             color: white;
             background-color: #2d3436;
-            padding: 0.5em;
             width: 150px;
-
-            /* 말줄임표 처리를 위한 디자인(반드시 폭이 있어야 함) */
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
         }
 
         /* 메뉴에 마우스가 올라가면 하이라이트 효과 */
         .menu li:hover {
             background-color: #636e72;
         }
+
+        /* 
+            1차메뉴의 아래쪽에 2차메뉴가 위치하도록 position 변경
+        */
+        .menu li {
+            position: relative;
+        }
+        .menu ul {
+            position: absolute;
+            z-index: 99999;
+            top: 100%;
+            left: 0;
+        }
+
+        /*
+            2차 이상의 메뉴를 숨김 처리
+        */
+        ul.menu > li ul {
+            display: none;
+        }
+
+        /*
+            마우스가 올라간 메뉴 항목의 하위메뉴를 표시
+        */
+        ul.menu li:hover > ul {
+            display: block;
+        }
+
+        /*
+            a 태그에 말줄임표 처리 구현
+        */
+        ul.menu a {
+            display: block;
+            width:100%;
+            padding: 0.5em;
+
+            /* 말줄임표 처리를 위한 디자인(반드시 폭이 있어야 함) */
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
     
     <ul class="menu">
-        <li><a href="#">1차메뉴1</a></li>
-        <li><a href="#">1차메뉴2</a></li>
-        <li><a href="#">1차메뉴3</a></li>
-        <li><a href="#">1차메뉴4</a></li>
+        <li>
+            <a href="#">1차메뉴1</a>
+            <ul>
+                <li><a href="#">2차메뉴1</a></li>
+                <li><a href="#">2차메뉴2</a></li>
+                <li><a href="#">2차메뉴3</a></li>
+                <li><a href="#">2차메뉴4</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">1차메뉴2</a>
+            <ul>
+                <li><a href="#">2차메뉴1</a></li>
+                <li><a href="#">2차메뉴2</a></li>
+                <li><a href="#">2차메뉴3</a></li>
+                <li><a href="#">2차메뉴4</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">1차메뉴3</a>
+            <ul>
+                <li><a href="#">2차메뉴1</a></li>
+                <li><a href="#">2차메뉴2</a></li>
+                <li><a href="#">2차메뉴3</a></li>
+                <li><a href="#">2차메뉴4</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">1차메뉴4</a>
+            <ul>
+                <li><a href="#">2차메뉴1</a></li>
+                <li><a href="#">2차메뉴2</a></li>
+                <li><a href="#">2차메뉴3</a></li>
+                <li><a href="#">2차메뉴4</a></li>
+            </ul>
+        </li>
     </ul>
 
 </body>
