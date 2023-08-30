@@ -10,7 +10,7 @@ body {
 	background-color: #778ca3;padding: 130px;
 }
 </style>
-<h2>로그인</h2>
+<h2>로그인!</h2>
 
 <form action="login" method="post" autocomplete="off">
 	<input type="text" name="memberId" placeholder="아이디" required><br><br>
