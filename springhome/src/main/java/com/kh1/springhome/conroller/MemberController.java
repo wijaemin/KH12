@@ -73,9 +73,9 @@ public class MemberController {
 		// [3] 비밀번호가 일치하면 메인페이지로 이동
 		if (isCorrectPw) {
 			//(주의) 만약 차단된 회원이라면 추가작업을 중지하고 오류 발생
-			MemberBlockDto blockDto = 
-					adminDao.selectBlockOne(findDto.getMemberId());
-			if(findDto !=null) {throw new AuthorityException("차단된 회원");}
+//			MemberBlockDto blockDto = 
+//					adminDao.selectBlockOne(findDto.getMemberId());
+//			if(findDto !=null) {throw new AuthorityException("차단된 회원");}
 			
 			// 세션에 아이디+등급 저장
 			session.setAttribute("name",findDto.getMemberId());
