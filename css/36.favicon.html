@@ -17,49 +17,21 @@
 
     <!-- 내가 만든 CSS 파일-->
     <link rel="stylesheet" type="text/css" href="reset.css">
-    <link rel="stylesheet" type="text/css" href="commos.css">
+    <link rel="stylesheet" type="text/css" href="layout-sidebar.css">
+    <link rel="stylesheet" type="text/css" href="commons.css">
     <link rel="stylesheet" type="text/css" href="test.css">
     <style>
-        main {
-            width:1000px;
-            margin: 0 auto;
-            font-size: 16px;
-        }
         /*
-            헤더는 좌/중/우 3개로 구분하여 작성
-            - 좌 - 로고 등을 배치
-            - 중 - 검색창이나 타이틀을 배치
-            - 우 - ???
+            좌측/우측 메뉴가 적용되도록 스타일 수정
+            - 1차 메뉴 항목의 정렬 방식을 flex로 변경
+            - 1차 메뉴 항목에 .menu-right를 추가하고 좌측 여백을 자동으로 변경
+            - 좌측 여백이 자동이 되면 가능한 최대의 여백을 부여하여 오른쪽에 붙인다
         */
-        header {
+        .menu {
             display: flex;
-            flex-wrap: nowrap;
-            min-height: 80px;
         }
-        header > .logo {
-            width:25%;
-        }
-        header > .title {
-            flex-grow: 1;
-        }
-        header > .etc {
-            width:25%;
-        }
-        header > .logo,
-        header > .title,
-        header > .etc
-        {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        nav {
-            position: relative;
-        }
-        section {
-            min-height: 400px;
-            padding-top: 40px;
-            padding-bottom: 40px;
+        .menu > li.menu-right {
+            margin-left: auto;
         }
     </style>
 </head>
@@ -72,18 +44,42 @@
             <div class="title">
                 <h1>타이틀/검색창</h1>
             </div>
-            <div class="etc">???</div>
+            <div class="etc"></div>
         </header>
         <nav>
             <ul class="menu">
                 <li><a href="#">Home</a></li>
-                <li><a href="#">회원가입</a></li>
-                <li><a href="#">로그인</a></li>
                 <li><a href="#">게시판</a></li>
+
+                <li class="menu-right">
+                    <a href="#">로그인</a>
+                    <ul>
+                        <li><a href="#">회원가입</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <section>
-            
+            <aside>
+                <div class="flex-container vertical center">
+                    <div class="row">
+                        <h2><a href="#" class="link">메뉴1</a></h2>
+                    </div>
+                    <div class="row">
+                        <h2><a href="#" class="link">메뉴2</a></h2>
+                    </div>
+                    <div class="row">
+                        <h2><a href="#" class="link">메뉴3</a></h2>
+                    </div>
+                    <div class="row">
+                        <h2><a href="#" class="link">메뉴4</a></h2>
+                    </div>
+                    <div class="row">
+                        <h2><a href="#" class="link">메뉴5</a></h2>
+                    </div>
+                </div>
+            </aside>
+            <article>컨텐츠</article>
         </section>
         <hr>
         <footer>
