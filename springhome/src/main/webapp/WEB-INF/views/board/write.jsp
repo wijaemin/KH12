@@ -71,12 +71,12 @@ body {
                 <p>제목</p><br>
                 <input type="text" name="board_title" class="form-input w-100" oninput="nameCheack();">
                 <div class="success-feedback"></div>
-                <div class="fail-feedback left">제목은 반드시 작성해야 합니다.</div>
+                <div class="fail-feedback left">제목은 반드시 작성해야 합니다</div>
                 <p>내용</p><br>
                 <textarea onblur="textCheack();" name="board_content" class="form-input w-100"
                     style="min-height: 300px;"></textarea>
                 <div class="success-feedback"></div>
-                <div class="fail-feedback left">내용은 반드시 작성해야 합니다.</div>
+                <div class="fail-feedback left">내용은 반드시 작성해야 합니다</div>
 
              <div style="display:flex; margin-left: 30em;"><div name="div1" >0</div>/1000</div> 
                 <button type="submit" class="btn btn-positive w-100">작성하기</button>
