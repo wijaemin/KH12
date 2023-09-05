@@ -26,21 +26,17 @@
     <!-- javascript 작성 공간 -->
     <script>
         window.addEventListener("load", function(){
-            //검정버튼
-            var btnBlack = document.querySelector(".btn-black");
-            btnBlack.addEventListener("click", function(){
+            var buttonList = document.querySelectorAll(".btn");
+            
+            buttonList[0].addEventListener("click", function(){
                 var h1 = document.querySelector(".target");
                 h1.style.color = "black";
             });
-            //빨강버튼
-            var btnRed = document.querySelector(".btn-red");
-            btnRed.addEventListener("click", function(){
+            buttonList[1].addEventListener("click", function(){
                 var h1 = document.querySelector(".target");
                 h1.style.color = "red";
             });
-            //파랑버튼
-            var btnBlue = document.querySelector(".btn-blue");
-            btnBlue.addEventListener("click", function(){
+            buttonList[2].addEventListener("click", function(){
                 var h1 = document.querySelector(".target");
                 h1.style.color = "blue";
             });
@@ -53,9 +49,9 @@
             <h1 class="target">색상 변경 예제</h1>
         </div>
         <div class="row">
-            <button class="btn btn-black">검정</button>
-            <button class="btn btn-red">빨강</button>
-            <button class="btn btn-blue">파랑</button>
+            <button class="btn" data-color="black">검정</button>
+            <button class="btn" data-color="red">빨강</button>
+            <button class="btn" data-color="blue">파랑</button>
         </div>
     </div>
 </body>
