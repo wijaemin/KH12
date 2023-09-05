@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>색상 바꾸기</title>
+</head>
+<script>
+    window.addEventListener("load", function () {
+        var text = document.querySelector("#h1");
+        var divInput1 = document.querySelector(".blue")
+        window.addEventListener("click", function () {
+            h1.style.color = 'blue';
+            h1.style.borderColor = 'blue';
+        })
+    });
+</script>
+
+<body>
+
+    <h1 id="h1" style="color: blue; border: 1px solid black;">hello Javascript!</h1>
+    <hr>
+    <button class="black">검정으로 변환</button>
+    <button class="blue">파랑으로 변환</button>
+    <button class="red">빨강으로 변환</button>
+
+</body>
+
+</html>
