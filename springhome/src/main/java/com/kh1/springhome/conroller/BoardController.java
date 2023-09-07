@@ -278,4 +278,11 @@ public class BoardController {
 		return "/WEB-INF/views/board/search.jsp";
 	}
 
+	@PostMapping("/deleteByAdmin")
+	public String deleteByAdmin(@RequestParam List<Integer> boardNoList) {
+		for (int boardNo : boardNoList) {
+			boardDao.delete(boardNo);
+		}
+		return "redirect:list";
+	}
 }
