@@ -54,7 +54,7 @@ body {
 					$(".check-all").prop("checked", allCheck);
 				});
 		$(".delete-form").submit(function(e) {
-			return confirm("정말 삭제하시겠습니까?");
+			return confirm("정말 삭제하시겠습니까??");
 		})
 	});
 </script>
