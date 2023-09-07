@@ -99,10 +99,13 @@
                         }
 
                         // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.querySelector("[name=memberPost]").value = data.zonecode;
-                        document.querySelector("[name=memberAddr1]").value = addr;
+                        //document.querySelector("[name=memberPost]").value = data.zonecode; //자바스크립트 방식
+                        $("[name=memberPost]").val(data.zonecode); //jQury 방식 
+                        //document.querySelector("[name=memberAddr1]").value = addr; //자바스크립트 방식
+                        $("[name=memberAddr1]").val(addr); //jQury 방식 
                         // 커서를 상세주소 필드로 이동한다.
-                        document.querySelector("[name=memberAddr2]").focus();
+                        // document.querySelector("[name=memberAddr2]").focus(); //자바스크립트 방식
+                        $("[name=memberAddr2]").focus(); //jQury 방식 
                     }
                 }).open();
             });
