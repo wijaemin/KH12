@@ -10,12 +10,17 @@ body {
 	background-color: #778ca3;padding: 130px;
 	 p {text-align: left; font-size: 24px;font-weight: bolder;}
 }
+input{background-color: #558ca3;
+}
+textarea {
+	background-color: #558ca3;
+}
 </style>
 <c:choose>
 <c:when test="${isReply}">
 <h2>답글 작성</h2>
 </c:when>
-<c:otherwise><h2>게시글 작성</h2>
+<c:otherwise>
 </c:otherwise></c:choose>
 
 <!DOCTYPE html>
@@ -24,6 +29,7 @@ body {
 <head>
    
     <!-- javascript 작성 공간 -->
+    <script src="./js/boardWrite.js"></script>
     <script>
         function nameCheack() {
             var input = document.querySelector("[name=board_title]");
@@ -73,7 +79,7 @@ body {
                 <div class="success-feedback"></div>
                 <div class="fail-feedback left">제목은 반드시 작성해야 합니다</div>
                 <p>내용</p><br>
-                <textarea onblur="textCheack();" name="board_content" class="form-input w-100"
+                <textarea onInput="textCheack();" name="board_content" class="form-input w-100"
                     style="min-height: 300px;"></textarea>
                 <div class="success-feedback"></div>
                 <div class="fail-feedback left">내용은 반드시 작성해야 합니다</div>
