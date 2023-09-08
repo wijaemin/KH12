@@ -17,12 +17,38 @@ $(function(){
         },
     };
 
-    $("[name=memberId]").blur(function(){
+    $("[name=memberId]").blur(function(e){
         var regex = /^[a-z][a-z0-9]{4,19}$/;
-        var isValid = regex.test($(this).val());
-        $(this).removeClass("success fail");
-        $(this).addClass(isValid ? "success" : "fail");
-        status.memberId = isValid;
+        var isValid = regex.test($(e.target).val());
+        
+        $(e.target).removeClass("success fail fail2");
+        if(isValid) {//형식이 유효하다면
+            
+            $.ajax({
+                url:"http://localhost:8080/rest/member/idCheck",
+                method:"post",
+                // data : {memberId : e.target.value },
+                data : { memberId : $(e.target).val() },
+                success : function(response){
+                    if(response == "Y") {//사용가능
+                        $(e.target).addClass("success");
+                        status.memberId = true;
+                    }
+                    else {//사용불가(중복)
+                        $(e.target).addClass("fail2");
+                        status.memberId = false;
+                    }
+                },
+                error : function(){
+                    alert("서버와의 통신이 원활하지 않습니다");
+                },
+            });
+            
+        }
+        else {//형식이 유효하지 않다면(1차실패)
+            $(e.target).addClass("fail");
+            status.memberId = false;
+        }
     });
     $("[name=memberPw]").blur(function(){
         var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$])[A-Za-z0-9!@#$]{8,16}$/;
