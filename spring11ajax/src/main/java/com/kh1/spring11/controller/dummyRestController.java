@@ -4,15 +4,26 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.kh1.spring11.dao.MemberDao;
+import com.kh1.spring11.dto.MemberDto;
 
 //CORS를 헤제하기 위한설정(Annotation)
 //@@CrossOrigin//전부다 허용(보안상 위험!)
 @CrossOrigin(origins = { "http://192.168.30.63:5500" })
 @RestController // @Controller + @Repository
 public class dummyRestController {
+
+	@Autowired
+	private MemberDao memberDao;
+
 	@RequestMapping("/hello")
 	public String hello() {
 		return "hello spring ajax";
@@ -30,5 +41,26 @@ public class dummyRestController {
 			set.add(n);
 		}
 		return set;
+	}
+
+	@PostMapping("/idCheck")
+	public String idCheck(@RequestParam String memberId) {
+		MemberDto memberDto = memberDao.selectOne(memberId);
+		if (memberDto != null) {//아이디가 있으면
+			return "Y";
+		} else { //아이디가 없으면
+			return "N";
+		}
+	}
+	
+	
+	@PostMapping("/nicknameCheck")
+	public String nicknameCheck(@RequestParam String memberNickname) {
+		MemberDto memberDto = memberDao.selectNick(memberNickname);
+		if (memberDto != null) {//닉네임이 있으면
+			return "Y";
+		} else { //닉네임이 없으면
+			return "N";
+		}
 	}
 }
