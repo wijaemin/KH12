@@ -1,1 +1,1 @@
-hello ajax
+hello ajax!
