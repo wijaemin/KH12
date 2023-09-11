@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <!-- 댓글과 관련된 처리를 할수 있도록 jQuery 코드를 구현 -->
- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 $(function(){
 	//목표 : 댓글등록을 누르면 입력정보로 ajax 통신을 통해 댓글 등록 처리
@@ -28,11 +28,40 @@ $(function(){
 			//data:{ replyOrigin : ? , replyContent : ? },
 			data : $(e.target).serialize(),
 			success:function(response){
-				console.log("성공");
+				//console.log("성공");
 				$("[name=replyContent]").val("");
 			}
 		});
 	});
+	
+	//목록은 페이지가 로딩되면 바로 불러오도록 구현한다.
+	//- 등록이 완료된 경우 불러오도록 구현한다.
+	//- 여러 군데서 사용할 수 있도록 함수 형태로 구현한다.
+	//- 목록을 모두 지우고 전부 다 새로 불러오도록 구현한다.
+	loadList();
+	
+	
+	function loadList() {
+		//화면 청소
+		//$(".reply-list").remove();//자기 자신까지 삭제(하면안됨!)
+		$(".reply-list").empty();//자기 자신을 제외한 내부 코드 삭제
+		
+		//Javascript로 boardNo라는 이름의 파라미터 값 읽기
+		var params = new URLSearchParams(location.search);
+		var no = params.get("board_no");
+		
+		//비동기 통신으로 화면 갱신
+		$.ajax({
+			//url:"http://localhost:8080/rest/reply/list",
+			url:"/rest/reply/list",
+			method:"post",
+			data:{ replyOrigin : no },
+			success:function(response){
+				//response는 댓글 목록(JSON)
+				console.log(response);
+			},
+		});
+	}
 });
 </script>
 
@@ -143,8 +172,8 @@ body {
 
 </table>
 <br>
-
-
+<%--댓글 목록이 표시될 영역 --%>
+<div class="reply-list"></div>
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
 <div class="row left">
