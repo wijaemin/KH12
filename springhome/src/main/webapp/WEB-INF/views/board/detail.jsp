@@ -8,63 +8,108 @@
 <!-- 댓글과 관련된 처리를 할수 있도록 jQuery 코드를 구현 -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-$(function(){
-	//목표 : 댓글등록을 누르면 입력정보로 ajax 통신을 통해 댓글 등록 처리
-	//(주의) form은 전송이 되면 안된다
-	
-	$(".reply-insert-form").submit(function(e){
-		//this == e.target == 폼(form)
-		
-		//입력검사 코드(skip)
-		
-		//기본이벤트 차단
-		e.preventDefault();
-		
-		//비통기 통신 발생
-		$.ajax({
-			//url:"http://localhost:8080/rest/reply/insert",
-			url:"/rest/reply/insert",
-			method:"post",
-			//data:{ replyOrigin : ? , replyContent : ? },
-			data : $(e.target).serialize(),
-			success:function(response){
-				//console.log("성공");
-				$("[name=replyContent]").val("");
-			}
-		});
-	});
-	
-	//목록은 페이지가 로딩되면 바로 불러오도록 구현한다.
-	//- 등록이 완료된 경우 불러오도록 구현한다.
-	//- 여러 군데서 사용할 수 있도록 함수 형태로 구현한다.
-	//- 목록을 모두 지우고 전부 다 새로 불러오도록 구현한다.
-	loadList();
-	
-	
-	function loadList() {
-		//화면 청소
-		//$(".reply-list").remove();//자기 자신까지 삭제(하면안됨!)
-		$(".reply-list").empty();//자기 자신을 제외한 내부 코드 삭제
-		
-		//Javascript로 boardNo라는 이름의 파라미터 값 읽기
-		var params = new URLSearchParams(location.search);
-		var no = params.get("board_no");
-		
-		//비동기 통신으로 화면 갱신
-		$.ajax({
-			//url:"http://localhost:8080/rest/reply/list",
-			url:"/rest/reply/list",
-			method:"post",
-			data:{ replyOrigin : no },
-			success:function(response){
-				//response는 댓글 목록(JSON)
-				console.log(response);
-			},
-		});
-	}
-});
-</script>
+	$(function() {
+		//목표 : 댓글등록을 누르면 입력정보로 ajax 통신을 통해 댓글 등록 처리
+		//(주의) form은 전송이 되면 안된다
 
+		$(".reply-insert-form").submit(function(e) {
+			//this == e.target == 폼(form)
+
+			//입력검사 코드(skip)
+
+			//기본이벤트 차단
+			e.preventDefault();
+
+			//비통기 통신 발생
+			$.ajax({
+				//url:"http://localhost:8080/rest/reply/insert",
+				url : "/rest/reply/insert",
+				method : "post",
+				//data:{ replyOrigin : ? , replyContent : ? },
+				data : $(e.target).serialize(),
+				success : function(response) {
+					//console.log("성공");
+					$("[name=replyContent]").val("");//입력창 초기화
+					loadList();//목록갱신
+				}
+			});
+		});
+
+		//목록은 페이지가 로딩되면 바로 불러오도록 구현한다.
+		//- 등록이 완료된 경우 불러오도록 구현한다.
+		//- 여러 군데서 사용할 수 있도록 함수 형태로 구현한다.
+		//- 목록을 모두 지우고 전부 다 새로 불러오도록 구현한다.
+		loadList();
+
+		function loadList() {
+
+
+			//Javascript로 boardNo라는 이름의 파라미터 값 읽기
+			var params = new URLSearchParams(location.search);
+			var no = params.get("board_no");
+
+			//비동기 통신으로 화면 갱신
+			$.ajax({
+				//url:"http://localhost:8080/rest/reply/list",
+				url : "/rest/reply/list",
+				method : "post",
+				data : {
+					replyOrigin : no
+				},
+				success : function(response) {
+					
+					//화면 청소
+					//$(".reply-list").remove();//자기 자신까지 삭제(하면안됨!)
+					$(".reply-list").empty();//자기 자신을 제외한 내부 코드 삭제
+					
+					//response는 댓글 목록(JSON)
+					console.log(response);
+					for (var i = 0; i < response.length; i++) {
+						var reply = response[i];
+
+						var template = $("#reply-template").html();
+						var htmlTemplate = $.parseHTML(template);
+						
+						$(htmlTemplate).find(".replyWriter").text(reply.replyWriter);
+						$(htmlTemplate).find(".replyContent").text(reply.replyContent);
+						$(htmlTemplate).find(".replyTime").text(reply.replyTime);
+						
+						$(".reply-list").append(htmlTemplate);
+					}
+				},
+			});
+		}
+	});
+</script>
+<script id="reply-template" type="text/template">
+
+	<div class="row flex-container">
+		<div class="w-75">
+			<div class="row left">
+				<h5 class="replyWriter">작성자</h5>
+			</div>
+			<div class="row left">
+				<pre class="replyContent">내용</pre>
+			</div>
+			<div class="row left">
+				<span class="replyTime">yyyy-MM-dd HH:mm:ss</span>
+			</div>
+		</div>
+		<div class="w-25">
+			<div class="row left">
+				<button class="btn ">
+					<i class="fa-solid fa-edit"></i>수정
+				</button>
+			</div>
+			<div class="row left">
+				<button class="btn btn-negative">
+					<i class="fa-solid fa-trash"></i>삭제
+				</button>
+			</div>
+		</div>
+	</div>
+<hr>
+</script>
 
 <style>
 td {
@@ -173,6 +218,7 @@ body {
 </table>
 <br>
 <%--댓글 목록이 표시될 영역 --%>
+<div class="row left"><h1> 댓글 목록</h1></div>
 <div class="reply-list"></div>
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
@@ -190,33 +236,7 @@ body {
 	</form>
 </div>
 
-<div class="row left">
-	<div class="row flex-container">
-		<div class="w-75">
-			<div class="row left">
-				<h3 class="DB이름">작성자</h3>
-			</div>
-			<div class="row left">
-				<pre class="DB이름">내용</pre>
-			</div>
-			<div class="row left">
-				<span class="DB이름">yyyy-mm-dd HH:mm:ss</span>
-			</div>
-		</div>
-		<div class="w-25">
-			<div class="row left">
-				<button class="btn ">
-					<i class="fa-solid fa-edit"></i>수정
-				</button>
-			</div>
-			<div class="row left">
-				<button class="btn btn-negative">
-					<i class="fa-solid fa-trash"></i>삭제
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
+
 
 
 
