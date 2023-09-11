@@ -144,16 +144,17 @@ body {
 					<!-- 제목을 누르면 상세페이지 이동 -->
 
 					<td><a href="detail?board_no=${boardListDto.board_no}"> 
-					<!-- 댓글이 있다면 개수를 표시 -->
-							<c:if test="${boardListDto.board_replycount > 0}">
-				[${boardListDto.board_replycount}]
-				</c:if> <!-- for(int i =1; i<${boardListDto.board_depth}; i++ --> <c:forEach
+					 <!-- for(int i =1; i<${boardListDto.board_depth}; i++ --> <c:forEach
 								var="i" begin="1" end="${boardListDto.board_depth}" step="1">
 &nbsp;&nbsp;
 				</c:forEach> <%--띄어쓰기 뒤에 화살표 표시 --%> <%-- <c:if test="차수가 0보다 크면">→</c:if> --%>
 							<c:if test="${boardListDto.board_depth >0}">
 								<img src="/images/arrow.png" width="15" height="15">
-							</c:if>${boardListDto.board_title}</a></td>
+							</c:if>${boardListDto.board_title}</a>
+							<!-- 댓글이 있다면 개수를 표시 -->
+							<c:if test="${boardListDto.board_replycount > 0}">
+				[${boardListDto.board_replycount}]
+				</c:if></td>
 
 					<td align="center">${boardListDto.board_readcount}</td>
 					<td align="center">${boardListDto.board_likecount}</td>
