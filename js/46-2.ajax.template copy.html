@@ -30,25 +30,33 @@
     <script>
         $(function(){
             $(".load-btn").click(function(){
+                //목표 : 비동기통신으로 백엔드에서 모든 목록을 받아와 화면 생성
+                $.ajax({
+                    url:"http://localhost:8080/pocketmon",
+                    //method:"get",
+                    //data 없음
+                    success:function(response) {
+                        //console.log(response);//response는 배열
+                        for(var i=0; i < response.length; i++) {
+                            var pocketmon = response[i];
 
-                //[2] 템플릿을 가져와서 원하는 데이터로 치환한 다음 추가
-                //목표 : #template을 복사하여 컨테이너 하단에 추가
-                var template = $("#template").html();
-                var htmlTemplate = $.parseHTML(template);//문자열 --> HTML     
-                
-                //jquery를 이용하여 htmlTemplate의 특정 값을 변경
-                $(htmlTemplate).find(".name").text("라이츄");
-                $(htmlTemplate).find(".no").text("27");
-                $(htmlTemplate).find(".type").text("벼락");
+                            //html 템플릿 불러와서 pocketmon정보 설정 후 추가
+                            var template = $("#template").html();
+                            var htmlTemplate = $.parseHTML(template);
 
-                //특정 지점에 문자열 또는 태그를 추가할 수 있다
-                //$(".container").append(template);
-                $(".container").append(htmlTemplate);
+                            $(htmlTemplate).find(".no").text(pocketmon.no);
+                            $(htmlTemplate).find(".name").text(pocketmon.name);
+                            $(htmlTemplate).find(".type").text(pocketmon.type);
+
+                            $(".container").append(htmlTemplate);
+                        }
+                    }
+                });                
             });
         });
     </script>
 
-    <!-- [1] 화면에 나오지 않으면서 언제든지 불러서 쓸 수 있는 템플릿 -->
+    <!-- 화면에 나오지 않으면서 언제든지 불러서 쓸 수 있는 템플릿 -->
     <script id="template" type="text/template">
         <div class="row">
             <h1 class="name">피카츄</h1>
