@@ -202,4 +202,14 @@ public class BoardDaoImpl implements BoardDao {
 	
 	}
 
+	@Override
+	public boolean updateBoardReplycount(int board_no) {
+		String sql = "update board set board_replycount= ("
+					+"select count(*) from reply where reply_origin = ?"+
+					")"+
+					"where board_no = ?";
+		Object[] data= {board_no,board_no};
+		return tem.update(sql,data)>0;
+	}
+
 }

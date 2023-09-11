@@ -46,10 +46,10 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 
 				// - addPathPatterns를 사용하면 추가할 주소를 설정]할 수 있다.
 				// - excludePathPatterns를 사용하면 제외할 주소를 설정할 수 있다.
-				.addPathPatterns("/member/**", "/board/**") // 화이트리스트 전부다 등록후
+				.addPathPatterns("/member/**", "/board/**","/rest/reply/**") // 화이트리스트 전부다 등록후
 
 				.excludePathPatterns("/member/join*", "/member/login", "/member/exitFinish", "/board/list",
-						"/board/detail");// 허용할것을 등록
+						"/board/detail","/rest/reply/list");// 허용할것을 등록
 
 		// 3. 게시글 소유자 외 접근을 차단하는 인터셉터 등록
 		registry.addInterceptor(boardOwnerInterceptor).addPathPatterns("/board/edit", "/board/delete");

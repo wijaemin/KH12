@@ -126,12 +126,19 @@
 								// - 전환시 작성된 값들을 입력창으로 이동시켜야함
 								// - 전송가능한 form과 취소 버튼을 구현
 								// - 수정시 서버로 글번호와 글내용만 전달하면됨
-								$(htmlTemplate).find(".btn-edit").click(
+								$(htmlTemplate).find(".btn-edit").attr("data-reply-no",reply.replyNo).click(
 										function() {
 											var editTemplate = $(
 													"#reply-edit-template")
 													.html();
 										var editHtmlTemplate =$.parseHTML(editTemplate);
+										
+										//value 설정
+										var replyNo = $(this).attr("data-reply-no");
+										var replyContent =$(this).parents(".view-container")
+										.find(".replyContent").text();
+										$(editHtmlTemplate).find("[name=replyNo]").val(replyNo);
+										$(editHtmlTemplate).find("[name=replyContent]").val(replyContent);
 										
 										//취소 버튼에 대한 처리 구현
 										$(editHtmlTemplate).find(".btn-cancel").click(function(){
@@ -141,6 +148,25 @@
 											$(this).parents(".edit-container").remove();
 											
 										})
+										
+										//완료(등록) 버튼 처리
+										// -editHtmlTemplate 자체가 form이므로 추가 탐색을 하지 않음
+										$(editHtmlTemplate).submit(function(e){
+											//검사코드(미입력)
+											
+											//기본 이벤트 차단
+											e.preventDefault();
+											
+											$.ajax({
+												url:"/rest/reply/edit",
+												method:"post",
+										//		data:{replyNo : ? ,replyContent : ?},
+												data:$(e.target).serialize(),
+												success:function(response){
+													loadList();
+												}
+											});
+										});
 										
 										//화면 배치
 										$(this).parents(".view-container").hide().after(editHtmlTemplate);
@@ -318,7 +344,7 @@ body {
 
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
-<div class="row left">
+<c:if test="${sessionScope.name !=null }">
 	<form class="reply-insert-form" method="post">
 		<input type="hidden" name="replyOrigin" value="${boardDto.board_no}">
 		<div class="row">
@@ -330,8 +356,8 @@ body {
 			</button>
 		</div>
 	</form>
-</div>
 
+</c:if>
 
 
 

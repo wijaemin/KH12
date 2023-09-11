@@ -14,4 +14,6 @@ List<ReplyDto>selectList(int replyOrigin);
 ReplyDto selectOne(int replyNo);
 
 boolean delete(int replyNo);
+
+boolean update(ReplyDto replayDto);
 }

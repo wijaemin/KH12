@@ -143,7 +143,8 @@ body {
 
 					<!-- 제목을 누르면 상세페이지 이동 -->
 
-					<td><a href="detail?board_no=${boardListDto.board_no}"> <!-- 댓글이 있다면 개수를 표시 -->
+					<td><a href="detail?board_no=${boardListDto.board_no}"> 
+					<!-- 댓글이 있다면 개수를 표시 -->
 							<c:if test="${boardListDto.board_replycount > 0}">
 				[${boardListDto.board_replycount}]
 				</c:if> <!-- for(int i =1; i<${boardListDto.board_depth}; i++ --> <c:forEach
