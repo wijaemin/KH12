@@ -41,12 +41,21 @@
 		//- 목록을 모두 지우고 전부 다 새로 불러오도록 구현한다.
 		loadList();
 
+		//목록을 불러온뒤 추가로 해야할 것
+		// - 내글에만 수정/삭제 버튼이 나오도록 처리
+		// - 게시글 작성자가 쓴 댓글에 추가 표시
+		// - 수정버튼을 누르면 화면에 변화를 주도록 처리
+		// - 삭제버튼을 누르면 확인창 출력후 삭제하도록 처리
+		
 		function loadList() {
 
 
 			//Javascript로 boardNo라는 이름의 파라미터 값 읽기
 			var params = new URLSearchParams(location.search);
 			var no = params.get("board_no");
+			
+			//(중요)로그인한 사용자의 정보를 EL을 이용하여 저장(매우 위험한 코드)
+			var memberId = "${sessionScope.name}";
 
 			//비동기 통신으로 화면 갱신
 			$.ajax({
@@ -70,9 +79,18 @@
 						var template = $("#reply-template").html();
 						var htmlTemplate = $.parseHTML(template);
 						
-						$(htmlTemplate).find(".replyWriter").text(reply.replyWriter);
+						//작성자를 표시할 때 다음과 같이 로직을 추가
+						//- 탈퇴한 사용자는 빈칸이 아니라 "탈퇴한사용자"로 처리
+
+						$(htmlTemplate).find(".replyWriter").text(reply.replyWriter || "탈퇴한 사용자");
 						$(htmlTemplate).find(".replyContent").text(reply.replyContent);
 						$(htmlTemplate).find(".replyTime").text(reply.replyTime);
+						
+						
+						//내가 작성한 댓글이 아니라면
+						if(memberId.length = 0 || memberId != reply.replyWriter){
+						$(htmlTemplate).find(".w-25").empty();
+						}
 						
 						$(".reply-list").append(htmlTemplate);
 					}
@@ -218,7 +236,9 @@ body {
 </table>
 <br>
 <%--댓글 목록이 표시될 영역 --%>
-<div class="row left"><h1> 댓글 목록</h1></div>
+<div class="row left">
+	<h1>댓글 목록</h1>
+</div>
 <div class="reply-list"></div>
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
