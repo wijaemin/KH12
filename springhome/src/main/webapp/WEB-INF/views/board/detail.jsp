@@ -5,6 +5,38 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<!-- 댓글과 관련된 처리를 할수 있도록 jQuery 코드를 구현 -->
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+	//목표 : 댓글등록을 누르면 입력정보로 ajax 통신을 통해 댓글 등록 처리
+	//(주의) form은 전송이 되면 안된다
+	
+	$(".reply-insert-form").submit(function(e){
+		//this == e.target == 폼(form)
+		
+		//입력검사 코드(skip)
+		
+		//기본이벤트 차단
+		e.preventDefault();
+		
+		//비통기 통신 발생
+		$.ajax({
+			//url:"http://localhost:8080/rest/reply/insert",
+			url:"/rest/reply/insert",
+			method:"post",
+			//data:{ replyOrigin : ? , replyContent : ? },
+			data : $(e.target).serialize(),
+			success:function(response){
+				console.log("성공");
+				$("[name=replyContent]").val("");
+			}
+		});
+	});
+});
+</script>
+
+
 <style>
 td {
 	text-align: center;
@@ -116,9 +148,10 @@ body {
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
 <div class="row left">
-	<form action="">
+	<form class="reply-insert-form" method="post">
+		<input type="hidden" name="replyOrigin" value="${boardDto.board_no}">
 		<div class="row">
-			<textarea class="form-input w-100" name="??" rows="4"></textarea>
+			<textarea class="form-input w-100" name="replyContent" rows="4"></textarea>
 		</div>
 		<div class="row">
 			<button class="btn btn-positive w-100">
@@ -131,13 +164,27 @@ body {
 <div class="row left">
 	<div class="row flex-container">
 		<div class="w-75">
-			<div class="row left"><h3 class="DB이름">작성자</h3></div>
-			<div class="row left"><pre class="DB이름">내용</pre></div>
-			<div class="row left"><span class="DB이름">yyyy-mm-dd HH:mm:ss</span></div>
+			<div class="row left">
+				<h3 class="DB이름">작성자</h3>
+			</div>
+			<div class="row left">
+				<pre class="DB이름">내용</pre>
+			</div>
+			<div class="row left">
+				<span class="DB이름">yyyy-mm-dd HH:mm:ss</span>
+			</div>
 		</div>
 		<div class="w-25">
-			<div class="row left"><button class="btn "><i class="fa-solid fa-edit"></i>수정</button></div>
-			<div class="row left"><button class="btn btn-negative"><i class="fa-solid fa-trash"></i>삭제</button></div>
+			<div class="row left">
+				<button class="btn ">
+					<i class="fa-solid fa-edit"></i>수정
+				</button>
+			</div>
+			<div class="row left">
+				<button class="btn btn-negative">
+					<i class="fa-solid fa-trash"></i>삭제
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

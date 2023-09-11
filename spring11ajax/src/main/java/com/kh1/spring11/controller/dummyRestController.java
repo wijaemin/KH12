@@ -70,7 +70,7 @@ public class dummyRestController {
 	@Autowired
 	private PocketmonDAO pocketmonDao;
 	
-	//프론트 엔드에 포켓몬 목록을 반환하는 매핑
+	//프론트 엔드에 포켓몬 목록을 반환하는 매핑!
 	@RequestMapping("/pocketmon")
 	public List<PocketmonDTO > pocketmon(){
 		return pocketmonDao.selectList();
