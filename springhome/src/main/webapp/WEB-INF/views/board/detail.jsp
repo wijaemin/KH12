@@ -25,6 +25,10 @@ body {
 
 <h2>게시글 상세조회</h2>
 <div align="right">
+
+
+
+
 	<%-- 회원일경우 글쓰기,수정,삭제이 나와야한다 --%>
 	<c:if test="${sessionScope.name != null}">
 		<button style="background-color: #7700c9">
@@ -35,20 +39,21 @@ body {
 			<a href="list">게시글 목록</a>
 		</button>
 		<button style="background-color: #778cb9">
-		<!-- 			답글쓰기는 board_parent를 기본으로 하여서 작성글을 해야한다. -->
+			<!-- 			답글쓰기는 board_parent를 기본으로 하여서 작성글을 해야한다. -->
 			<a href="write?board_parent=${boardDto.board_no}">답글 쓰기</a>
 
 		</button>
-	
-	<%-- 수정 삭제는 소유자일경우에만 나와야한다. --%>
-	<c:if test="${sessionScope.name == boardDto.board_writer}">
-		<button style="background-color: #778cb9">
-			<a href="edit?board_no=${boardDto.board_no}">게시글 수정</a>
-		</button>
-		<button style="background-color: #778cb9">
-			<a href="delete?board_no=${boardDto.board_no}">게시글 삭제</a>
-		</button>
-	</c:if></c:if>
+
+		<%-- 수정 삭제는 소유자일경우에만 나와야한다. --%>
+		<c:if test="${sessionScope.name == boardDto.board_writer}">
+			<button style="background-color: #778cb9">
+				<a href="edit?board_no=${boardDto.board_no}">게시글 수정</a>
+			</button>
+			<button style="background-color: #778cb9">
+				<a href="delete?board_no=${boardDto.board_no}">게시글 삭제</a>
+			</button>
+		</c:if>
+	</c:if>
 </div>
 <h3>게시글 정보</h3>
 <br>
@@ -61,9 +66,8 @@ body {
 
 	<tr>
 		<td>${boardDto.board_no}</td>
-		<td>${boardDto.getBoardWriterString()}
-		<%-- 탈퇴한 사용자가 아닐경우 옆에 닉네임을 추가로 출력 --%>
-		<c:if test="${writerDto !=null }">
+		<td>${boardDto.getBoardWriterString()}<%-- 탈퇴한 사용자가 아닐경우 옆에 닉네임을 추가로 출력 --%>
+			<c:if test="${writerDto !=null }">
 		,닉네임 : ${writerDto.memberNickname}</c:if>
 		</td>
 		<td>${boardDto.board_title}</td>
@@ -92,7 +96,7 @@ body {
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
 		<td><fmt:formatDate value="${boardDto.board_utime}"
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
-					<td>${boardDto.board_group}</td>
+		<td>${boardDto.board_group}</td>
 	</tr>
 </table>
 
@@ -110,13 +114,33 @@ body {
 
 
 
-<form>
-	<h3>댓글</h3>
-	<textarea cols="100" rows="5" style="background-color: graytext"></textarea>
-	<br>
-	<button style="background-color: graytext">저장</button>
-</form>
+<%-- 댓글과 관련된 화면이 작성될 위치 --%>
+<div class="row left">
+	<form action="">
+		<div class="row">
+			<textarea class="form-input w-100" name="??" rows="4"></textarea>
+		</div>
+		<div class="row">
+			<button class="btn btn-positive w-100">
+				<i class="fa-solid fa-pen"></i>댓글등록
+			</button>
+		</div>
+	</form>
+</div>
 
+<div class="row left">
+	<div class="row flex-container">
+		<div class="w-75">
+			<div class="row left"><h3 class="DB이름">작성자</h3></div>
+			<div class="row left"><pre class="DB이름">내용</pre></div>
+			<div class="row left"><span class="DB이름">yyyy-mm-dd HH:mm:ss</span></div>
+		</div>
+		<div class="w-25">
+			<div class="row left"><button class="btn "><i class="fa-solid fa-edit"></i>수정</button></div>
+			<div class="row left"><button class="btn btn-negative"><i class="fa-solid fa-trash"></i>삭제</button></div>
+		</div>
+	</div>
+</div>
 
 
 
