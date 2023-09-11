@@ -46,56 +46,92 @@
 		// - 게시글 작성자가 쓴 댓글에 추가 표시
 		// - 수정버튼을 누르면 화면에 변화를 주도록 처리
 		// - 삭제버튼을 누르면 확인창 출력후 삭제하도록 처리
-		
-		function loadList() {
 
+		function loadList() {
 
 			//Javascript로 boardNo라는 이름의 파라미터 값 읽기
 			var params = new URLSearchParams(location.search);
 			var no = params.get("board_no");
-			
+
 			//(중요)로그인한 사용자의 정보를 EL을 이용하여 저장(매우 위험한 코드)
 			var memberId = "${sessionScope.name}";
 
 			//비동기 통신으로 화면 갱신
-			$.ajax({
-				//url:"http://localhost:8080/rest/reply/list",
-				url : "/rest/reply/list",
-				method : "post",
-				data : {
-					replyOrigin : no
-				},
-				success : function(response) {
-					
-					//화면 청소
-					//$(".reply-list").remove();//자기 자신까지 삭제(하면안됨!)
-					$(".reply-list").empty();//자기 자신을 제외한 내부 코드 삭제
-					
-					//response는 댓글 목록(JSON)
-					console.log(response);
-					for (var i = 0; i < response.length; i++) {
-						var reply = response[i];
+			$
+					.ajax({
+						//url:"http://localhost:8080/rest/reply/list",
+						url : "/rest/reply/list",
+						method : "post",
+						data : {
+							replyOrigin : no
+						},
+						success : function(response) {
 
-						var template = $("#reply-template").html();
-						var htmlTemplate = $.parseHTML(template);
-						
-						//작성자를 표시할 때 다음과 같이 로직을 추가
-						//- 탈퇴한 사용자는 빈칸이 아니라 "탈퇴한사용자"로 처리
+							//화면 청소
+							//$(".reply-list").remove();//자기 자신까지 삭제(하면안됨!)
+							$(".reply-list").empty();//자기 자신을 제외한 내부 코드 삭제
 
-						$(htmlTemplate).find(".replyWriter").text(reply.replyWriter || "탈퇴한 사용자");
-						$(htmlTemplate).find(".replyContent").text(reply.replyContent);
-						$(htmlTemplate).find(".replyTime").text(reply.replyTime);
-						
-						
-						//내가 작성한 댓글이 아니라면
-						if(memberId.length = 0 || memberId != reply.replyWriter){
-						$(htmlTemplate).find(".w-25").empty();
-						}
-						
-						$(".reply-list").append(htmlTemplate);
-					}
-				},
-			});
+							//response는 댓글 목록(JSON)
+							console.log(response);
+							for (var i = 0; i < response.length; i++) {
+								var reply = response[i];
+
+								var template = $("#reply-template").html();
+								var htmlTemplate = $.parseHTML(template);
+
+								//작성자를 표시할 때 다음과 같이 로직을 추가
+								//- 탈퇴한 사용자는 빈칸이 아니라 "탈퇴한사용자"로 처리
+
+								$(htmlTemplate).find(".replyWriter").text(
+										reply.replyWriter || "탈퇴한 사용자");
+								$(htmlTemplate).find(".replyContent").text(
+										reply.replyContent);
+								$(htmlTemplate).find(".replyTime").text(
+										reply.replyTime);
+
+								//내가 작성한 댓글이 아니라면
+								if (memberId.length = 0 || memberId != reply.replyWriter) {
+									//버튼 삭제
+									$(htmlTemplate).find(".w-25").empty();
+								}
+
+								//만드는 시점에 이벤트 설정
+								// -반복문의 데이터 사용 불가(위치가 다름)
+								// -지금과 같이 버튼 내부에 태그가 더 있을때,
+					 			//	-this 와 e.target은 다를수있다.
+					 			// -(this)는 주인공 (e.target)은 실제 대상
+								$(htmlTemplate).find(".btn-delete").attr("data-reply-no", reply.replyNo);
+								$(htmlTemplate).find(".btn-delete").click(
+										function(e) {
+
+											//var replyNo = $(this).data("reply-no");
+											//var replyNo = $(e.target).data("reply-no");
+											var replyNo = $(this).attr("data-reply-no");
+											$.ajax({
+												url : "/rest/reply/delete",
+												method :"post",
+												data : {
+													replyNo : replyNo
+												},
+												success : function(response) {
+													loadList();
+												}
+											});
+										});
+								
+								//수정버튼을 누르면...?
+								// - 편집상태의 템플릿으로 전환
+								// - 전환시 작성된 값들을 입력창으로 이동시켜야함
+								// - 전송가능한 form과 취소 버튼을 구현
+								$(htmlTemplate).find(".btn-edit").click(
+										function() {
+
+										});
+
+								$(".reply-list").append(htmlTemplate);
+							}
+						},
+					});
 		}
 	});
 </script>
@@ -115,12 +151,12 @@
 		</div>
 		<div class="w-25">
 			<div class="row left">
-				<button class="btn ">
+				<button class="btn  btn-edit">
 					<i class="fa-solid fa-edit"></i>수정
 				</button>
 			</div>
-			<div class="row left">
-				<button class="btn btn-negative">
+			<div class="row left ">
+				<button class="btn btn-negative btn-delete">
 					<i class="fa-solid fa-trash"></i>삭제
 				</button>
 			</div>

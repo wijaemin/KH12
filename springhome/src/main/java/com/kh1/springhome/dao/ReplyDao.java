@@ -12,4 +12,6 @@ public void insert(ReplyDto replyDto);
 
 List<ReplyDto>selectList(int replyOrigin);
 ReplyDto selectOne(int replyNo);
+
+boolean delete(int replyNo);
 }

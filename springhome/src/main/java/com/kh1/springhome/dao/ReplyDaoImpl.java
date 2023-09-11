@@ -49,4 +49,11 @@ public class ReplyDaoImpl implements ReplyDao {
 		return list.isEmpty() ? null : list.get(0);
 
 	}
+
+	@Override
+	public boolean delete(int replyNo) {
+		String sql = "delete reply where reply_no = ?";
+		Object[] data= {replyNo};
+ 		return jdbcTemplate.update(sql,data) >0;
+	}
 }
