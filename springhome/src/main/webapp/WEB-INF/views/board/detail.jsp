@@ -98,18 +98,20 @@
 								//만드는 시점에 이벤트 설정
 								// -반복문의 데이터 사용 불가(위치가 다름)
 								// -지금과 같이 버튼 내부에 태그가 더 있을때,
-					 			//	-this 와 e.target은 다를수있다.
-					 			// -(this)는 주인공 (e.target)은 실제 대상
-								$(htmlTemplate).find(".btn-delete").attr("data-reply-no", reply.replyNo);
+								//	-this 와 e.target은 다를수있다.
+								// -(this)는 주인공 (e.target)은 실제 대상
+								$(htmlTemplate).find(".btn-delete").attr(
+										"data-reply-no", reply.replyNo);
 								$(htmlTemplate).find(".btn-delete").click(
 										function(e) {
 
 											//var replyNo = $(this).data("reply-no");
 											//var replyNo = $(e.target).data("reply-no");
-											var replyNo = $(this).attr("data-reply-no");
+											var replyNo = $(this).attr(
+													"data-reply-no");
 											$.ajax({
 												url : "/rest/reply/delete",
-												method :"post",
+												method : "post",
 												data : {
 													replyNo : replyNo
 												},
@@ -118,14 +120,31 @@
 												}
 											});
 										});
-								
+
 								//수정버튼을 누르면...?
-								// - 편집상태의 템플릿으로 전환
+								// - 편집상태의 템플릿을 만들어서 추가
 								// - 전환시 작성된 값들을 입력창으로 이동시켜야함
 								// - 전송가능한 form과 취소 버튼을 구현
+								// - 수정시 서버로 글번호와 글내용만 전달하면됨
 								$(htmlTemplate).find(".btn-edit").click(
 										function() {
-
+											var editTemplate = $(
+													"#reply-edit-template")
+													.html();
+										var editHtmlTemplate =$.parseHTML(editTemplate);
+										
+										//취소 버튼에 대한 처리 구현
+										$(editHtmlTemplate).find(".btn-cancel").click(function(){
+											//this == 취소버튼
+											$(this).parents(".edit-container")
+											.prev(".view-container").show();
+											$(this).parents(".edit-container").remove();
+											
+										})
+										
+										//화면 배치
+										$(this).parents(".view-container").hide().after(editHtmlTemplate);
+											
 										});
 
 								$(".reply-list").append(htmlTemplate);
@@ -137,7 +156,7 @@
 </script>
 <script id="reply-template" type="text/template">
 
-	<div class="row flex-container">
+	<div class="row flex-container view-container">
 		<div class="w-75">
 			<div class="row left">
 				<h5 class="replyWriter">작성자</h5>
@@ -165,6 +184,26 @@
 <hr>
 </script>
 
+<script id="reply-edit-template" type="text/template">
+<form class="reply-edit-form edit-container">
+<input type="hidden" name="replyNo" value="??">
+	<div class="row flex-container">
+		<div class="w-75">
+			<textarea name="replyContent" class="form-input w-100" rows="4"></textarea>
+		</div>
+
+		<div class="w-25">
+			<div class="row">
+				<button class=" row btn btn-positive" type="submit">전송</button>
+			</div>
+			<div class="row">
+				<button class=" row btn btn-negative btn-cancel" type="button">취소</button>
+			</div>
+
+		</div>
+	</div>
+</form>
+</script>
 <style>
 td {
 	text-align: center;
@@ -275,7 +314,8 @@ body {
 <div class="row left">
 	<h1>댓글 목록</h1>
 </div>
-<div class="reply-list"></div>
+<div class="reply-list row left"></div>
+
 
 <%-- 댓글과 관련된 화면이 작성될 위치 --%>
 <div class="row left">
