@@ -9,4 +9,5 @@ public interface BoardLikeDao {
 	boolean delete(BoardLikeDto boardLikeDto);
 
 	boolean check(BoardLikeDto boardLikeDto);
+	int count(int boardNo);
 }

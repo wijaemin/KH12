@@ -216,6 +216,61 @@
 		}
 	});
 </script>
+
+<c:if test="${sessionScope.name != null}">
+<script>
+	//좋아요 처리
+	//[1] 페이지가 로드되면 비동기 통신으로 좋아요 상태를 체크하여 하트 생성
+	//[2] 하트에 클릭 이벤트를 설정하여 좋아요 처리가 가능하도록 구현
+	$(function(){
+		var params = new URLSearchParams(location.search);
+		var boardNo = params.get("board_no");
+		
+		$.ajax({
+			url:"/rest/like/check",
+			method:"post",
+			data:{boardNo : boardNo},
+			success:function(response){
+				//response는 {"check":true, "count":0} 형태의 JSON이다.
+				if(response.check) {
+					$(".fa-heart").removeClass("fa-solid fa-regular")
+										.addClass("fa-solid");
+				}
+				else {
+					$(".fa-heart").removeClass("fa-solid fa-regular")
+										.addClass("fa-regular");
+				}
+				//전달받은 좋아요 개수를 하트뒤에 span에 출력
+				$(".fa-heart").next("span").text(response.count);
+			}
+		});
+		
+		//[2]
+		$(".fa-heart").click(function(){
+			$.ajax({
+				url:"/rest/like/action",
+				method:"post",
+				data: {boardNo : boardNo},
+				success:function(response){
+					//response는 {"check":true, "count":0} 형태의 JSON이다.
+					if(response.check) {
+						$(".fa-heart").removeClass("fa-solid fa-regular")
+											.addClass("fa-solid");
+					}
+					else {
+						$(".fa-heart").removeClass("fa-solid fa-regular")
+											.addClass("fa-regular");
+					}
+					//전달받은 좋아요 개수를 하트뒤에 span에 출력
+					$(".fa-heart").next("span").text(response.count);
+				}
+			});
+		});
+	});
+</script>
+</c:if>
+
+
 <script id="reply-template" type="text/template">
 
 	<div class="row flex-container view-container">
@@ -286,52 +341,6 @@ body {
 </style>
 
 
-<c:if test="${sessionScope.name != null}">
-<script>
-	//좋아요 처리
-	//[1] 페이지가 로드되면 비동기 통신으로 좋아요 상태를 체크하여 하트 생성
-	//[2] 하트에 클릭 이벤트를 설정하여 좋아요 처리가 가능하도록 구현
-	$(function(){
-		var params = new URLSearchParams(location.search);
-		var boardNo = params.get("board_no");
-		
-		$.ajax({
-			url:"/rest/like/check",
-			method:"post",
-			data:{boardNo : boardNo},
-			success:function(response){
-				if(response == "Y") {
-					$(".fa-heart").removeClass("fa-solid fa-regular")
-										.addClass("fa-solid");
-				}
-				else {
-					$(".fa-heart").removeClass("fa-solid fa-regular")
-										.addClass("fa-regular");
-				}
-			}
-		});
-		
-		//[2]
-		$(".fa-heart").click(function(){
-			$.ajax({
-				url:"/rest/like/action",
-				method:"post",
-				data: {boardNo : boardNo},
-				success:function(response){
-					if(response == "Y") {
-						$(".fa-heart").removeClass("fa-solid fa-regular")
-											.addClass("fa-solid");
-					}
-					else {
-						$(".fa-heart").removeClass("fa-solid fa-regular")
-											.addClass("fa-regular");
-					}
-				}
-			});
-		});
-	});
-</script>
-</c:if>
 
 
 
@@ -403,7 +412,7 @@ body {
 	</tr>
 	<tr>
 		<td>${boardDto.board_readcount}</td>
-		<td><i class="fa-regular fa-heart red"></i> ${boardDto.board_likecount}</td>
+		<td><i class="fa-regular fa-heart red"></i><span>?</span></td>
 		<td>${boardDto.board_replycount}</td>
 		<td><fmt:formatDate value="${boardDto.board_ctime}"
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
