@@ -72,6 +72,7 @@
 
 /*
     고기 어때 
+    (메인 메뉴 작성)
     Ul, Li 메인 색상
 */
 ul.menu,
@@ -106,10 +107,6 @@ ul.menu-navy li {
 ul.menu-navy li:hover {
     background-color: #194e86;
 }
-/*
-    고기 어때 
-    메인메뉴 메인 색상
-*/
 
 
 
