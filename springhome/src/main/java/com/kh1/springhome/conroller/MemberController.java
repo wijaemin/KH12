@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh1.springhome.dao.AdminDao;
+import com.kh1.springhome.dao.BoardLikeDao;
 import com.kh1.springhome.dao.MemberDao;
+import com.kh1.springhome.dto.BoardLikeDto;
 import com.kh1.springhome.dto.MemberBlockDto;
 import com.kh1.springhome.dto.MemberDto;
 import com.kh1.springhome.error.AuthorityException;
@@ -98,6 +100,8 @@ public class MemberController {
 		session.removeAttribute("level");
 		return "redirect:/";
 	}
+	@Autowired
+private	BoardLikeDao boardLikeDao;
 
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
@@ -108,6 +112,10 @@ public class MemberController {
 		MemberDto memberDto = memberDao.selectOne(memberId);
 		// 3. 조회한 정보를 모델에 첨부한다.
 		model.addAttribute("memberDto", memberDto);
+	
+		// 4. 좋아요 누른 게시글 내역을 모델에 첨부한다.
+		model.addAttribute("boardLikeList", boardLikeDao.findByMemberId(memberId));	
+		
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
 

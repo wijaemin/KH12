@@ -4,71 +4,107 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
-td{text-align: center; background-color: silver;}
-th{text-align: center; background-color: graytext;}
+td {
+	text-align: center;
+	background-color: silver;
+}
+
+th {
+	text-align: center;
+	background-color: graytext;
+}
+
 body {
-	background-color: #7f8fa6;padding: 30px;
+	background-color: #7f8fa6;
+	padding: 30px;
 }
 </style>
 <div align="center">
 
-<h2>${memberDto.memberId}님 회원정보</h2>
+	<h2>${memberDto.memberId}님회원정보</h2>
 
-<table border="1" width="550">
-	<tr>
-		<th>닉네임</th>
-		<td>${memberDto.memberNickname}</td>
-	</tr>
-	<tr>
-		<th>이메일</th>
-		<td>${memberDto.memberEmail}</td>
-	</tr>
-	<tr>
-		<th>연락처</th>
-		<td>${memberDto.memberContact}</td>
-	</tr>
-	<tr>
-		<th>생년월일</th>
-		<td>${memberDto.memberBirth}</td>
-	</tr>
-	<tr>
-		<th>주소</th>
-		<td>[${memberDto.memberPost}] ${memeberDto.memeberAddr1}
-			${memeberDto.memeberAddr2}</td>
-	</tr>
-	<tr>
-		<th>등급</th>
-		<td>${memberDto.memberLevel}</td>
-	</tr>
-	<tr>
-		<th>포인트</th>
-		<%-- 		<td>${memberDto.memberPoint}pt</td> --%>
-		<td><fmt:formatNumber value="${memberDto.memberPoint}"
-				pattern="#,##0.00"></fmt:formatNumber> PT</td>
-	</tr>
-	<tr>
-		<th>가입일</th>
-		<%-- 		<td>${memberDto.memberJoin}</td> --%>
-		<td><fmt:formatDate value="${memberDto.memberJoin}"
-				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
-	</tr>
-	<tr>
-		<th>마지막 로그인</th>
-<%-- 		<td>${memberDto.memberLogin}</td> --%>
-		<td><fmt:formatDate value="${memberDto.memberLogin}"
-				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
-	</tr>
-	<tr>
-		<th>마지막 비밀번호 변경일</th>
+	<table border="1" width="550">
+		<tr>
+			<th>닉네임</th>
+			<td>${memberDto.memberNickname}</td>
+		</tr>
+		<tr>
+			<th>이메일</th>
+			<td>${memberDto.memberEmail}</td>
+		</tr>
+		<tr>
+			<th>연락처</th>
+			<td>${memberDto.memberContact}</td>
+		</tr>
+		<tr>
+			<th>생년월일</th>
+			<td>${memberDto.memberBirth}</td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td>[${memberDto.memberPost}] ${memeberDto.memeberAddr1}
+				${memeberDto.memeberAddr2}</td>
+		</tr>
+		<tr>
+			<th>등급</th>
+			<td>${memberDto.memberLevel}</td>
+		</tr>
+		<tr>
+			<th>포인트</th>
+			<%-- 		<td>${memberDto.memberPoint}pt</td> --%>
+			<td><fmt:formatNumber value="${memberDto.memberPoint}"
+					pattern="#,##0.00"></fmt:formatNumber> PT</td>
+		</tr>
+		<tr>
+			<th>가입일</th>
+			<%-- 		<td>${memberDto.memberJoin}</td> --%>
+			<td><fmt:formatDate value="${memberDto.memberJoin}"
+					pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
+		</tr>
+		<tr>
+			<th>마지막 로그인</th>
+			<%-- 		<td>${memberDto.memberLogin}</td> --%>
+			<td><fmt:formatDate value="${memberDto.memberLogin}"
+					pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
+		</tr>
+		<tr>
+			<th>마지막 비밀번호 변경일</th>
 
-		<%-- 		<td>${memberDto.memberChange}</td> --%>
-		<td><fmt:formatDate value="${memberDto.memberChange}"
-				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
-	</tr>
+			<%-- 		<td>${memberDto.memberChange}</td> --%>
+			<td><fmt:formatDate value="${memberDto.memberChange}"
+					pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
+		</tr>
 
-</table>
+	</table>
+
+	<div class="row mt-40">
+		<h2>내가 좋아요 한 게시글</h2>
+	</div>
+
+	<div class="row">
+		<table class="table  table-border table-stripe">
+<c:forEach var="boardDto" items="${boardLikeList}">
+			<tr>
+				<td class="w-75 left">
+					<a href="/board/detail?board_no=${boardDto.board_no}"
+								class="link">
+					${boardDto.board_title}
+					</a>
+				</td>
+				<td class="w-25">${boardDto.board_writer}</td>
+			</tr>
+			</c:forEach>
+		</table>
+	</div>
+
 </div>
-<h2><a href="change">회원정보 변경</a></h2>
-<h2><a href="password">비밀번호 변경</a></h2>
-<h2><a href="exit">회원 탈퇴</a></h2>
+<h2>
+	<a href="change">회원정보 변경</a>
+</h2>
+<h2>
+	<a href="password">비밀번호 변경</a>
+</h2>
+<h2>
+	<a href="exit">회원 탈퇴</a>
+</h2>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

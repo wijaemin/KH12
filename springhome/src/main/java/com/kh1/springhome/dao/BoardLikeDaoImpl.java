@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh1.springhome.dto.BoardDto;
 import com.kh1.springhome.dto.BoardLikeDto;
+import com.kh1.springhome.dto.BoardListDto;
 import com.kh1.springhome.mapper.BoardLikeMapper;
+import com.kh1.springhome.mapper.BoardListMapper;
+import com.kh1.springhome.mapper.BoardMapper;
 
 @Repository
 public class BoardLikeDaoImpl implements BoardLikeDao {
@@ -45,6 +49,18 @@ public class BoardLikeDaoImpl implements BoardLikeDao {
 		String sql = " select count(*) from board_like where board_no=?";
 		Object[] data = { boardNo };
 		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+
+	@Autowired
+private	BoardMapper boardMapper;
+	@Override
+	public List<BoardDto> findByMemberId(String memberId) {
+		String sql = "select board. * " + "from board_like left outer join board "
+				+ "on board_like.board_no = board.board_no " + "where board_like.member_id = ? "
+				+ "order by board.board_no desc";
+		Object[] data = {memberId};
+		 
+		return jdbcTemplate.query(sql,boardMapper,data);
 	}
 
 }
