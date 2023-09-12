@@ -126,52 +126,88 @@
 								// - 전환시 작성된 값들을 입력창으로 이동시켜야함
 								// - 전송가능한 form과 취소 버튼을 구현
 								// - 수정시 서버로 글번호와 글내용만 전달하면됨
-								$(htmlTemplate).find(".btn-edit").attr("data-reply-no",reply.replyNo).click(
-										function() {
-											var editTemplate = $(
-													"#reply-edit-template")
-													.html();
-										var editHtmlTemplate =$.parseHTML(editTemplate);
-										
-										//value 설정
-										var replyNo = $(this).attr("data-reply-no");
-										var replyContent =$(this).parents(".view-container")
-										.find(".replyContent").text();
-										$(editHtmlTemplate).find("[name=replyNo]").val(replyNo);
-										$(editHtmlTemplate).find("[name=replyContent]").val(replyContent);
-										
-										//취소 버튼에 대한 처리 구현
-										$(editHtmlTemplate).find(".btn-cancel").click(function(){
-											//this == 취소버튼
-											$(this).parents(".edit-container")
-											.prev(".view-container").show();
-											$(this).parents(".edit-container").remove();
-											
-										})
-										
-										//완료(등록) 버튼 처리
-										// -editHtmlTemplate 자체가 form이므로 추가 탐색을 하지 않음
-										$(editHtmlTemplate).submit(function(e){
-											//검사코드(미입력)
-											
-											//기본 이벤트 차단
-											e.preventDefault();
-											
-											$.ajax({
-												url:"/rest/reply/edit",
-												method:"post",
-										//		data:{replyNo : ? ,replyContent : ?},
-												data:$(e.target).serialize(),
-												success:function(response){
-													loadList();
-												}
-											});
-										});
-										
-										//화면 배치
-										$(this).parents(".view-container").hide().after(editHtmlTemplate);
-											
-										});
+								$(htmlTemplate)
+										.find(".btn-edit")
+										.attr("data-reply-no", reply.replyNo)
+										.click(
+												function() {
+													var editTemplate = $(
+															"#reply-edit-template")
+															.html();
+													var editHtmlTemplate = $
+															.parseHTML(editTemplate);
+
+													//value 설정
+													var replyNo = $(this).attr(
+															"data-reply-no");
+													var replyContent = $(this)
+															.parents(
+																	".view-container")
+															.find(
+																	".replyContent")
+															.text();
+													$(editHtmlTemplate).find(
+															"[name=replyNo]")
+															.val(replyNo);
+													$(editHtmlTemplate)
+															.find(
+																	"[name=replyContent]")
+															.val(replyContent);
+
+													//취소 버튼에 대한 처리 구현
+													$(editHtmlTemplate)
+															.find(".btn-cancel")
+															.click(
+																	function() {
+																		//this == 취소버튼
+																		$(this)
+																				.parents(
+																						".edit-container")
+																				.prev(
+																						".view-container")
+																				.show();
+																		$(this)
+																				.parents(
+																						".edit-container")
+																				.remove();
+
+																	})
+
+													//완료(등록) 버튼 처리
+													// -editHtmlTemplate 자체가 form이므로 추가 탐색을 하지 않음
+													$(editHtmlTemplate)
+															.submit(
+																	function(e) {
+																		//검사코드(미입력)
+
+																		//기본 이벤트 차단
+																		e
+																				.preventDefault();
+
+																		$
+																				.ajax({
+																					url : "/rest/reply/edit",
+																					method : "post",
+																					//		data:{replyNo : ? ,replyContent : ?},
+																					data : $(
+																							e.target)
+																							.serialize(),
+																					success : function(
+																							response) {
+																						loadList();
+																					}
+																				});
+																	});
+
+													//화면 배치
+													$(this)
+															.parents(
+																	".view-container")
+															.hide()
+															.after(
+																	editHtmlTemplate);
+
+												});
 
 								$(".reply-list").append(htmlTemplate);
 							}
@@ -230,6 +266,7 @@
 	</div>
 </form>
 </script>
+
 <style>
 td {
 	text-align: center;
@@ -247,6 +284,57 @@ body {
 	padding-top: 30px;
 }
 </style>
+
+
+<c:if test="${sessionScope.name != null}">
+<script>
+	//좋아요 처리
+	//[1] 페이지가 로드되면 비동기 통신으로 좋아요 상태를 체크하여 하트 생성
+	//[2] 하트에 클릭 이벤트를 설정하여 좋아요 처리가 가능하도록 구현
+	$(function(){
+		var params = new URLSearchParams(location.search);
+		var boardNo = params.get("board_no");
+		
+		$.ajax({
+			url:"/rest/like/check",
+			method:"post",
+			data:{boardNo : boardNo},
+			success:function(response){
+				if(response == "Y") {
+					$(".fa-heart").removeClass("fa-solid fa-regular")
+										.addClass("fa-solid");
+				}
+				else {
+					$(".fa-heart").removeClass("fa-solid fa-regular")
+										.addClass("fa-regular");
+				}
+			}
+		});
+		
+		//[2]
+		$(".fa-heart").click(function(){
+			$.ajax({
+				url:"/rest/like/action",
+				method:"post",
+				data: {boardNo : boardNo},
+				success:function(response){
+					if(response == "Y") {
+						$(".fa-heart").removeClass("fa-solid fa-regular")
+											.addClass("fa-solid");
+					}
+					else {
+						$(".fa-heart").removeClass("fa-solid fa-regular")
+											.addClass("fa-regular");
+					}
+				}
+			});
+		});
+	});
+</script>
+</c:if>
+
+
+
 
 <h2>게시글 상세조회</h2>
 <div align="right">
@@ -315,7 +403,7 @@ body {
 	</tr>
 	<tr>
 		<td>${boardDto.board_readcount}</td>
-		<td>${boardDto.board_likecount}</td>
+		<td><i class="fa-regular fa-heart red"></i> ${boardDto.board_likecount}</td>
 		<td>${boardDto.board_replycount}</td>
 		<td><fmt:formatDate value="${boardDto.board_ctime}"
 				pattern="y년 M월 d일 E요일 a h시 m분 s초" /></td>
