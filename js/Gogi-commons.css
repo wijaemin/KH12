@@ -1,7 +1,125 @@
 /*
-    자주 사용하는 디자인 코드를 모아놓은 파일
+    고기어때 디자인 코드를 모아놓은 파일
 */
 @charset "UTF-8";
+
+
+/*
+    고기 어때 
+    글씨 메인 색상
+*/
+.white { color:#FFF; }
+.orange { color:#FA9F5F; }
+.navy { color:#012D5C; }
+
+/*
+    고기 어때 
+    테두리 메인 색상
+*/
+.form-input.form-orange {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-color:#FA9F5F soild 1px;
+}
+.form-input.form-navy {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-color:#012D5C soild 1px;
+}
+/*
+    고기 어때 
+    버튼 메인 색상
+*/
+
+.form-input, 
+.btn-orange 
+{
+    /* a 태그 때문에 추가한 속성 */
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: bottom;
+
+    font-size: 20px;
+    padding: 0.5em 1em;
+    outline: none; /*outline은 입력 창 선택 시 강조 효과 */
+    border: 1px solid #FA9F5F;
+    border-radius: 0.1em;
+    line-height: 1.2em;
+}
+.form-input, 
+.btn-navy 
+{
+    /* a 태그 때문에 추가한 속성 */
+    display: inline-block;
+    text-decoration: none;
+    vertical-align: bottom;
+
+    font-size: 20px;
+    padding: 0.5em 1em;
+    outline: none; /*outline은 입력 창 선택 시 강조 효과 */
+    border: 1px solid #012D5C;
+    border-radius: 0.1em;
+    line-height: 1.2em;
+}
+
+/*
+    고기 어때 
+    Ul, Li 메인 색상
+*/
+ul.menu,
+ul.menu-orange ul
+{
+    font-size: 24px;
+    background-color: #FA9F5F;
+}
+ul.menu-orange li {
+    color: white;
+    background-color: #FA9F5F;
+    width: 150px;
+}
+
+/* 메뉴에 마우스가 올라가면 하이라이트 효과 */
+ul.menu-orange li:hover {
+    background-color: #cf9164;
+}
+ul.menu,
+ul.menu-navy ul
+{
+    font-size: 24px;
+    background-color: #012D5C;
+}
+ul.menu-navy li {
+    color: white;
+    background-color: #012D5C;
+    width: 150px;
+}
+
+/* 메뉴에 마우스가 올라가면 하이라이트 효과 */
+ul.menu-navy li:hover {
+    background-color: #194e86;
+}
+/*
+    고기 어때 
+    메인메뉴 메인 색상
+*/
+
+
+
+
+
+
+
+
+
+
 
 * {
     box-sizing: border-box;
@@ -43,6 +161,9 @@
 .w-1000 { width:1000px; }
 .w-1100 { width:1100px; }
 .w-1200 { width:1200px; }
+.w-1300 { width:1300px; }
+.w-1400 { width:1400px; }
+.w-1500 { width:1500px; }
 
 /*
     컨테이너에 배치할 태그의 자리를 row라고 부른다
@@ -324,7 +445,8 @@ textarea.form-input.fixed {
 .green { color:#00b894; }
 .gray { color:#b2bec3; }
 .black { color:#2d3436; }
-.white { color:#FFF; }
+
+
 
 
 
