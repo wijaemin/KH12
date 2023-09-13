@@ -1,4 +1,4 @@
-package com.kh1.springhome.conroller;
+package com.kh1.springhome.controller;
 
 import java.io.File;
 import java.io.IOException;

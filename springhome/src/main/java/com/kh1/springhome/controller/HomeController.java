@@ -1,4 +1,4 @@
-package com.kh1.springhome.conroller;
+package com.kh1.springhome.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

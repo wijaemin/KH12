@@ -9,4 +9,5 @@ public interface PocketmonDao {
 
 	public int sequence();
 	public void insert(PocketmonDto pocketmonDto);
+	public void connect(int pocketmonNo, int attachNo);
 }
