@@ -338,6 +338,8 @@ body {
 	padding-left: 100px;
 	padding-top: 30px;
 }
+ .note-viewer{  
+ line-height: 2;  !important}
 </style>
 
 
@@ -428,7 +430,7 @@ body {
 		<th>게시글 내용</th>
 	</tr>
 	<tr>
-		<td>${boardDto.board_content}</td>
+		<td class="note-viewer">${boardDto.board_content}</td>
 	</tr>
 
 </table>
