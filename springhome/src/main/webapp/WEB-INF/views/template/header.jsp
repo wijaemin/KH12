@@ -30,24 +30,28 @@
 
 <body>
 	<main>
-        <header>
-            <div class="logo">
-                <img src="https://dummyimage.com/200x50/000/fff">
-            </div>
-            <div class="title">
-                <h1>내가 만든 홈페이지</h1>
-            </div>
-            <div class="etc"></div>
-        </header>
+		<header>
+			<div class="logo">
+				<img src="https://dummyimage.com/200x50/000/fff">
+			</div>
+			<div class="title">
+				<h1>내가 만든 홈페이지</h1>
+			</div>
+			<div class="etc"></div>
+		</header>
 		<nav>
-			<ul class="menu">
+			<ul class="menu center">
 				<c:choose>
 					<c:when test="${sessionScope.name != null}">
+
 						<li><a href="/">Home</a></li>
 						<li><a href="/member/mypage">내정보</a></li>
 						<li><a href="/member/logout">로그아웃</a></li>
 						<li><a href="/board/list">게시판</a></li>
-
+						<li class="menu"><a href="/pocketmon/list">포켓몬</a>
+							<ul>
+								<li><a href="/pocketmon/insert">+등록</a></li>
+							</ul></li>
 						<%-- 관리자의 경우 추가 메뉴 출력--%>
 						<c:if test="${sessionScope.level=='관리자'}">
 							<li><a href="/admin/home">관리자 메뉴</a></li>
@@ -55,13 +59,18 @@
 
 					</c:when>
 					<c:otherwise>
+
 						<li><a href="/">Home</a></li>
 						<li><a href="/member/join">회원가입</a></li>
 						<li><a href="/member/login">로그인</a></li>
 						<li><a href="/board/list">게시판</a></li>
+						<li class="menu"><a href="/pocketmon/list">포켓몬</a>
+							<ul>
+								<li><a href="/pocketmon/insert">+등록</a></li>
+							</ul></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
 		</nav>
-  
-        <section>
+
+		<section>
