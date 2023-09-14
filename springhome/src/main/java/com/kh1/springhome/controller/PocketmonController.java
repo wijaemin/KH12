@@ -144,7 +144,7 @@ public class PocketmonController {
 		String home =System.getProperty("user.home");
 		File dir = new File(home,"upload");
 		File target = new File(dir, String.valueOf(attachDto.getAttachNo()));
-		target.delete();//실제파일 삭제!
+		target.delete();//실제파일 삭제
 		return "redirect:list";
 	}
 }
