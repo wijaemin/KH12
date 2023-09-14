@@ -6,7 +6,8 @@ import com.kh.spring12file.dto.AttachDto;
 
 @Repository
 public interface AttachDao {
-	int sequence();
-
+	
+int sequence();
 public void  insert (AttachDto attachDto);
+public AttachDto selectOne(int attachNo);
 }
