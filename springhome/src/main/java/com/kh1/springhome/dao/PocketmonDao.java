@@ -14,6 +14,7 @@ public interface PocketmonDao {
 	public void insert(PocketmonDto pocketmonDto);
 	public PocketmonDto selectOne(int no);
 	public List<PocketmonDto> selectList();
+	public boolean delete(int no);
 	
 	public void connect(int pocketmonNo, int attachNo);
 	public AttachDto findImage(int poketmonNo);

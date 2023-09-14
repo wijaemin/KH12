@@ -11,4 +11,6 @@ public interface AttachDao {
 	int sequence();
 
 public void  insert (AttachDto attachDto);
+
+public boolean delete(int attachNo);
 }

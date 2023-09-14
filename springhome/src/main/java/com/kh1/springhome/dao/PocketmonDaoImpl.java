@@ -53,7 +53,10 @@ public class PocketmonDaoImpl implements PocketmonDao {
 
 	@Override
 	public List<PocketmonDto> selectList() {
-		String sql = "select * from pocketmon order by no asc";
+		String sql = "select p.*, pm.attach_no from pocketmon p"
+				+ " left outer join pocketmon_image pm"
+				+ " on p.no = pm.pocketmon_no"
+				+ " order by p.no asc";
 		return jdbcTemplate.query(sql, pocketmonMapper);
 
 	}
@@ -68,6 +71,13 @@ public class PocketmonDaoImpl implements PocketmonDao {
 		Object[] data = { no };
 		List<PocketmonDto> list = jdbcTemplate.query(sql, pocketmonMapper, data);
 		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@Override
+	public boolean delete(int no) {
+		String sql = "delete pocketmon where no = ?";
+		Object[] data = {no};
+		return jdbcTemplate.update(sql, data)>0;
 	}
 
 }
