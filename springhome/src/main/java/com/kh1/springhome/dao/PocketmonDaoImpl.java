@@ -20,7 +20,6 @@ public class PocketmonDaoImpl implements PocketmonDao {
 	@Autowired
 	AttachMapper attachMapper;
 
-
 	@Override
 	public int sequence() {
 		String sql = "select pocketmon_seq.nextval from dual";
@@ -39,19 +38,36 @@ public class PocketmonDaoImpl implements PocketmonDao {
 	public void connect(int pocketmonNo, int attachNo) {
 		String sql = "insert into pocketmon_image values (? , ?)";
 		Object[] data = { pocketmonNo, attachNo };
-		jdbcTemplate.update(sql,data);
+		jdbcTemplate.update(sql, data);
 
 	}
 
 	@Override
 	public AttachDto findImage(int poketmonNo) {
-		String sql = "select *from attach where attach_no = ("
-				+ " select attach_no from pocketmon_image "
-				+ "where pocketmon_no = ?"
-				+ " )";
-		Object[] data = {poketmonNo};
-		List<AttachDto> list = jdbcTemplate.query(sql,attachMapper,data);
-		return list.isEmpty() ? null :list.get(0);
+		String sql = "select *from attach where attach_no = (" + " select attach_no from pocketmon_image "
+				+ "where pocketmon_no = ?" + " )";
+		Object[] data = { poketmonNo };
+		List<AttachDto> list = jdbcTemplate.query(sql, attachMapper, data);
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@Override
+	public List<PocketmonDto> selectList() {
+		String sql = "select * from pocketmon order by no asc";
+		return jdbcTemplate.query(sql, pocketmonMapper);
+
+	}
+
+	@Override
+	public PocketmonDto selectOne(int no) {
+		String sql = "SELECT p.*,pm.attach_no from "
+				+ "POCKETMON  p "
+				+ "left outer join POCKETMON_IMAGE pm "+
+				"on p.no = pm.POCKETMON_NO "
+				+ "where no = ?" ;
+		Object[] data = { no };
+		List<PocketmonDto> list = jdbcTemplate.query(sql, pocketmonMapper, data);
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 }
