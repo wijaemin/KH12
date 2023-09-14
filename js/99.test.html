@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>황민하 테스트</title>
+
+    <!-- css 파일을 불러오는 코드 -->
+
+    <!-- 아이콘 사용을 위한 Font Awesome 6 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 구글 웹 폰트 사용을 위한 CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- 내가 만든 CSS 파일-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/commons.css">
+    <link rel="stylesheet" type="text/css" href="./css/test.css">
+    <style>
+        .mt-50 {
+            box-shadow: 0px 0px 11px;
+        }
+    </style>
+
+    <!-- swiper cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- javascript 작성 공간 -->
+
+    <script>
+        $(function () {
+            $(".memberForm").submit(function () {
+                var userId = $("[name=userId]").val()
+                var userPw = $("[name=userPw]").val()
+                $.ajax({
+
+                    url: "http://localhost:8080/member",
+                    method: "get",
+                    data: {
+                        userId: userId,
+                        userPw: userPw,
+                        userLevel: normal,
+                        userLevel: admin
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+
+            $("[name=normal]").click(function () {
+                if ($(this).prop('checked')) {
+                    $("[name=admin]").prop('checked', false);
+                }
+            });
+            $("[name=admin]").click(function () {
+                if ($(this).prop('checked')) {
+                    $("[name=normal]").prop('checked', false);
+                }
+            });
+
+        }
+        );
+    </script>
+
+    <script>
+        function checkUserId() {
+            var input = document.querySelector("[name=userId]");
+
+            input.classList.remove("success", "fail");
+            if (input.value.length > 0) {
+
+                input.classList.add("success");
+                return true;
+            }
+            else {
+                input.classList.add("fail");
+                return false;
+            }
+        }
+        function checkUserPw() {
+            var input = document.querySelector("[name=userPw]");
+
+            input.classList.remove("success", "fail");
+            if (input.value.length > 0) {
+
+                input.classList.add("success");
+                return true;
+            }
+            else {
+                input.classList.add("fail");
+                return false;
+            }
+        }
+
+        function checkForm() {
+            var result1 = checkUserId();
+            var result2 = checkUserPw();
+          
+            return result1 && result2 ;
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="flex-container vertical mt-50" style="width: 484px; height: 504px;">
+        <div style="width: 350px; height: 400px; margin-left: auto; 
+        margin-right: auto; margin-top: 50px; margin-bottom: auto;">
+            <div class="row">
+                <h1>User Login</h1>
+            </div>
+            <div class="row">
+                <form action="/" method="post" class="memberForm"
+                 autocomplete="off" onsubmit="return checkForm();">
+                    <div class="row">
+                        <input onblur="checkUserId();" class="form-input w-100" type="text" placeholder="ID"
+                            name="userId">
+
+                        <div class="success-feedback">멋진 아이디입니다!</div>
+                        <div class="fail-feedback">아이디를 다시 입력하세요</div>
+                    </div>
+                    <div class="row">
+                        <input onblur="checkUserPw();"
+                        class="form-input w-100" type="password" placeholder="Password" name="userPw">
+                        <div class="success-feedback">올바른 비밀번호 형식입니다</div>
+                        <div class="fail-feedback">잘못된 비밀번호 형식입니다</div>
+                    </div>
+
+
+                    <div class="row flex-container auto-width mt-20 mb-20">
+                       <label for="normal" class="flex-container "><input class="check" type="checkbox"id="normal" checked name="normal"><h4>일반회원</h4></label>
+                       <label for="admin" class="flex-container "> <input class="check" type="checkbox"id="admin" name="admin"><h4>관리자</h4></label>
+                    </div>
+                    <div class="row vertical flex-container">
+                        <button type="submit" class="btn btn-positive">로그인</button>
+                    </div>
+                    <hr>
+                    <div class="row vertical flex-container">
+                        <button type="button" class="btn">회원가입</button>
+                    </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+</body>
+
+</html>
