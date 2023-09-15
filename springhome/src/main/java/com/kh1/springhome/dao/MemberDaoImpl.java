@@ -105,10 +105,38 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<StatDto> selectGroupByMemberLevel() {
-		String sql = "select member_level name, count(*) cnt from member "
-						+ "group by member_level "
-						+ "order by cnt desc";
+		String sql = "select member_level name, count(*) cnt from member " + "group by member_level "
+				+ "order by cnt desc";
 		return tem.query(sql, statMapper);
+	}
+
+	@Override
+	public void insertProfile(String memberId, int attachNo) {
+		String sql = "insert into member_profile values(?,?)";
+		Object[] data = {memberId,attachNo};
+		tem.update(sql, data);
+	}
+
+	@Override
+	public boolean deleteProfile(String memberId) {
+		String sql = "delete member_profile where member_id = ?";
+		Object[] data = {memberId};
+		return tem.update(sql,data)>0;
+
+	}
+
+	@Override
+	public Integer findProfile(String memberId) {
+		String sql = "select attach_no from member_profile "
+				+ "where member_id = ?";
+		Object[] data = {memberId};
+		try {
+			return tem.queryForObject(sql,Integer.class,data);
+		}
+		catch(Exception e) {
+			return null;
+		}
+		
 	}
 
 }

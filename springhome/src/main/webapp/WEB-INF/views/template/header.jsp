@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>나의 홈페이지</title>
+
 <!-- css 파일을 불러오는 코드 -->
 
 <!-- 아이콘 사용을 위한 Font Awesome 6 CDN -->
@@ -24,6 +25,9 @@
 <link rel="stylesheet" type="text/css" href="/css/commons.css">
 <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
 
+
+<!-- jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style></style>
 </head>
 

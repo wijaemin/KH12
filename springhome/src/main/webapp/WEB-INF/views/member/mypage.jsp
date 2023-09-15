@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <style>
 td {
 	text-align: center;
@@ -19,53 +20,86 @@ body {
 	padding: 30px;
 }
 </style>
-
 <script>
 	$(function() {
-		//변경 버튼을 누르면 프로필을 업로드하고 이미지 교체
-		$(".btn-change").click(function() {
-			//선택된 파일이 있는지 확인하고 없으면 중단
-			// var input = document.querySelector(".profile-chooser");
-			var input = $(".profile-chooser")[0];
-			if (input.files.length == 0) {
-				return;
-			}
+		//파일이 변경되면 프로필을 업로드하고 이미지 교체
+		$(".profile-chooser").change(
+				function() {
+					//선택된 파일이 있는지 확인하고 없으면 중단
+					// var input = document.querySelector(".profile-chooser");
+					//var input = $(".profile-chooser")[0];
+					var input = this;
+					if (input.files.length == 0) {
+						return;
+					}
 
-			// ajax로 multipart 업로드
-			var form = new FormData();
-			form.append("attach", input.files[0]);
-			
+					// ajax로 multipart 업로드
+					var form = new FormData();
+					form.append("attach", input.files[0]);
+
+					$.ajax({
+						url : "/rest/member/upload",
+						method : "post",
+						processData : false,
+						contentType : false,
+						data : form,
+						success : function(response) {
+							// 응답 형태 - {"attachNo" : 7}
+
+							//프로필 이미지 교체
+							$(".profile-image").attr(
+									"src",
+									"/rest/member/download?attachNo="
+											+ response.attachNo);
+
+						},
+						error : function() {
+							window.alert("통신오류 발생 \n 잠시후 다시 시도 해주세요.");
+						},
+					});
+				});
+
+		//삭제아이콘을 누르면 프로필이 제거되도록 구현
+		$(".profile-delete").click(function() {
+			//확인창
+			var choice = window.confirm("정말 삭제하시겠습니까?");
+			if (choice == false)
+				return;
+
+			//삭제요청
 			$.ajax({
-				url : "/rest/member/upload",
+				url : "/rest/member/delete",
 				method : "post",
-				processData : false,
-				contentType : false,
-				data : form,
 				success : function(response) {
-					// 응답 형태 - {"attachNo" : 7}
-					
-					//프로필 이미지 교체
-					$(".profile-image").attr("src","/rest/member/download?attachNo="+response.attachNo);
-					
+					$(".profile-image").attr("src", "/images/user.jpg");
 				},
-				error : function() {
-					window.alert("통신오류 발생 \n 잠시후 다시 시도 해주세요.");
-				}
 			});
-		})
-	})
+		});
+	});
 </script>
+
 
 <div align="center">
 
 	<h2>${memberDto.memberId}님회원정보</h2>
 
-	<div class="row">
-		<img src="/images/기본프로필.jpg" width="150" height="150"
-			class="image image-circle image-border profile-image">
-		<hr>
-		<input type="file" class="profile-chooser" accept="/images/*">
-		<button class="btn btn-change">변경</button>
+	<div class="row mv-30">
+		<c:choose>
+			<c:when test="${profile ==null }">
+				<img src="/images/user.jpg" width="150" height="150"
+					class="image image-circle image-border profile-image">
+			</c:when>
+			<c:otherwise>
+				<img src="/rest/member/download?attachNo=${profile}" width="150"
+					height="150" class="image image-circle image-border profile-image">
+			</c:otherwise>
+		</c:choose>
+
+		<!-- 라벨을 만들고 파일 선택창을 숨김 -->
+		<label> <input type="file" class="profile-chooser"
+			accept="image/*" style="display: none"> <i
+			class="fa-solid fa-camera blue fa-5x"></i>
+		</label> <i class="fa-solid fa-trash-can red fa-5x profile-delete"></i>
 	</div>
 
 	<table border="1" width="550">

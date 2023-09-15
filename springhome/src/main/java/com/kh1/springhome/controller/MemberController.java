@@ -112,9 +112,10 @@ private	BoardLikeDao boardLikeDao;
 		MemberDto memberDto = memberDao.selectOne(memberId);
 		// 3. 조회한 정보를 모델에 첨부한다.
 		model.addAttribute("memberDto", memberDto);
-	
 		// 4. 좋아요 누른 게시글 내역을 모델에 첨부한다.
 		model.addAttribute("boardLikeList", boardLikeDao.findByMemberId(memberId));	
+		// 5. 이회원의 프로필 이미지 정보를 첨부한다.
+		model.addAttribute("profile",memberDao.findProfile(memberId));
 		
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
