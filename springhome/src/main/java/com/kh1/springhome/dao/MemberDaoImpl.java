@@ -131,9 +131,11 @@ public class MemberDaoImpl implements MemberDao {
 				+ "where member_id = ?";
 		Object[] data = {memberId};
 		try {
+			//queryForObject는 1개의 결과가 나오지 않으면 예외가 발생
 			return tem.queryForObject(sql,Integer.class,data);
 		}
 		catch(Exception e) {
+			//예외 발생시 null로 대체하여 반환
 			return null;
 		}
 		
