@@ -37,6 +37,7 @@
         $(function () {
             //처음에 로딩아이콘 숨김
             $(".btn-send").find(".fa-spinner").hide();
+            $(".cert-wrapper").hide();
 
             //인증번호 보내기 버튼을 누르면 
             //서버로 비동기통신을 보내 인증 메일 요청
@@ -56,9 +57,44 @@
                         $(".btn-send").find(".fa-spinner").hide();
                         $(".btn-send").find("span").text("인증번호 보내기");
                         window.alert("이메일 확인하세요!");
+
+                        $(".cert-wrapper").show();
+                        window.email= email;
                     },
                 })
 
+            });
+            //확인 버튼을 누르면 이메일과 인증번호를 서버로 전달
+            $(".btn-cert").click(function () {
+                // var email = $("[name=memberEmail]").val();
+                var email = window.email;
+                var number = $(".cert-input").val();
+
+                if (email.length == 0 || number.length == 0) return;
+
+                $.ajax({
+                    url: "http://localhost:8080/rest/cert/check",
+                    method: "post",
+                    data: {
+                        certEmail: email,
+                        certNumber: number
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if (response.result) {//인증성공
+                            $(".cert-input").removeClass("success fail")
+                                .addClass("success");
+                            //상태객체에 상태를 저장하는 코드
+                            $(".btn-cert").prop("disabled", true);
+                        }
+                        else {
+                            $(".cert-input").removeClass("success fail")
+                                .addClass("fail");
+                            //상태객체에 상태를 저장하는 코드
+
+                        }
+                    }
+                })
             });
         });
     </script>
@@ -69,6 +105,11 @@
     <button class="btn-send">
         <i class="fa-solid fa-spinner fa-spin"></i>
         <span>인증번호 보내기</span></button>
+
+    <div class="cert-wrapper">
+        <input type="text" class="cert-input">
+        <button class="btn-cert">확인</button>
+    </div>
 </body>
 
 </html>
