@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript 실습</title>
+    <title>주소로 지도 찾기</title>
 
     <!-- css 파일을 불러오는 코드 -->
 
@@ -40,11 +40,17 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     
     <!-- kakao map cdn -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a0779734fab79a41ef5822218b58f22f"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a0779734fab79a41ef5822218b58f22f&libraries=services"></script>
 
     <!-- javascript 작성 공간 -->
 	<script>
         $(function(){
+            //마커와 인포윈도우를 기억해 두기 위한 배열
+            var memory = {
+                markerList: [],
+                infowindowList: []
+            };
+
             //var container = document.getElementById('map');
             //var container = document.querySelector("#map");
             var container = $("#map")[0];
@@ -62,18 +68,6 @@
             //범위 제한을 없애고 싶다면 외부에 만들거나 window에 추가한다
             window.map = new kakao.maps.Map(container, options);
 
-            $(".btn-move").click(function(){
-                //지도 이동 처리
-                var lat = $(this).data("lat");
-                var lng = $(this).data("lng");
-
-                //이동
-                move(lat, lng);
-
-                //마커 생성
-                //createMarker(lat, lng);
-                createMarkerText(lat, lng, $(this).text());
-            });
 
             //이동하는 함수
             function move(lat, lng) {
@@ -89,6 +83,8 @@
                     position: markerPosition
                 });
                 marker.setMap(map);
+
+                memory.markerList.push(marker);
             }
 
             //마커와 텍스트를 같이 표시하는 함수
@@ -103,6 +99,7 @@
 
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
+                memory.markerList.push(marker);
 
                 // 템플릿을 불러와서 글자를 설정한 뒤 인포윈도우로 추가
                 var template = $("#info-window-template").html();
@@ -123,7 +120,51 @@
                 
                 // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
                 infowindow.open(map, marker); 
+                memory.infowindowList.push(infowindow);
             }
+
+            //지도상의 모든 마커와 인포윈도우를 삭제하는 함수
+            function clearMarker() {
+                for(var i=0; i < memory.markerList.length; i++) {
+                    memory.markerList[i].setMap(null);
+                }
+                memory.markerList = [];
+            }
+            function clearInfowindow() {
+                for(var i=0; i < memory.infowindowList.length; i++) {
+                    memory.infowindowList[i].close();
+                }
+                memory.infowindowList = [];
+            }
+
+            //검색하기 버튼을 누르면 Geocoder를 이용하여 검색한 뒤
+            //마커생성+인포윈도우에 주소출력+지도이동
+            $(".btn-search").click(function(){
+                //초기화(선택)
+                clearMarker();
+                clearInfowindow();
+
+                // 입력된 주소를 불러옵니다
+                var address = $(".search-input").val();
+                if(address.length == 0) return;
+
+                // 주소-좌표 변환 객체를 생성합니다
+                var geocoder = new kakao.maps.services.Geocoder();
+                geocoder.addressSearch(address, function(result, status){
+                    console.log(result);
+
+                    //정상 검색
+                    if (status === kakao.maps.services.Status.OK) {
+                        //var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                        var lat = result[0].y;
+                        var lng = result[0].x;
+                        var text = result[0].address_name;
+                        createMarkerText(lat, lng, text);
+                        move(lat, lng);
+                    }
+                });
+            });
+            
         });
 	</script>
 
@@ -142,10 +183,13 @@
             <div id="map"></div>
         </div>
         <div class="row">
-            <button class="btn btn-move" data-lat="37.554592" data-lng="126.971820">서울역</button>
-            <button class="btn btn-move" data-lat="36.331452" data-lng="127.433196">대전역</button>
-            <button class="btn btn-move" data-lat="35.876014" data-lng="128.595388">대구역</button>
-            <button class="btn btn-move" data-lat="35.114992" data-lng="129.040797">부산역</button>
+            <input type="text" class="search-input form-input w-100" placeholder="주소 입력">
+        </div>
+        <div class="row">
+            <button class="btn btn-positive w-100 btn-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                검색하기
+            </button>
         </div>
     </div>
 </body>
