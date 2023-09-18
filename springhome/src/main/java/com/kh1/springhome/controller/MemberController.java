@@ -3,8 +3,11 @@ package com.kh1.springhome.controller;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.apache.logging.log4j.message.SimpleMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,14 +77,14 @@ public class MemberController {
 
 		// [3] 비밀번호가 일치하면 메인페이지로 이동
 		if (isCorrectPw) {
-			//(주의) 만약 차단된 회원이라면 추가작업을 중지하고 오류 발생
+			// (주의) 만약 차단된 회원이라면 추가작업을 중지하고 오류 발생
 //			MemberBlockDto blockDto = 
 //					adminDao.selectBlockOne(findDto.getMemberId());
 //			if(findDto !=null) {throw new AuthorityException("차단된 회원");}
-			
+
 			// 세션에 아이디+등급 저장
-			session.setAttribute("name",findDto.getMemberId());
-			session.setAttribute("level",findDto.getMemberLevel());
+			session.setAttribute("name", findDto.getMemberId());
+			session.setAttribute("level", findDto.getMemberLevel());
 			session.setAttribute("password", inputDto.getMemberPw());
 			// 로그인 시간 갱신
 			memberDao.updateMemberLogin(inputDto.getMemberId());
@@ -100,8 +103,9 @@ public class MemberController {
 		session.removeAttribute("level");
 		return "redirect:/";
 	}
+
 	@Autowired
-private	BoardLikeDao boardLikeDao;
+	private BoardLikeDao boardLikeDao;
 
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
@@ -113,10 +117,10 @@ private	BoardLikeDao boardLikeDao;
 		// 3. 조회한 정보를 모델에 첨부한다.
 		model.addAttribute("memberDto", memberDto);
 		// 4. 좋아요 누른 게시글 내역을 모델에 첨부한다.
-		model.addAttribute("boardLikeList", boardLikeDao.findByMemberId(memberId));	
+		model.addAttribute("boardLikeList", boardLikeDao.findByMemberId(memberId));
 		// 5. 이회원의 프로필 이미지 정보를 첨부한다.
-		model.addAttribute("profile",memberDao.findProfile(memberId));
-		
+		model.addAttribute("profile", memberDao.findProfile(memberId));
+
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
 
@@ -180,13 +184,51 @@ private	BoardLikeDao boardLikeDao;
 		if (memberDto.getMemberPw().equals(memberPw)) {
 
 			memberDao.exit(memberPw);
-			session.removeAttribute("name"); //세션에서 name값 삭제
-		//	session.invalidate();//세션 소멸(비추천)
-			return "redirect:/exitFinish";//절대경로
+			session.removeAttribute("name"); // 세션에서 name값 삭제
+			// session.invalidate();//세션 소멸(비추천)
+			return "redirect:/exitFinish";// 절대경로
 		} else {
 			return "redirect:exit?erorr";
 		}
 	}
+	
+	
+	@Autowired
+	JavaMailSender sender;
+	
+	// 비밀번호 찾기
+	@GetMapping("findPw")
+	public String findPw() {
+		return "/WEB-INF/views/member/findPw.jsp";
+	}
 
+	
+	@PostMapping("findPw")
+	public String findPw(@ModelAttribute MemberDto memberDto) {
+		//[1]아이디로 모든정보 불러오고
+		MemberDto findDto =memberDao.selectOne(memberDto.getMemberId());
+		//[2]이메일이 일치하는지 확인한다
+		boolean isvaild = findDto.getMemberEmail() !=null && 
+				findDto.getMemberEmail().equals(memberDto.getMemberEmail());
+		
+		if(isvaild) {//이메일이 같다면
+			
+			//이메일 발송코드
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(findDto.getMemberEmail());
+			message.setSubject("비밀번호 찾기 결과");
+			message.setText(findDto.getMemberId()+"회원님의 비밀번호 :"+findDto.getMemberPw());
+			sender.send(message);
+			return "redirect:findPwFinish";
+		}
+		else {//이메일이 다르다면
+			return "redirect:findPw?error";
+		}
 
+	}
+	
+	@RequestMapping("/findPwFinish")
+	public String findPwFinish() {
+		return "/WEB-INF/views/member/findPwFinish.jsp";
+	}
 }
