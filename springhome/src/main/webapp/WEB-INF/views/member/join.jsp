@@ -34,7 +34,7 @@
         <div class="row left">
             <label>이메일</label>
             <input type="email" name="memberEmail" class="form-input w-100"
-                        placeholder="testuser@kh.com">
+                        placeholder="testuser@kh.com" required>
         </div>
         <div class="row left">
             <label>연락처</label>
