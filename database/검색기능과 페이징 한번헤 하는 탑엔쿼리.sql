@@ -6,9 +6,9 @@
 		int end = page * 10;
 
 		String sql =	" SELECT * "
-			     +"FROM (SELECT *  FROM notice"
+			     +"FROM (SELECT *  FROM 테이블명"
 			    	     +" where instr(" + type + ", ?) > 0 "
-			    	          +" ORDER BY notice_no DESC)"
+			    	          +" ORDER BY 기본키_no DESC)"
 			    	    +" WHERE ROWNUM between ? and ?";	
 		
 		Object[] ob = { keyword, begin, end };
@@ -23,7 +23,7 @@
 	
 		String sql = "select * from ("
 				+ "select rownum rn, TMP.* from("
-				+ "select * from notice order by notice_no desc"
+				+ "select * from 테이블명 order by 기본키_no desc"
 				+ ")TMP"
 				+ ") where rn between ? and ?";
 		Object[] ob = { page * 10 - 9, page * 10 };
