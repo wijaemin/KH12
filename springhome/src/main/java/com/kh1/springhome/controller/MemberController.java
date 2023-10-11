@@ -110,7 +110,7 @@ public class MemberController {
 
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
-		// 1. 세션에서 사용자의 아이디를 꺼낸다.
+		// 1. 세션에서 사용자의 아이디를 꺼낸다!.
 		// -세션은 값을 Object로 저장한다(아무거나 넣어야 하니까)
 		String memberId = (String) session.getAttribute("name");
 		// 2. 가져온 아이디로 회원정보를 조회한다.
