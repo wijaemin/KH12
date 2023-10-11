@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- 절대 경로를 설정하기 위한 스크립트 작성
+   - 절대 경로라는 개념은 백엔드에만 있다.
+   - 클래식 자바스크립트에선 절대경로를 알 수 있는 방법이 없다.
+   - window에 절대경로값을 탑재시켜 사용
+ --%>
+ <script >
+window.contextPath = "${pageContext.request.contextPath}";
+</script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +29,9 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
 <!-- 내가 만든 CSS 파일-->
-<link rel="stylesheet" type="text/css" href="/css/reset.css">
-<link rel="stylesheet" type="text/css" href="/css/layout.css">
-<link rel="stylesheet" type="text/css" href="/css/commons.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/layout.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/commons.css">
 <!-- <link rel="stylesheet" type="text/css" href="/css/test.css"> -->
 
 
@@ -48,29 +57,29 @@
 				<c:choose>
 					<c:when test="${sessionScope.name != null}">
 
-						<li><a href="/">Home</a></li>
-						<li><a href="/member/mypage">내정보</a></li>
-						<li><a href="/member/logout">로그아웃</a></li>
-						<li><a href="/board/list">게시판</a></li>
-						<li class="menu"><a href="/pocketmon/list">포켓몬</a>
+						<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/mypage">내정보</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/logout">로그아웃</a></li>
+						<li><a href="${pageContext.request.contextPath}/board/list">게시판</a></li>
+						<li class="menu"><a href="${pageContext.request.contextPath}/pocketmon/list">포켓몬</a>
 							<ul>
-								<li><a href="/pocketmon/insert">+등록</a></li>
+								<li><a href="${pageContext.request.contextPath}/pocketmon/insert">+등록</a></li>
 							</ul></li>
 						<%-- 관리자의 경우 추가 메뉴 출력--%>
 						<c:if test="${sessionScope.level=='관리자'}">
-							<li><a href="/admin/home">관리자 메뉴</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/home">관리자 메뉴</a></li>
 						</c:if>
 
 					</c:when>
 					<c:otherwise>
 
-						<li><a href="/">Home</a></li>
-						<li><a href="/member/join">회원가입</a></li>
-						<li><a href="/member/login">로그인</a></li>
-						<li><a href="/board/list">게시판</a></li>
-						<li class="menu"><a href="/pocketmon/list">포켓몬</a>
+						<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/join">회원가입</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/login">로그인</a></li>
+						<li><a href="${pageContext.request.contextPath}/board/list">게시판</a></li>
+						<li class="menu"><a href="${pageContext.request.contextPath}/pocketmon/list">포켓몬</a>
 							<ul>
-								<li><a href="/pocketmon/insert">+등록</a></li>
+								<li><a href="${pageContext.request.contextPath}/pocketmon/insert">+등록</a></li>
 							</ul></li>
 					</c:otherwise>
 				</c:choose>

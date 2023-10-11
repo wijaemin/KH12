@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  인터셉터(Intercepter)
  -완성된 스프링의 프로젝트 구석구석을 간섭할 수 있도록 만들어진 도구
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
  3.메소드 재정의(preHandle)
  4.설정파일을 만들어서 어느 주소를 간섭할 것인지 설정
  */
+@Slf4j
 @Component
 public class TestInterceptor implements HandlerInterceptor{
 	
@@ -33,7 +36,7 @@ public class TestInterceptor implements HandlerInterceptor{
 @Override
 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
-	System.out.println("preHandle 실행");
+log.debug("preHandle 실행");
 	return true;
 }
 /**
@@ -44,8 +47,8 @@ public boolean preHandle(HttpServletRequest request, HttpServletResponse respons
 @Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-	System.out.println("postHandle 실행");
-	System.out.println(modelAndView);
+	log.debug("postHandle 실행");
+
 }
 
 /**
@@ -57,8 +60,8 @@ afterCompletion은 화면생성 후(모든 처리가 끝난 후) 시점을 간�
 @Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-	System.out.println("afterCompletion 실행");
-	System.out.println(ex);
+	log.debug("afterCompletion 실행");
+
 	}
 
 }

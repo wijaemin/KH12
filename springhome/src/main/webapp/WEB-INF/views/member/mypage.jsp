@@ -38,7 +38,7 @@ body {
 					form.append("attach", input.files[0]);
 
 					$.ajax({
-						url : "/rest/member/upload",
+						url : window.contextPath+"/rest/member/upload",
 						method : "post",
 						processData : false,
 						contentType : false,
@@ -68,7 +68,7 @@ body {
 
 			//삭제요청
 			$.ajax({
-				url : "/rest/member/delete",
+				url : window.contextPath+"/rest/member/delete",
 				method : "post",
 				success : function(response) {
 					$(".profile-image").attr("src", "/images/user.jpg");

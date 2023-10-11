@@ -29,7 +29,7 @@ public class MemberInterceptor implements HandlerInterceptor {
 			return true;
 		} else {// 비회원이면
 			// 1.-차단 +로그인페이지로 리다이렉트
-			//response.sendRedirect("/member/login"); //절대 경로로 지정해야 할듯 오류 방지
+			//response.sendRedirect(request.getContextPath()+"/member/login"); //절대 경로로 지정해야 할듯 오류 방지
 			
 			
 			// 2.권한없음 오류 발생

@@ -9,11 +9,13 @@
 		<version>2.7.14</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>spring10</artifactId>
+	<groupId>com.kh1</groupId>
+	<artifactId>springhome</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring10mix</name>
+	<name>springhome</name>
+
 	<description>Demo project for Spring Boot</description>
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

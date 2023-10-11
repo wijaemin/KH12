@@ -44,7 +44,7 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 		// 2.MemberInterceptor를 회원전용 페이지 처리 과정에서 간섭할수 있도록 설정
 		registry.addInterceptor(memberInterceptor)
 
-				// - addPathPatterns를 사용하면 추가할 주소를 설정]할 수 있다.
+				// - addPathPatterns를 사용하면 추가할 주소를 설정할 수 있다.
 				// - excludePathPatterns를 사용하면 제외할 주소를 설정할 수 있다.
 				.addPathPatterns("/member/**", "/board/**","/rest/reply/**") // 화이트리스트 전부다 등록후
 

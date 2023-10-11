@@ -23,7 +23,7 @@
 			//비통기 통신 발생
 			$.ajax({
 				//url:"http://localhost:8080/rest/reply/insert",
-				url : "/rest/reply/insert",
+				url : window.contextPath+"/rest/reply/insert",
 				method : "post",
 				//data:{ replyOrigin : ? , replyContent : ? },
 				data : $(e.target).serialize(),
@@ -60,7 +60,7 @@
 			$
 					.ajax({
 						//url:"http://localhost:8080/rest/reply/list",
-						url : "/rest/reply/list",
+						url : window.contextPath+"/rest/reply/list",
 						method : "post",
 						data : {
 							replyOrigin : no
@@ -110,7 +110,7 @@
 											var replyNo = $(this).attr(
 													"data-reply-no");
 											$.ajax({
-												url : "/rest/reply/delete",
+												url : window.contextPath+"/rest/reply/delete",
 												method : "post",
 												data : {
 													replyNo : replyNo
@@ -186,7 +186,7 @@
 
 																		$
 																				.ajax({
-																					url : "/rest/reply/edit",
+																					url : window.contextPath+"/rest/reply/edit",
 																					method : "post",
 																					//		data:{replyNo : ? ,replyContent : ?},
 																					data : $(
@@ -227,7 +227,7 @@
 		var boardNo = params.get("board_no");
 		
 		$.ajax({
-			url:"/rest/like/check",
+			url:window.contextPath+"/rest/like/check",
 			method:"post",
 			data:{boardNo : boardNo},
 			success:function(response){
@@ -248,7 +248,7 @@
 		//[2]
 		$(".fa-heart").click(function(){
 			$.ajax({
-				url:"/rest/like/action",
+				url:window.contextPath+"/rest/like/action",
 				method:"post",
 				data: {boardNo : boardNo},
 				success:function(response){

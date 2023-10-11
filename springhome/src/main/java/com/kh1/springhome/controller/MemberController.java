@@ -64,7 +64,7 @@ public class MemberController {
 	 */
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute MemberDto inputDto, HttpSession session) {
+	public String login(@ModelAttribute MemberDto inputDto,HttpSession session) {
 		// [1] 사용자가 입력한 아이디로 데이터베이스에서 정보를 조회
 		MemberDto findDto = memberDao.selectOne(inputDto.getMemberId());
 		// [2] 1번에서 정보가 있다면 비밀번호를 검사(없으면 차단)
@@ -72,15 +72,16 @@ public class MemberController {
 			return "redirect:login?error";// redirect는 무조건 GetMapping으로 간다
 		}
 
+		
 		// boolean isCorrectPw = 입력한비밀번호와 DB비밀번호가 같나?
 		boolean isCorrectPw = inputDto.getMemberPw().equals(findDto.getMemberPw());
 
 		// [3] 비밀번호가 일치하면 메인페이지로 이동
 		if (isCorrectPw) {
 			// (주의) 만약 차단된 회원이라면 추가작업을 중지하고 오류 발생
-//			MemberBlockDto blockDto = 
-//					adminDao.selectBlockOne(findDto.getMemberId());
-//			if(findDto !=null) {throw new AuthorityException("차단된 회원");}
+			MemberBlockDto blockDto = 
+					adminDao.selectBlockOne(findDto.getMemberId());
+		if(blockDto !=null) {throw new AuthorityException("차단된 회원");}
 
 			// 세션에 아이디+등급 저장
 			session.setAttribute("name", findDto.getMemberId());
@@ -88,7 +89,7 @@ public class MemberController {
 			session.setAttribute("password", inputDto.getMemberPw());
 			// 로그인 시간 갱신
 			memberDao.updateMemberLogin(inputDto.getMemberId());
-			return "redirect:/";
+			return "redirect:/home";
 		}
 		// [4] 비밀번호가 일치하지 않으면 로그인페이지로 이동
 		else {
