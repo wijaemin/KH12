@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberDto {
 
-	private  String memberId,memberPw,memberNickname;
-	private String memberEmail,memberContact;
-	private String memberBirth;
+	private String memberId,memberPw,memberNickname;
+	private String  memberEmail,memberContact;
+	private String  memberBirth;
 	private String memberPost,memberAddr1,memberAddr2;
 	private String memberLevel;
 	private int memberPoint;
