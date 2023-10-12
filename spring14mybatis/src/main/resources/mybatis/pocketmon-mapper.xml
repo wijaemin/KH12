@@ -12,25 +12,55 @@
 
 	<!-- 상세 구문 : Mybatis는 ? 홀더가아닌 네이밍 홀더를 사용 -->
 	<select id="find" resultType="PocketmonDto">
-		select * from pocketmon where no = #{no}
+		select * from pocketmon where no =
+		#{no}
 	</select>
 
-	<!-- 등록 구문 : resultType은 <select>에만 사용 할수있다. 
-	? 홀더가아닌 네이밍 홀더를 사용 
-	- #{name}은 전달되는 데이터(객체)의 name필드를 의미
-	- #{type}은 전달되는 데이터(객체)의 type필드를 의미
-	-->
-	<insert id="add" >
-	insert into pocketmon(no, name, type) values(pocketmon_seq.nextval, #{name}, #{type})
+	<!-- 등록 구문 : resultType은 <select>에만 사용 할수있다. ? 홀더가아닌 네이밍 홀더를 사용 - #{name}은 
+		전달되는 데이터(객체)의 name필드를 의미 - #{type}은 전달되는 데이터(객체)의 type필드를 의미 -->
+	<insert id="add">
+		insert into pocketmon(no, name, type)
+		values(pocketmon_seq.nextval, #{name},
+		#{type})
 	</insert>
 
 	<!-- 수정 구문 -->
-	<update id="edit" >
-	update pocketmon set name = #{name} , type = #{type}  where no =#{no}
+	<update id="edit">
+		update pocketmon set name = #{name} , type = #{type}
+		where no =#{no}
 	</update>
-	
+
 	<!-- 삭제 구문 -->
 	<delete id="del">
-	delete pocketmon where no =#{no}
+		delete pocketmon where no =#{no}
 	</delete>
+
+	<!-- 복합 검색 - 다양한 형태의 검색을 한번에 처리하기 위한 구문 - 값의 유무에 따라서 구문이 달라져야 함 - mybatis에서 
+		제공하는 구문 태그를 이용하여 조건 또는 반복처리(JSTL과 비슷) -->
+	<!-- 1단계 : type, keyword 유무에 따라 목록 또는 검색을 처리 -->
+	<select id="complex1" resultType="PocketmonDto">
+		select * from pocketmon
+		<if test="type != null and keyword != null">
+			where instr(${type},#{keyword})>0
+		</if>
+
+	</select>
+
+	<!-- 2단계 : 개별항목유무에 따라 검색 구문을 다르게생성(type, keyword 아님) -->
+	<select id="complex2" resultType="PocketmonDto">
+		select * from pocketmon
+		where 1=1
+		<if test="no !=null"> and no = #{no}</if>
+		<if test="name !=null"> and instr(name,#{name})>0</if>
+		<if test="type !=null"> and type = #{type}</if>
+	</select>
+	<!-- 3단계 : 2단계를 개선 -->
+	<select id="complex3" resultType="PocketmonDto">
+		select * from pocketmon
+		<where>
+			<if test="no !=null"> and no = #{no}</if>
+			<if test="name !=null"> and instr(name,#{name})>0</if>
+			<if test="type !=null"> and type = #{type}</if>
+		</where>
+	</select>
 </mapper>
