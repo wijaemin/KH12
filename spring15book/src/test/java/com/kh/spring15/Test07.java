@@ -29,6 +29,8 @@ public class Test07 {
 //		param.put("bookPublisher", "출판사");
 //		param.put("bookPriceMin", 100);
 		param.put("bookPriceMax", 200);
+		param.put("bookPublicationBegin", "1992-10-26");
+		param.put("bookPublicationEnd", "2023-01-01");
 		List<BookDto> list = sqlsession.selectList("book.complexSearch", param);
 		log.debug("검색결과= {}", list.size());
 		for(BookDto dto : list) {
