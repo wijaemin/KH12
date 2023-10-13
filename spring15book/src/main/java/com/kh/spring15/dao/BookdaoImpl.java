@@ -17,7 +17,7 @@ public class BookdaoImpl implements BookDao {
 	
 	@Override
 	public List<BookDto> complexSearch(BookComplexSearchVO vo) {
-		List<BookDto> list =sqlsession.selectList("book,complexSearch",vo);
+		List<BookDto> list =sqlsession.selectList("book.complexSearch",vo);
 		return list;
 	}
 

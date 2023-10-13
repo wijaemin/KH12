@@ -52,7 +52,7 @@
 	<!-- Top N Query Header 불러오기 -->
 	<include refid="pagingHeader"></include>
 	<!-- 메인 조회 구문 -->
-	select * from book
+	select * from book 
 	<!-- 조건 구문 -->
 		<where>
 		
