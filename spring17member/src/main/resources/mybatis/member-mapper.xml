@@ -20,7 +20,7 @@
      , #{memberPoint}, #{memberJoin}, #{memberLogin}, #{memberChange}
      )
     </insert>
-<select id="listSerach">
+<select id="listSerach" resultType="MemberDto">
 select * from member
 <where>
 <if test="memberId != null">

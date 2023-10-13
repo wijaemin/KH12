@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberVo {
 	 private String memberId, memberPw,memberNickname
-	 ,memberAddr1,memberAddr2,memberLevel,memberBirth,
+	 ,memberAddr1,memberAddr2,memberBirth,
 	 memberLoginStart, memberLoginEnd, memberJoinStart,
-	 memberJoinEnd, memberChangeStart, memberChangeEnd;
+	 memberJoinEnd, memberChangeStart, memberChangeEnd,memberEmail;
 	 
 	 private Integer memberContact,memberPost,memberPoint;
 		

@@ -17,6 +17,7 @@ public class MemberController {
 private	MemberDao memberDao;
 	@RequestMapping("list")
 	public String list(@ModelAttribute("vo") MemberVo vo, Model model) {
+		model.addAttribute("list",memberDao.listSerach(vo));
 		return "/WEB-INF/views/member/memberList.jsp";
 		
 	}

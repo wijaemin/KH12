@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MemberDto {
  private String memberId, memberPw,memberNickname
- ,memberAddr1,memberAddr2,memberLevel,memberBirth;
+ ,memberAddr1,memberAddr2,memberLevel,memberBirth,memberEmail;
  private int memberContact,memberPost,memberPoint;
 	private Date memberLogin, memberJoin,memberChange;
 }
