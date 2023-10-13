@@ -1,0 +1,21 @@
+package com.kh.spring17.dto;
+
+import java.sql.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class MemberDto {
+ private String memberId, memberPw,memberNickname
+ ,memberAddr1,memberAddr2,memberLevel,memberBirth;
+ private int memberContact,memberPost,memberPoint;
+	private Date memberLogin, memberJoin,memberChange;
+}

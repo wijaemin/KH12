@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="member">
+    <select id="list" resultType="MemberDto">
+    select * from member
+    </select>
+    <select id="selectOne" resultType="MemberDto">
+    select * from member where member_id = #{memberId}
+    </select>
+    <insert id="add">
+    insert into member(
+    member_id, member_pw, member_nickname, member_email,
+    member_contact, member_birth,member_post,member_addr1,member_addr2,
+    member_level,member_point,member_join,member_login,member_change
+     ) values(
+     #{memberId}, #{memberPw}, #{memberNickname}, #{memberEmail}, #{memberContact}
+     , #{memberBirth}, #{memberPost}, #{memberAddr1}, #{memberAddr2}, #{memberLevel}
+     , #{memberPoint}, #{memberJoin}, #{memberLogin}, #{memberChange}
+     )
+    </insert>
+<select id="listSerach">
+select * from member
+<where>
+<if test="memberId != null">
+and instr(member_id,#{memberId}) >0
+</if>
+<if test="memberPw != null">
+and instr(member_pw,#{memberPw}) >0
+</if>
+<if test="memberNickname != null">
+and instr(member_nickname,#{memberNickname}) >0
+</if>
+<if test="memberEmail != null">
+and instr(member_email, #{memberEmail}) >0
+</if>
+<if test="memberContact !=null">
+and instr(member_contact, #{memberContact}) >0
+</if>
+<if test="memberBirth != null">
+and instr(member_birth,#{memberBirth}) >0
+</if>
+<if test="memberPost !=null">
+and instr(member_post,#{memberPost}) >0
+</if>
+<if test="memberAddr1 !=null">
+and instr(member_addr1,#{memberAddr1}) >0
+</if>
+<if test="memberAddr2 !=null">
+and instr(member_addr2,#{memberAddr2}) >0
+</if>
+<if test="memberLevelList !=null and memberLevelList.size() >0">
+and member_level in 
+<foreach collection="memberLevelList" open="(" close=")" separator=","
+item="level">
+#{level}
+</foreach>
+</if>
+<if test="memberPoint !=null">
+and instr(member_point, #{memberPoint}) >0
+</if>
+<choose>
+<when test="memberJoinStart !=null and memberJoinEnd !=null">
+and to_date(member_join,'YYYY-MM-DD') between
+to_date(#{memberJoinStart} || ' '|| 00:00:00,'YYYY-MM-DD HH24:MI:SS') and
+to_date(#{memberJoinEnd} || ' ' || 23:59:59,'YYYY-MM-DD HH24:MI:SS')
+</when>
+<when test="memberJoinStart !=null ">
+<![CDATA[
+and to_date(member_join,'YYYY-MM-DD') >
+to_date(#{memberJoinStart} || ' '|| 00:00:00,'YYYY-MM-DD HH24:MI:SS')
+]]>
+
+</when>
+<when test=" memberJoinEnd !=null">
+<![CDATA[
+and to_date(member_join,'YYYY-MM-DD') <
+to_date(#{memberJoinEnd} || ' ' || 23:59:59,'YYYY-MM-DD HH24:MI:SS')
+]]>
+</when>
+</choose>
+
+<choose>
+<when test="memberLoginStart !=null and memberLoginEnd !=null">
+and to_date(member_login, 'YYYY-MM-DD') between
+to_date(#{memberLoginStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS') and
+to_date(#{memberLoginEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+</when>
+<when test="memberLoginStart !=null ">
+<![CDATA[
+and to_date(member_login, 'YYYY-MM-DD') >
+to_date(#{memberLoginStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS')
+]]>
+
+</when>
+<when test=" memberLoginEnd !=null">
+<![CDATA[
+and to_date(member_login, 'YYYY-MM-DD') <
+to_date(#{memberLoginEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+]]>
+</when>
+</choose>
+
+<choose>
+<when test="memberChangeStart !=null and memberChangeEnd !=null">
+and to_date(member_change, 'YYYY-MM-DD') between
+to_date(#{memberChangeStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS') and
+to_date(#{memberChangeEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+</when>
+<when test="memberChangeStart !=null ">
+<![CDATA[
+and to_date(member_change, 'YYYY-MM-DD') >
+to_date(#{memberChangeStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS')
+]]>
+
+</when>
+<when test=" memberChangeEnd !=null">
+<![CDATA[
+and to_date(member_change, 'YYYY-MM-DD') <
+to_date(#{memberChangeEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+]]>
+</when>
+</choose>
+</where>
+
+<if test="orderList !=null and orderList.size()>0">
+order by 
+<foreach collection="orderList" separator="," item="order" >
+#{order}
+</foreach>
+</if>
+</select>
+  
+    </mapper>
