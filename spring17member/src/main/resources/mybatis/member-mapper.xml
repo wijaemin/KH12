@@ -39,7 +39,7 @@ and instr(member_email, #{memberEmail}) >0
 and instr(member_contact, #{memberContact}) >0
 </if>
 <if test="memberBirth != null">
-and instr(member_birth,#{memberBirth}) >0
+and member_birth =#{memberBirth}
 </if>
 <if test="memberPost !=null">
 and instr(member_post,#{memberPost}) >0
@@ -57,26 +57,34 @@ item="level">
 #{level}
 </foreach>
 </if>
-<if test="memberPoint !=null">
-and instr(member_point, #{memberPoint}) >0
-</if>
+<choose>
+<when test="memberPointMin !=null and memberPointMax">
+and member_point between #{memberPointMin} and #{memberPointMax}
+</when>
+<when test="memberPointMin !=null"> <![CDATA[and member_point > #{memberPointMin}]]></when>
+<when test="memberPointMax !=null"><![CDATA[and member_point < #{memberPointMax}]]></when>
+</choose>
+
+
+
 <choose>
 <when test="memberJoinStart !=null and memberJoinEnd !=null">
 and to_date(member_join,'YYYY-MM-DD') between
-to_date(#{memberJoinStart} || ' '|| 00:00:00,'YYYY-MM-DD HH24:MI:SS') and
-to_date(#{memberJoinEnd} || ' ' || 23:59:59,'YYYY-MM-DD HH24:MI:SS')
+to_date(#{memberJoinStart} || ' '|| '00:00:00','YYYY-MM-DD HH24:MI:SS') 
+and
+to_date(#{memberJoinEnd} || ' ' || '23:59:59','YYYY-MM-DD HH24:MI:SS')
 </when>
 <when test="memberJoinStart !=null ">
 <![CDATA[
 and to_date(member_join,'YYYY-MM-DD') >
-to_date(#{memberJoinStart} || ' '|| 00:00:00,'YYYY-MM-DD HH24:MI:SS')
+to_date(#{memberJoinStart} || ' '|| '00:00:00','YYYY-MM-DD HH24:MI:SS')
 ]]>
 
 </when>
 <when test=" memberJoinEnd !=null">
 <![CDATA[
 and to_date(member_join,'YYYY-MM-DD') <
-to_date(#{memberJoinEnd} || ' ' || 23:59:59,'YYYY-MM-DD HH24:MI:SS')
+to_date(#{memberJoinEnd} || ' ' || '23:59:59','YYYY-MM-DD HH24:MI:SS')
 ]]>
 </when>
 </choose>
@@ -84,20 +92,20 @@ to_date(#{memberJoinEnd} || ' ' || 23:59:59,'YYYY-MM-DD HH24:MI:SS')
 <choose>
 <when test="memberLoginStart !=null and memberLoginEnd !=null">
 and to_date(member_login, 'YYYY-MM-DD') between
-to_date(#{memberLoginStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS') and
-to_date(#{memberLoginEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+to_date(#{memberLoginStart} || ' ' || '00:00:00' , 'YYYY-MM-DD HH24:MI:SS') and
+to_date(#{memberLoginEnd} || ' ' || '23:59:59' , 'YYYY-MM-DD HH24:MI:SS') 
 </when>
 <when test="memberLoginStart !=null ">
 <![CDATA[
 and to_date(member_login, 'YYYY-MM-DD') >
-to_date(#{memberLoginStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS')
+to_date(#{memberLoginStart} || ' ' || '00:00:00' , 'YYYY-MM-DD HH24:MI:SS')
 ]]>
 
 </when>
 <when test=" memberLoginEnd !=null">
 <![CDATA[
 and to_date(member_login, 'YYYY-MM-DD') <
-to_date(#{memberLoginEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+to_date(#{memberLoginEnd} || ' ' || '23:59:59' , 'YYYY-MM-DD HH24:MI:SS') 
 ]]>
 </when>
 </choose>
@@ -105,29 +113,36 @@ to_date(#{memberLoginEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS')
 <choose>
 <when test="memberChangeStart !=null and memberChangeEnd !=null">
 and to_date(member_change, 'YYYY-MM-DD') between
-to_date(#{memberChangeStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS') and
-to_date(#{memberChangeEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+to_date(#{memberChangeStart} || ' ' || '00:00:00' , 'YYYY-MM-DD HH24:MI:SS') and
+to_date(#{memberChangeEnd} || ' ' || '23:59:59' , 'YYYY-MM-DD HH24:MI:SS') 
 </when>
 <when test="memberChangeStart !=null ">
 <![CDATA[
 and to_date(member_change, 'YYYY-MM-DD') >
-to_date(#{memberChangeStart} || ' ' || 00:00:00 , 'YYYY-MM-DD HH24:MI:SS')
+to_date(#{memberChangeStart} || ' ' || '00:00:00' , 'YYYY-MM-DD HH24:MI:SS')
 ]]>
 
 </when>
 <when test=" memberChangeEnd !=null">
 <![CDATA[
 and to_date(member_change, 'YYYY-MM-DD') <
-to_date(#{memberChangeEnd} || ' ' || 23:59:59 , 'YYYY-MM-DD HH24:MI:SS') 
+to_date(#{memberChangeEnd} || ' ' || '23:59:59' , 'YYYY-MM-DD HH24:MI:SS') 
 ]]>
 </when>
 </choose>
+<if test="memberLevelList !=null and memberLevelList.size() >0">
+and member_level in
+<foreach collection="memberLevelList" item="memberLevel" separator="," open="(" close=")">
+#{memberLevel}
+</foreach>
+</if>
+
 </where>
 
 <if test="orderList !=null and orderList.size()>0">
 order by 
 <foreach collection="orderList" separator="," item="order" >
-#{order}
+${order}
 </foreach>
 </if>
 </select>

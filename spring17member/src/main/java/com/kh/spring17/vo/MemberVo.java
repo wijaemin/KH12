@@ -18,7 +18,7 @@ public class MemberVo {
 	 memberLoginStart, memberLoginEnd, memberJoinStart,
 	 memberJoinEnd, memberChangeStart, memberChangeEnd,memberEmail;
 	 
-	 private Integer memberContact,memberPost,memberPoint;
+	 private Integer memberContact,memberPost,memberPointMin, memberPointMax;
 		
 		
 		private 	List<String> orderList,memberLevelList;

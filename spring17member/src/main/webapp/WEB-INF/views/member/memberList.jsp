@@ -21,19 +21,62 @@ ${vo}
 <div>회원기본주소 : <input type="text" name="memberAddr1" value="${vo.memberAddr1}"></div>
 <div>회원상세주소 : <input type="text" name="memberAddr2" value="${vo.memberAddr2}"></div>
 
-
+<div>회원 포인트: <input type="number" name="memberPointMin" value="${vo.memberPointMin}">
+~ <input type="number" name="memberPointMax" value="${vo.memberPointMax}"></div>
 <div>회원 가입일: <input type="date" name="memberJoinStart" value="${vo.memberJoinStart}">
 ~ <input type="date" name="memberJoinEnd" value="${vo.memberJoinEnd}"></div>
 <div>회원 로그인시간: <input type="date" name="memberLoginStart" value="${vo.memberLoginStart}">
 ~ <input type="date" name="memberLoginEnd" value="${vo.memberLoginEnd}"></div>
 <div>회원 비밀번호시간: <input type="date" name="memberChangeStart" value="${vo.memberChangeStart}">
 ~ <input type="date" name="memberChangeEnd" value="${vo.memberChangeEnd}"></div>
-<div> 회원 등급 : <select>
-<option name="memberLevelList" value="일반">일반</option>
-<option name="memberLevelList" value="VIP">VIP</option>
-<option name="memberLevelList" value="운영자">운영자</option>
+<div> 회원 등급 : 
+<c:choose>
+<c:when test="${vo.memberLevelList.contains('일반')}">
+<input  type="checkbox"  name="memberLevelList" value="일반" checked>일반
+</c:when>
+<c:otherwise>
+<input  type="checkbox"  name="memberLevelList" value="일반" >일반
+</c:otherwise>
+</c:choose>
+<c:choose>
+<c:when test="${vo.memberLevelList.contains('VIP')}">
+<input  type="checkbox"  name="memberLevelList" value="VIP" checked>VIP
+</c:when>
+<c:otherwise>
+<input  type="checkbox"  name="memberLevelList" value="VIP" >VIP
+</c:otherwise>
+</c:choose>
+<c:choose>
+<c:when test="${vo.memberLevelList.contains('관리자')}">
+<input  type="checkbox"  name="memberLevelList" value="관리자" checked>관리자
+</c:when>
+<c:otherwise>
+<input  type="checkbox"  name="memberLevelList" value="관리자" >관리자
+</c:otherwise>
+</c:choose>
 
-</select></div>
+</div>
+
+<div> 정렬
+<select name="orderList">
+<option  value="member_id asc"> 아이디순
+<option  value="member_pw asc"> 비빌번호순
+<option  value="member_nickname asc"> 닉네임순
+<option  value="member_addr1 asc"> 기본주소순
+<option  value="member_birth asc"> 생일순
+<option  value="member_point asc"> 포인트순
+</select>
+</div>
+<div> 정렬
+<select name="orderList">
+<option  value="member_id asc"> 아이디순
+<option  value="member_pw asc"> 비빌번호순
+<option  value="member_nickname asc"> 닉네임순
+<option  value="member_addr1 asc"> 기본주소순
+<option  value="member_birth asc"> 생일순
+<option  value="member_point asc"> 포인트순
+</select>
+</div>
 <button type="submit">검색</button>
 </form>
 
@@ -50,6 +93,7 @@ ${vo}
 <th>기본주소</th>
 <th>상세주소</th>
 <th>등급</th>
+<th>포인트</th>
 
 
 </tr>
@@ -65,6 +109,7 @@ ${vo}
 <td>${memberDto.memberAddr1}</td>
 <td>${memberDto.memberAddr2}</td>
 <td>${memberDto.memberLevel}</td>
+<td>${memberDto.memberPoint}</td>
 </tr>
 </c:forEach>
 </table>
