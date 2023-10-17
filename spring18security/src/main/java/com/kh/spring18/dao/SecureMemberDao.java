@@ -8,5 +8,7 @@ public interface SecureMemberDao {
 	
  void insert(SecureMemberDto dto);
  
- void login(SecureMemberDto dto,String meberId, HttpSession session);
+
+ SecureMemberDto selectOne(String memberId);
+ SecureMemberDto login(SecureMemberDto dto);
 }
